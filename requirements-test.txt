@@ -1,0 +1,27 @@
+# Exactly what running the test suite needs, pinned. Installed by the `test`
+# job in .github/workflows/deploy.yml; nothing else uses this file.
+#
+# This is the scraping and analysis half of the pipeline, not the rendering
+# half, so it shares almost nothing with requirements-ci.txt. torch,
+# transformers and umap-learn are absent for the same reason they are absent
+# there: the tests read committed artifacts and never train anything.
+#
+# Why pinned: two of these decide whether the suite passes, not just whether it
+# runs. pdfplumber does the text extraction behind the golden counts in
+# tests/test_orals_data.py, so a release that changes its layout heuristics
+# would fail the suite and block a deploy for a reason that has nothing to do
+# with the commit. beautifulsoup4 and lxml sit under the parser fixtures in
+# tests/test_parsers.py in the same way. Pinning turns "CI broke overnight"
+# into a deliberate bump.
+#
+# To move these forward: bump here, run the suite locally, then commit.
+
+pytest==9.1.1
+pytest-cov==7.1.0
+coverage==7.16.0
+pyyaml==6.0.3
+numpy==2.2.6
+pdfplumber==0.11.10
+beautifulsoup4==4.15.0
+lxml==6.1.1
+requests==2.34.2

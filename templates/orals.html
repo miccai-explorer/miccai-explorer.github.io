@@ -1,0 +1,285 @@
+{% extends "base.html" %}
+{% block title %}MICCAI Explorer - Orals &amp; Spotlights{% endblock %}
+
+{% block content %}
+<div class="page-body">
+
+  <h2 class="section-heading" id="sec-intro">
+    Orals &amp; Spotlights, {{ orals.years | min }}-{{ orals.years | max }}
+  </h2>
+
+  <div class="card" style="border-left:3px solid var(--accent);">
+    <div class="card-head">
+      <div class="card-head-left">
+        <p class="card-title">What happens to a paper after it is accepted</p>
+        <p class="card-sub">
+          Since 2021, MICCAI has published peer reviews for every accepted paper, but
+          this information has not been analyzed before by "joining" it with the list of
+          accepted papers by presentation type (oral, spotlight, or poster-only).
+          Doing so enables us to answer interesting questions about what in the reviews,
+          if anything, separates a talk from a poster: review scores, reviewer confidence,
+          early acceptance, and subject area.
+          {{ orals.total_selected | format_int }} talks (orals and spotlights combined) 
+          were matched to {{ orals.total_papers | format_int }} accepted papers across
+          {{ orals.years | length }} years, which is {{ orals.pct_selected }}% of
+          everything accepted.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="stat-grid" style="margin-top:14px;">
+    <div class="stat-card">
+      <div class="stat-card-label">Oral Talks</div>
+      <div class="stat-card-value">{{ orals.total_oral | format_int }}</div>
+      <div class="stat-card-note muted">{{ orals.years | join(" + ") }}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-label">Spotlight Talks</div>
+      <div class="stat-card-value">{{ orals.total_spotlight | format_int }}</div>
+      <div class="stat-card-note muted">
+        {% if orals.spotlight_years %}{{ orals.spotlight_years | join(" + ") }} only{% else %}none{% endif %}
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-label">Selected for a Talk</div>
+      <div class="stat-card-value">{{ orals.pct_selected }}%</div>
+      <div class="stat-card-note">of accepted papers</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-label">Accepted Papers</div>
+      <div class="stat-card-value">{{ orals.total_papers | format_int }}</div>
+    </div>
+  </div>
+
+  <p class="card-sub" style="margin-top:10px;">
+    <a href="{{ base_url }}/papers.html?type=1">Browse all
+    {{ orals.total_oral | format_int }} oral talks</a>, or
+    <a href="{{ base_url }}/papers.html">every paper</a>, in the searchable list.
+  </p>
+
+  <!-- The program -->
+  <h2 class="section-heading" id="sec-program">The Program</h2>
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-left">
+        <p class="card-title">How many papers get a talk, and in which type?</p>
+        <p class="card-sub">
+          Although spotlight talks started only in 2024, the share of accepted
+          papers that received a podium presentation slot (oral or spotlight) has roughly 
+          remained consistent, even though the conference has grown in size from
+          {{ orals.per_year[0].n_papers }} to {{ orals.per_year[-1].n_papers }} papers.
+        </p>
+      </div>
+    </div>
+    <iframe src="{{ base_url }}/charts/orals_overview.html"
+            class="chart-frame" height="420" scrolling="no" frameborder="0" loading="lazy"></iframe>
+  </div>
+
+  <!-- Review scores -->
+  <h2 class="section-heading" id="sec-scores">Do Talks Get Better Reviews?</h2>
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-left">
+        <p class="card-title">Mean review score by presentation type</p>
+        <p class="card-sub">
+          Since the review score scale has changed over the years, the bar heights here show
+          the mean score as a percentage of each year's own scale, and the whiskers show
+          95% bootstrap confidence intervals. Hover over each bar for more information, 
+          including standard deviation and group sizes. 
+        </p>
+      </div>
+    </div>
+    <iframe src="{{ base_url }}/charts/orals_scores.html"
+            class="chart-frame" height="470" scrolling="no" frameborder="0" loading="lazy"></iframe>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-left">
+        <p class="card-title">Effect sizes</p>
+        <p class="card-sub">
+          <a href="https://en.wikipedia.org/wiki/Effect_size#Effect_size_for_ordinal_data" target="_blank">Cliff's &delta;</a> 
+          captures how much more often papers from one group outscore papers from another. 
+          It is well suited for ordinal review scores, and stays comparable 
+          across years whose scales differ. <b>In all years, oral
+          papers outscored poster-only papers</b> 
+          (&delta; from {{ "%+.2f" | format(orals.delta_min) }} to
+          {{ "%+.2f" | format(orals.delta_max) }}, every interval clear of zero). 
+          The gap is much smaller in {{ orals.per_year[-1].year }}
+          ({{ orals.per_year[-1].magnitude }}) than in the years before it. 
+          The shaded bands in the plot mark
+          the conventional thresholds for negligible (inner
+          band; |&delta;| &lt; 0.147) and small (outer
+          band; |&delta;| &lt; 0.33) effects. And in cases where the 
+          bars cross a shaded band, the difference is too small to matter. 
+        </p>
+      </div>
+    </div>
+    <iframe src="{{ base_url }}/charts/orals_effect.html"
+            class="chart-frame" height="560" scrolling="no" frameborder="0" loading="lazy"></iframe>
+  </div>
+
+  <!-- Early acceptance -->
+  <h2 class="section-heading" id="sec-early">Does Early Acceptance Matter?</h2>
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-left">
+        <p class="card-title">Early-accepted papers are far more likely to get a talk</p>
+        <p class="card-sub">
+          Early accepts are decided before the rebuttal round, based only on the
+          first round of reviews. Perhaps consequently, <b>early-accepted papers are heavily
+          over-represented among orals in all years</b>. The bars below show the share of
+          early-accepted papers within each presentation type, and whiskers show 95% Wilson intervals.
+          Hover over the bars for more information.
+        </p>
+      </div>
+    </div>
+    <iframe src="{{ base_url }}/charts/orals_early.html"
+            class="chart-frame" height="470" scrolling="no" frameborder="0" loading="lazy"></iframe>
+  </div>
+
+  <div class="card" style="border-left:3px solid var(--accent);">
+    <div class="card-head">
+      <div class="card-head-left">
+        <p class="card-title">Is the score gap just early acceptance in disguise?</p>
+        <p class="card-sub">
+          Comparing the scores of oral and poster papers within each
+          acceptance group (early-accepted and not-early-accepted) 
+          shows that the gap between the two presentation types 
+          persists even after controlling for early acceptance: <b>orals score higher than posters in both groups</b>.
+        </p>
+      </div>
+    </div>
+    <iframe src="{{ base_url }}/charts/orals_strata.html"
+            class="chart-frame" height="520" scrolling="no" frameborder="0" loading="lazy"></iframe>
+  </div>
+
+  <!-- Reviewer confidence -->
+  <h2 class="section-heading" id="sec-confidence">Does Reviewer Confidence Matter?</h2>
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-left">
+        <p class="card-title">Confidence does not separate the types</p>
+        <p class="card-sub">
+          Reviewers rate their own confidence on a four-level scale. Orals and posters
+          receive very similar confidence ratings (average of about 3.3 every year), and 
+          which type gets (slightly) higher confidence ratings varies by year. So,
+          <b>reviewer confidence tells us nothing about why some papers are chosen for talks</b>.
+          An interesting deviation is the higher-than-expected confidence for spotlight papers 
+          in 2024, but this is only 18 papers, so it is hard to draw any concrete
+          conclusions. 
+        </p>
+      </div>
+    </div>
+    <iframe src="{{ base_url }}/charts/orals_confidence.html"
+            class="chart-frame" height="430" scrolling="no" frameborder="0" loading="lazy"></iframe>
+  </div>
+
+  <!-- Subject areas -->
+  <h2 class="section-heading" id="sec-areas">Do Some Subject Areas Get More Slots Than Others?</h2>
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-left">
+        <p class="card-title">Selection rate by subject area, against the overall baseline</p>
+        <p class="card-sub">
+          <!-- Areas above the line send a larger share of their accepted papers to the
+          stage than the conference does on average; areas below it send a smaller
+          share.  -->
+          Use the Year dropdown to switch between a single year and all years
+          pooled. The baseline is recomputed for whichever window you pick, because
+          the share of accepted papers given a talk is not the same every year.
+          <b>Only areas with at least 25 accepted papers in the window are shown</b>,
+          and the most extreme are kept at each end. Note that a paper can carry several subject
+          areas, so these groups overlap and do not sum to the overall rate. 
+          It is also worth remembering that MICCAI renames some of its subject areas between years,
+          so in the pooled view, the hover text lists the years in which that subject 
+          area label was used.
+        </p>
+      </div>
+    </div>
+    <iframe src="{{ base_url }}/charts/orals_areas.html"
+            class="chart-frame" height="620" scrolling="no" frameborder="0" loading="lazy"></iframe>
+  </div>
+
+  <!-- Code release -->
+  <h2 class="section-heading" id="sec-code">Code Release</h2>
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-left">
+        <p class="card-title">Do talks come with code more often?</p>
+        <p class="card-sub">
+          <!-- Only if you look year by year. Pooled across all five years the types are
+          within a few points of each other, but that hides a direction that
+          changes: posters led in 2022, the types were level in 2023, and orals
+          pulled clearly ahead in 2024 and 2025. Whiskers are 95% Wilson intervals,
+          and the counts behind each bar are pinned at the top of the chart. Two
+          other things we checked turned out to separate nothing at all: team size
+          (5.8, 6.0 and 6.2 authors for orals, posters and spotlights) and title
+          length (10.5 to 10.6 words for all three), both with fully overlapping
+          intervals. -->
+          <b>Not really, but recent trends are encouraging.</b> Since 2024, the fraction
+          of oral papers with code has both increased and is larger than the
+          fraction for poster-only papers. The bars below show the year-by-year
+          numbers and whiskers show 95% Wilson intervals.
+        </p>
+      </div>
+    </div>
+    <iframe src="{{ base_url }}/charts/orals_code.html"
+            class="chart-frame" height="470" scrolling="no" frameborder="0" loading="lazy"></iframe>
+  </div>
+
+  <!-- Semantic map -->
+  <h2 class="section-heading" id="sec-map">Talks on the Semantic Map</h2>
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-left">
+        <p class="card-title">Where do talks sit among all papers?</p>
+        <p class="card-sub">
+          Here, we visualize the same {{ embed_model }} model's embeddings used elsewhere on
+          the site, in a {{ embed_proj }} projection. Poster-only papers are faded to
+          background, and talks are drawn on top. 
+          <b>As expected, orals and spotlights are scattered across the semantic map</b>,
+          but some areas appear to be favored for talks.
+          Scroll to zoom, drag to pan, click a
+          point to open the paper, and double click to reset the view.
+        </p>
+      </div>
+    </div>
+    <iframe src="{{ base_url }}/charts/orals_map.html"
+            class="chart-frame" height="620" scrolling="no" frameborder="0" loading="lazy"></iframe>
+  </div>
+
+  <!-- Notes and limitations -->
+  <h2 class="section-heading" id="sec-notes">Notes &amp; Limitations</h2>
+  <div class="card">
+    <div style="padding:14px 16px; font-size:14px; color:var(--text); line-height:1.7;">
+      <!-- <p style="margin:0 0 10px;">
+        Presentation types are read from the official MICCAI program books; review
+        data comes from <a href="https://papers.miccai.org">papers.miccai.org</a>. The
+        two are joined on paper title within the same year. Invited talks and panel
+        discussions are excluded, since they are not papers.
+      </p> -->
+      <ul style="margin:0; padding-left:18px;">
+        <li style="margin-bottom:7px;">
+          Presentation types are read from the official MICCAI program books, and review
+          data is scraped from <a href="https://papers.miccai.org">papers.miccai.org</a>. The
+          two are joined on paper title within the same year. Invited talks, panel
+          discussions, and CLINICCAI are excluded.
+        </li>
+        <li style="margin-bottom:7px;">
+          <strong>Only accepted papers' reviews are published</strong>, so all the analysis
+          only covers the accepted papers. We have no information on what separates an
+          accepted paper from a rejected one.
+        </li>
+        <li>
+          <strong>The spotlight category is new (only since 2024) and the number of papers is small</strong>
+          ({{ orals.total_spotlight }} papers across {{ orals.spotlight_years | length }}
+          years), so their confidence intervals are wide.
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

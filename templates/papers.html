@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% block title %}MICCAI Explorer - All Papers{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ base_url }}/assets/papers.css">
+{% endblock %}
+
+{% block content %}
+<div class="page-body">
+
+  <h2 class="section-heading">All Papers, {{ years | min }}-{{ years | max }}</h2>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-left">
+        <p class="card-title">Every accepted MICCAI paper, {{ years | min }} to {{ years | max }}</p>
+        <p class="card-sub">
+          {{ total_papers | format_int }} papers with their mean reviewer score and
+          presentation type. Click a title to open the paper on papers.miccai.org,
+          where the abstract and the full reviews live; click anywhere else on a row
+          to see its authors, links, and individual reviewer scores here.
+          You can also export your filtered view as JSON or CSV, or copy the URL
+          to share the current view.
+          <!-- Pick a year to sort by score. Sorting by score is offered only inside a 
+          single year because MICCAI changed its review score scale over the years. -->
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card papers-controls">
+    <input type="search" id="papers-search" class="papers-search"
+           placeholder="Search title, author, or subject area..."
+           autocomplete="off" spellcheck="false"
+           aria-label="Search papers by title, author, or subject area">
+
+    <div class="papers-filters">
+      <label class="papers-filter">
+        <span>Year</span>
+        <select id="filter-year">
+          <option value="">All years</option>
+          {% for yr in years %}<option value="{{ yr }}">{{ yr }}</option>{% endfor %}
+        </select>
+      </label>
+
+      <label class="papers-filter">
+        <span>Presentation</span>
+        <select id="filter-type">
+          <option value="">All types</option>
+          <option value="1">Oral</option>
+          <option value="2">Spotlight</option>
+          <option value="0">Poster</option>
+        </select>
+      </label>
+
+      <label class="papers-filter papers-filter-wide">
+        <span>Subject area</span>
+        <select id="filter-area"><option value="">All areas</option></select>
+      </label>
+
+      <label class="papers-check">
+        <input type="checkbox" id="filter-code"> Has code
+      </label>
+      <label class="papers-check">
+        <input type="checkbox" id="filter-early"> Early accepted
+      </label>
+      <button type="button" id="clear-filters" class="papers-button">Clear</button>
+    </div>
+  </div>
+
+  <div class="papers-resultbar">
+    <span id="result-count" class="papers-count">Loading...</span>
+    <span class="papers-resultbar-right">
+      <label class="papers-filter">
+        <span>Show</span>
+        <select id="page-size">
+          <option value="10">10 per page</option>
+          <option value="50">50 per page</option>
+          <option value="100">100 per page</option>
+        </select>
+      </label>
+      <label class="papers-filter">
+        <span>Sort</span>
+        <select id="sort-select">
+          <option value="year-desc">Year, newest</option>
+          <option value="year-asc">Year, oldest</option>
+          <option value="score-desc">Score, high to low</option>
+          <option value="score-asc">Score, low to high</option>
+          <option value="title-asc">Title, A to Z</option>
+        </select>
+      </label>
+      <span class="papers-export">
+        <button type="button" id="export-csv" class="papers-button">Export CSV</button>
+        <button type="button" id="export-json" class="papers-button">Export JSON</button>
+        <button type="button" id="copy-link" class="papers-button">Copy link</button>
+      </span>
+    </span>
+  </div>
+  <p id="sort-hint" class="papers-hint" hidden></p>
+
+  <div class="card">
+    <p id="papers-status" class="papers-status">Loading {{ total_papers | format_int }} papers...</p>
+    <table class="papers-table papers-browse">
+      <thead>
+        <tr>
+          <th class="year-col">Year</th>
+          <th>Title</th>
+          <th class="subject-col">Subject area</th>
+          <th class="score-col">Score</th>
+          <th class="pres-col">Type</th>
+        </tr>
+      </thead>
+      <tbody id="papers-tbody"></tbody>
+    </table>
+    <nav id="pagination" class="papers-pagination" aria-label="Pages"></nav>
+  </div>
+
+  <noscript>
+    <div class="card">
+      <p class="card-sub">
+        This page needs JavaScript to search and filter. Without it, the per-year
+        pages are fully static and list the top papers of each year:
+        {% for yr in years %}<a href="{{ base_url }}/year/{{ yr }}.html">{{ yr }}</a>{% if not loop.last %}, {% endif %}{% endfor %}.
+      </p>
+    </div>
+  </noscript>
+
+</div>
+
+<script src="{{ base_url }}/assets/papers.js" defer></script>
+{% endblock %}

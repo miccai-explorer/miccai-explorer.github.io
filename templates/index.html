@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% block title %}MICCAI Explorer - Overview{% endblock %}
+
+{% block content %}
+<div class="page-body">
+
+  <!-- Semantic map leads the page: it is the one view unique to this site. -->
+  <h2 class="section-heading" id="sec-map">
+    Semantic Map: {{ total_papers | format_int }} Papers, {{ years | min }}-{{ years | max }}
+  </h2>
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-left">
+        <p class="card-title">Every MICCAI paper, {{ years | min }}-{{ years | max }}, placed by topic</p>
+        <p class="card-sub">
+          {{ embed_model }} model's embeddings → UMAP, clustered into {{ n_clusters }}
+          research topics. Toggle year or cluster coloring. Click any point to open the paper.
+        </p>
+      </div>
+    </div>
+    <iframe src="{{ base_url }}/charts/map_all.html"
+            class="chart-frame" height="620" scrolling="no" frameborder="0" loading="lazy"></iframe>
+  </div>
+
+
+
+  <!-- Cross-year summary stats -->
+  <div class="stat-grid" style="margin-top:14px;">
+    <div class="stat-card">
+      <div class="stat-card-label">Total Papers</div>
+      <div class="stat-card-value">{{ total_papers | format_int }}</div>
+      <div class="stat-card-note muted">{{ years | join(" + ") }}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-label">Total Authors</div>
+      <div class="stat-card-value">{{ total_authors | format_int }}</div>
+      <div class="stat-card-note muted">unique contributors</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-label">Papers with Code</div>
+      <div class="stat-card-value">{{ pct_code }}%</div>
+      <div class="stat-card-note">{{ total_with_code | format_int }} papers</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-label">Research Clusters</div>
+      <div class="stat-card-value">{{ n_clusters }}</div>
+      <div class="stat-card-note muted">via KMeans on {{ embed_model }}</div>
+    </div>
+  </div>
+
+  <!-- Per-year trends chart -->
+  <h2 class="section-heading" id="sec-trends">Years at a Glance</h2>
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-left">
+        <p class="card-title">Key metrics across all {{ years | length }} years</p>
+        <p class="card-sub">
+          Early Accepted is the share of all submissions, not of accepted papers.
+          Avg Review Score is plotted as percentage of that year's scale so it stays comparable
+          as the scale changed over the years (1-9 → 1-8 → 1-6); the raw mean on its own scale is
+          pinned at the top of the panel, and the whiskers show ±1 SD. The last panel,
+          "Does Rebuttal Help?", is the share of reviewers who crossed the
+          accept/reject line after the rebuttal. Only the years that recorded a
+          post-rebuttal verdict qualify. Hover over any bar for more information.
+        </p>
+      </div>
+    </div>
+    <iframe src="{{ base_url }}/charts/trends_overview.html"
+            class="chart-frame" height="660" scrolling="no" frameborder="0" loading="lazy"></iframe>
+  </div>
+
+  <!-- Subject areas across years -->
+  <h2 class="section-heading" id="sec-subjects">Subject Areas Across Years</h2>
+  <div class="card" style="border-left:3px solid var(--accent);">
+    <div class="card-head">
+      <div class="card-head-left">
+        <p class="card-title">Note: subject-area taxonomy changes over time</p>
+        <p class="card-sub">MICCAI has renamed and re-merged its subject-area list
+          almost every year, and in 2025, there was a major change: papers had to pick
+          a tag from each of six groups, one of which is a body region, so the median
+          2025 paper carries five tags versus three in 2024. <strong>A tag can
+          therefore grow a lot without the research growing at all.</strong></p>
+        <p class="card-sub" style="margin-top:8px;">Two examples: (i) "Abdomen" was an
+          optional tag in 2024, used by 31 papers; in 2025, it is part of the required
+          body-region group and 174 papers contain it. (ii) "CT / X-Ray" is one 2025 tag,
+          where 2024 had a CT tag and no X-Ray tag at all. This means that year-on-year
+          jumps are higher in 2025 than in previous years. For example, the largest rise
+          from 2023 to 2024 is 2.6 percentage points, against 16.8 from 2024 to 2025.
+          Therefore, <b>any 2025 jumps in the two charts below should be read as 
+          a consequence of the change in subject-area labelling first.</b><p>
+        <p class="card-sub" style="margin-top:8px;">These charts merge the obvious
+          renames, drop the catch-all tags, count all of a paper's tags rather than
+          just the first, and show an area only if MICCAI used it in all five years.
+          That last rule is why Image Reconstruction has no panel: MICCAI appears to have 
+          removed the tag in 2025 and those papers are now filed under other names. </p>
+        <p class="card-sub" style="margin-top:8px;">Per-year pages keep each year's own
+          taxonomy.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-left">
+        <p class="card-title">Trending Topics: top 12 subject areas over time</p>
+        <p class="card-sub">Each panel shows the share of that year's papers filed
+          under that area. Papers carry several areas at once, so the panels overlap
+          and add up to well over 100%. See the
+          note above before reading the 2025 values.</p>
+      </div>
+    </div>
+    <iframe src="{{ base_url }}/charts/subject_lines.html"
+            class="chart-frame" height="680" scrolling="no" frameborder="0" loading="lazy"></iframe>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-left">
+        <p class="card-title">Biggest Movers: change in share of papers</p>
+        <p class="card-sub">8 fastest-growing and 8 fastest-shrinking areas (percentage
+          points of the year's papers; areas with ≥ 30 papers total). Use the
+          <strong>From</strong> / <strong>To</strong> dropdowns to change the window.
+          <!-- It opens on {{ years | min }} → {{ (years | max) - 1 }} rather than the full
+          span, because a window ending in {{ years | max }} mostly ranks the
+          relabelling described in the note above. -->
+        </p>
+      </div>
+    </div>
+    <iframe src="{{ base_url }}/charts/subject_movers.html"
+            class="chart-frame" height="580" scrolling="no" frameborder="0" loading="lazy"></iframe>
+  </div>
+
+  <!-- Links to year pages -->
+  <h2 class="section-heading">Explore by Year</h2>
+  <div class="year-compare">
+    {% for yr in years %}
+    {% set s = year_stats[yr] %}
+    {% set m = year_meta[yr] %}
+    <a href="{{ base_url }}/year/{{ yr }}.html" style="text-decoration:none;">
+      <div class="year-compare-card" style="cursor:pointer; transition: box-shadow 0.15s;"
+           onmouseover="this.style.boxShadow='0 2px 12px rgba(15,23,42,0.15)'"
+           onmouseout="this.style.boxShadow=''">
+        <div class="year-compare-title" style="border-bottom-color: {{ m.color }};">
+          MICCAI {{ yr }}
+          <span class="year-tag" style="background: {{ m.accent_bg }}; color: {{ m.color }};">{{ s.city }}</span>
+        </div>
+        <p style="font-size:13px; color:var(--text-muted); margin:0;">
+          {{ s.n_papers | format_int }} papers · {{ s.n_authors | format_int }} authors ·
+          {{ s.pct_code }}% with code
+        </p>
+        <p style="font-size:12px; color: {{ m.color }}; margin:8px 0 0;">View full analysis →</p>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+
+</div>
+{% endblock %}

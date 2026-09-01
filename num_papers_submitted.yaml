@@ -1,0 +1,9 @@
+# Total number of papers SUBMITTED to MICCAI per year (accepted counts come from
+# the scraped data). Sourced from official MICCAI conference reports.
+# Used by analysis/build_charts.py (Years at a Glance: Submissions panel and
+# Early Accepted as % of submissions).
+2021: 1630
+2022: 1865
+2023: 2365
+2024: 2879
+2025: 3677

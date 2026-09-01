@@ -1,0 +1,148 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Allow GITHUB_TOKEN to push to gh-pages branch
+permissions:
+  contents: write
+
+# force_orphan below rewrites gh-pages from scratch on every deploy, so two
+# runs overlapping would leave whichever finished second as the whole site.
+# Queue them instead; do not cancel, since a cancelled run publishes nothing.
+concurrency:
+  group: deploy-pages
+  cancel-in-progress: false
+
+# This file is developed in the private pipeline repository and copied into the
+# public one by make_release.sh, so it exists in two places. The guard below
+# stops it running in the private repo, where there is no Pages site to deploy
+# to and where Actions minutes are metered. The repository name is written out
+# in both jobs below rather than held in a variable, because a job-level `if:`
+# cannot read `env`. If the public repository is ever renamed, change it in both
+# places, or deploys will silently stop happening.
+
+jobs:
+  # Lint separately from the build so a style problem is reported as a style
+  # problem, not as a failed deploy. ruff is pinned: its default rule set moves
+  # between releases, and an unpinned linter can start failing a commit that
+  # did not change.
+  lint:
+    if: github.repository == 'miccai-explorer/miccai-explorer.github.io'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install ruff==0.16.4
+      - run: ruff check analysis/ scraper/ tests/ .github/scripts/
+
+  # The suite runs against committed artifacts only: miccai_all.json,
+  # orals.json and the five program PDFs are all in the repository, and the
+  # tests that need a built site build what they need into a temp directory.
+  # So this job needs no network and no prior build, and can run beside lint.
+  #
+  # It gates the deploy for the same reason lint does: the golden counts here
+  # (paper totals per year, presentation types, oral session sizes) are the
+  # numbers the site prints, so a commit that moves one should not publish.
+  test:
+    if: github.repository == 'miccai-explorer/miccai-explorer.github.io'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      # Pinned, and deliberately not requirements-ci.txt: these are the
+      # scraping and analysis dependencies, which that file does not carry.
+      - name: Install test dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements-test.txt
+
+      # The JUnit report is what make_badges.py reads below. Coverage is
+      # measured but only printed: the run log carries the per-file numbers
+      # for anyone who wants them, and no badge publishes the total. See the
+      # "Coverage" section of CONTRIBUTING.md.
+      - name: Run tests
+        run: |
+          pytest tests/ -q -p no:cacheprovider \
+            --junitxml=reports/junit.xml \
+            --cov --cov-report=term
+
+      # Written into an artifact rather than straight into website/, because
+      # this job does not build the site; the deploy job below unpacks it.
+      - name: Build badge endpoints
+        run: |
+          python .github/scripts/make_badges.py \
+            --junit reports/junit.xml \
+            --out badges
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: badges
+          path: badges/
+          retention-days: 1
+
+  build-and-deploy:
+    if: github.repository == 'miccai-explorer/miccai-explorer.github.io'
+    runs-on: ubuntu-latest
+    needs: [lint, test]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      # Only what build_charts.py and build_site.py need, pinned. The heavy ML
+      # artifacts (embeddings, projections, clusters) are pre-computed and
+      # committed, so torch/transformers/umap-learn are not installed here.
+      # Pinning matters: each chart writes the plotly.js CDN version into its
+      # own script tag, so an unpinned plotly would change what every reader
+      # downloads without a commit from us.
+      - name: Install build dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements-ci.txt
+
+      - name: Build charts
+        run: python analysis/build_charts.py
+
+      # MICCAI_GA_ID is the Google Analytics measurement id. Set it as a
+      # repository variable (Settings -> Secrets and variables -> Actions ->
+      # Variables) so it stays out of the repository itself; if it is unset the
+      # build simply writes no analytics tag.
+      - name: Build site
+        run: python analysis/build_site.py
+        env:
+          MICCAI_GA_ID: ${{ vars.MICCAI_GA_ID }}
+
+      # After the build steps, so nothing can overwrite it. This lands at
+      # https://miccai-explorer.github.io/badges/tests.json, which is what the
+      # README test badge reads; see .github/scripts/make_badges.py.
+      - name: Add badge endpoints to the site
+        uses: actions/download-artifact@v4
+        with:
+          name: badges
+          path: website/badges
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./website
+          publish_branch: gh-pages
+          force_orphan: true        # keep gh-pages history lean
+          user_name: "github-actions[bot]"
+          user_email: "github-actions[bot]@users.noreply.github.com"
+          commit_message: "Deploy: ${{ github.sha }}"

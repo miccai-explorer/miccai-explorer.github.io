@@ -1,0 +1,746 @@
+{
+  "year": 2023,
+  "source_pdf": "data/manually_downloaded/OralSchedules/2023.pdf",
+  "n_sessions": 12,
+  "n_presentations": 68,
+  "sessions": [
+    {
+      "session_id": "1",
+      "session_title": "Clinical Translation I – Medical Image Computing",
+      "session_kind": "oral",
+      "day": null,
+      "room": null,
+      "chairs": [
+        "Charles Kahn, University of Pennsylvania, USA"
+      ],
+      "presentations": [
+        {
+          "type": "oral",
+          "title_raw": "Shifting More Attention to Breast Lesion Segmentation in Ultrasound Videos",
+          "authors_raw": [],
+          "speaker": "Huazhu Fu, A*STAR, Singapore",
+          "page": 1,
+          "column": 0,
+          "order": 1
+        },
+        {
+          "type": "oral",
+          "title_raw": "Foundation Ark: Accruing and Reusing Knowledge for Superior and Robust Performance",
+          "authors_raw": [],
+          "speaker": "DongAo Ma, Arizona State University, USA",
+          "page": 1,
+          "column": 0,
+          "order": 2
+        },
+        {
+          "type": "oral",
+          "title_raw": "CheXstray: A Real-Time Multi-Modal Monitoring Workflow for Medical Imaging AI",
+          "authors_raw": [],
+          "speaker": "Jameson Merkow, Microsoft, USA",
+          "page": 1,
+          "column": 0,
+          "order": 3
+        },
+        {
+          "type": "oral",
+          "title_raw": "Thinking Like Sonographers: A Deep CNN Model for Diagnosing Gout from Musculoskeletal Ultrasound",
+          "authors_raw": [],
+          "speaker": "Zhi Cao, Nanjing University of Aeronautics and Astronautics, China",
+          "page": 1,
+          "column": 0,
+          "order": 4
+        }
+      ]
+    },
+    {
+      "session_id": "2",
+      "session_title": "Computational Pathology",
+      "session_kind": "oral",
+      "day": null,
+      "room": null,
+      "chairs": [],
+      "presentations": [
+        {
+          "type": "oral",
+          "title_raw": "Pathology-and-genomics Multimodal Transformer for Survival Outcome Prediction",
+          "authors_raw": [],
+          "speaker": "Kexin Ding, University of North Carolina at Charlotte, USA",
+          "page": 2,
+          "column": 0,
+          "order": 1
+        },
+        {
+          "type": "oral",
+          "title_raw": "NASDM: Nuclei-Aware Semantic Histopathology Image Generation Using Diffusion Models",
+          "authors_raw": [],
+          "speaker": "Aman Shrivastava, University of Virginia, USA",
+          "page": 2,
+          "column": 0,
+          "order": 2
+        },
+        {
+          "type": "oral",
+          "title_raw": "DAS-MIL: Distilling Across Scales for MIL Classification of Histological WSIs",
+          "authors_raw": [],
+          "speaker": "Gianpaolo Bontempo, University of Modena and Reggio Emilia, Italy",
+          "page": 2,
+          "column": 0,
+          "order": 3
+        },
+        {
+          "type": "oral",
+          "title_raw": "MulHiST: Multiple Histological Staining for Thick Biological Samples via Unsupervised Image-to-Image Translation",
+          "authors_raw": [],
+          "speaker": "Lulin Shi, Hong Kong University of Science and Technology, China",
+          "page": 2,
+          "column": 0,
+          "order": 4
+        },
+        {
+          "type": "oral",
+          "title_raw": "Multi-task Learning of Histology and Molecular Markers for Classifying Diffuse Glioma",
+          "authors_raw": [],
+          "speaker": "Xiaofei Wang, University of Cambridge, United Kingdom",
+          "page": 2,
+          "column": 0,
+          "order": 5
+        },
+        {
+          "type": "oral",
+          "title_raw": "Gene-induced Multimodal Pre-training for Image-omic Classification",
+          "authors_raw": [],
+          "speaker": "Ting Jin, East China Normal University, China",
+          "page": 2,
+          "column": 0,
+          "order": 6
+        }
+      ]
+    },
+    {
+      "session_id": "3",
+      "session_title": "Machine Learning I – Semi-Supervised & Self-Supervised",
+      "session_kind": "oral",
+      "day": null,
+      "room": null,
+      "chairs": [],
+      "presentations": [
+        {
+          "type": "oral",
+          "title_raw": "Multi-modal Variational Autoencoders for normative modelling across multiple imaging modalities",
+          "authors_raw": [],
+          "speaker": "Ana Lawry Aguila, University College London, United Kingdom",
+          "page": 3,
+          "column": 0,
+          "order": 1
+        },
+        {
+          "type": "oral",
+          "title_raw": "Towards AI-driven radiology education: A self-supervised segmentation-based framework for high-precision medical image editing",
+          "authors_raw": [],
+          "speaker": "Kazuma Kobayashi, National Cancer Center Research Institute, Japan",
+          "page": 3,
+          "column": 0,
+          "order": 2
+        },
+        {
+          "type": "oral",
+          "title_raw": "Prompt-MIL: Boosting Multi-Instance Learning Schemes via Task-specific Prompt Tuning",
+          "authors_raw": [],
+          "speaker": "Jingwei Zhang, Stony Brook Universtiy, USA",
+          "page": 3,
+          "column": 0,
+          "order": 3
+        },
+        {
+          "type": "oral",
+          "title_raw": "LOTUS: Learning to Optimize Task-based US representations",
+          "authors_raw": [],
+          "speaker": "Yordanka Velikova, Technical University of Munich, Germany",
+          "page": 3,
+          "column": 0,
+          "order": 4
+        },
+        {
+          "type": "oral",
+          "title_raw": "Category-level Regularized Unlabeled-to-labeled Learning for Semi-supervised Prostate Segmentation with Multi-site Unlabeled Data",
+          "authors_raw": [],
+          "speaker": "Zhe Xu, The Chinese University of Hong Kong, Hong Kong SAR, China",
+          "page": 3,
+          "column": 0,
+          "order": 5
+        },
+        {
+          "type": "oral",
+          "title_raw": "Correlation-Aware Mutual Learning for Semi-supervised Medical Image Segmentation",
+          "authors_raw": [],
+          "speaker": "Shengbo Gao, Deepwise AI Lab, China",
+          "page": 3,
+          "column": 0,
+          "order": 6
+        }
+      ]
+    },
+    {
+      "session_id": "4",
+      "session_title": "Computer Assisted Interventions and Surgery",
+      "session_kind": "oral",
+      "day": null,
+      "room": null,
+      "chairs": [],
+      "presentations": [
+        {
+          "type": "oral",
+          "title_raw": "Detecting the Sensing Area of A Laparoscopic Probe in Minimally Invasive Cancer Surgery",
+          "authors_raw": [],
+          "speaker": "Baoru Huang, Imperial College London, United Kingdom",
+          "page": 4,
+          "column": 0,
+          "order": 1
+        },
+        {
+          "type": "oral",
+          "title_raw": "FLIm-based In Vivo Classification of Residual Cancer in the Surgical Cavity during Transoral Robotic Surgery",
+          "authors_raw": [],
+          "speaker": "Mohamed Hassan, University of California Davis, USA",
+          "page": 4,
+          "column": 0,
+          "order": 2
+        },
+        {
+          "type": "oral",
+          "title_raw": "FocalErrorNet: Uncertainty-aware focal modulation network for inter-modal registration error estimation in ultrasound-guided neurosurgery",
+          "authors_raw": [],
+          "speaker": "Soorena Salari, Concordia University, Canada",
+          "page": 4,
+          "column": 0,
+          "order": 3
+        },
+        {
+          "type": "oral",
+          "title_raw": "From Tissue to Sound: Model-based Sonification of Medical Imaging",
+          "authors_raw": [],
+          "speaker": "Sasan Matinfar, Technical University of Munich, Germany",
+          "page": 4,
+          "column": 0,
+          "order": 4
+        },
+        {
+          "type": "oral",
+          "title_raw": "ConTrack: Contextual Transformer for Device Tracking in X-ray",
+          "authors_raw": [],
+          "speaker": "Yue Zhang, Siemens Healthineers, USA",
+          "page": 4,
+          "column": 0,
+          "order": 5
+        },
+        {
+          "type": "oral",
+          "title_raw": "A Transfer Learning Approach to Localise a Deep Brain Stimulation Target",
+          "authors_raw": [],
+          "speaker": "Ying-Qiu Zheng, University of Oxford, United Kingdom",
+          "page": 4,
+          "column": 0,
+          "order": 6
+        }
+      ]
+    },
+    {
+      "session_id": "5",
+      "session_title": "Machine Learning II – Towards Transparent AI",
+      "session_kind": "oral",
+      "day": null,
+      "room": null,
+      "chairs": [],
+      "presentations": [
+        {
+          "type": "oral",
+          "title_raw": "Interpretable Medical Image Classification using Prototype Learning and Privileged Information",
+          "authors_raw": [],
+          "speaker": "Luisa Gallée, Experimental Radiology, University Hospital Ulm, Germany",
+          "page": 5,
+          "column": 0,
+          "order": 1
+        },
+        {
+          "type": "oral",
+          "title_raw": "How Reliable are the Metrics Used for Assessing Reliability in Medical Imaging?",
+          "authors_raw": [],
+          "speaker": "Mayank Gupta, Indian Institute of Technology Delhi, India",
+          "page": 5,
+          "column": 0,
+          "order": 2
+        },
+        {
+          "type": "oral",
+          "title_raw": "Interpretable Deep Biomarker for Serial Monitoring of Carotid Atherosclerosis Based on Three-Dimensional Ultrasound Imaging",
+          "authors_raw": [],
+          "speaker": "Xueli Chen, City University of Hong Kong, Hong Kong SAR, China",
+          "page": 5,
+          "column": 0,
+          "order": 3
+        },
+        {
+          "type": "oral",
+          "title_raw": "B-Cos Aligned Transformers Learn Human-Interpretable Features",
+          "authors_raw": [],
+          "speaker": "Manuel Tran, Technical University Munich, Germany",
+          "page": 5,
+          "column": 0,
+          "order": 4
+        },
+        {
+          "type": "oral",
+          "title_raw": "An Explainable Geometric-Weighted Graph Attention Network for Identifying Functional Networks Associated with Gait Impairment",
+          "authors_raw": [],
+          "speaker": "Favour Nerrise, Stanford University, USA",
+          "page": 5,
+          "column": 0,
+          "order": 5
+        },
+        {
+          "type": "oral",
+          "title_raw": "A Reliable and Interpretable Framework of Multi-view Learning for Liver Fibrosis Staging",
+          "authors_raw": [],
+          "speaker": "Zheyao Gao, Fudan University, China",
+          "page": 5,
+          "column": 0,
+          "order": 6
+        }
+      ]
+    },
+    {
+      "session_id": "6",
+      "session_title": "Neuroimaging – Morphology to Functionality",
+      "session_kind": "oral",
+      "day": null,
+      "room": null,
+      "chairs": [],
+      "presentations": [
+        {
+          "type": "oral",
+          "title_raw": "Dynamic Functional Connectome Harmonics",
+          "authors_raw": [],
+          "speaker": "Hoyt Patrick Taylor, University of North Carolina at Chapel Hill, USA",
+          "page": 6,
+          "column": 0,
+          "order": 1
+        },
+        {
+          "type": "oral",
+          "title_raw": "Mixing Temporal Graphs with MLP for Longitudinal Brain Connectome Analysis",
+          "authors_raw": [],
+          "speaker": "Hyuna Cho, Pohang University of Science and Technology, South Korea",
+          "page": 6,
+          "column": 0,
+          "order": 2
+        },
+        {
+          "type": "oral",
+          "title_raw": "Unified surface and volumetric inference on functional imaging data",
+          "authors_raw": [],
+          "speaker": "Thomas F. Kirk, University of Nottingham, United Kingdom",
+          "page": 6,
+          "column": 0,
+          "order": 3
+        },
+        {
+          "type": "oral",
+          "title_raw": "Multi-task Joint Prediction of Infant Cortical Morphological and Cognitive Development",
+          "authors_raw": [],
+          "speaker": "Xinrui Yuan, The University of North Carolina at Chapel Hill, USA",
+          "page": 6,
+          "column": 0,
+          "order": 4
+        },
+        {
+          "type": "oral",
+          "title_raw": "Flexible Unfolding of Circular Structures for Rendering Textbook-Style Cerebrovascular Maps",
+          "authors_raw": [],
+          "speaker": "Leonhard Rist, Friedrich-Alexander-Universität Erlangen-Nürnberg, Germany",
+          "page": 6,
+          "column": 0,
+          "order": 5
+        },
+        {
+          "type": "oral",
+          "title_raw": "Bidirectional Mapping with Contrastive Learning on Multimodal Neuroimaging Data",
+          "authors_raw": [],
+          "speaker": "Kai Ye, University of Pittsburgh, USA",
+          "page": 6,
+          "column": 0,
+          "order": 6
+        }
+      ]
+    },
+    {
+      "session_id": "7",
+      "session_title": "Computer Aided Diagnosis with Longitudinal and Multi-modal Data",
+      "session_kind": "oral",
+      "day": null,
+      "room": null,
+      "chairs": [],
+      "presentations": [
+        {
+          "type": "oral",
+          "title_raw": "Longitudinal Multimodal Transformer Integrating Imaging and Latent Clinical Signatures From Routine EHRs for Pulmonary Nodule Classification",
+          "authors_raw": [],
+          "speaker": "Thomas Li, Vanderbilt University, USA",
+          "page": 7,
+          "column": 0,
+          "order": 1
+        },
+        {
+          "type": "oral",
+          "title_raw": "Graph-theoretic automatic lesion tracking and detection of patterns of lesion changes in longitudinal CT studies",
+          "authors_raw": [],
+          "speaker": "Leo Joskowicz, Hebrew University of Jerusalem, Israel",
+          "page": 7,
+          "column": 0,
+          "order": 2
+        },
+        {
+          "type": "oral",
+          "title_raw": "Utilizing Longitudinal Chest X-Rays and Reports to Pre-Fill Radiology Reports",
+          "authors_raw": [],
+          "speaker": "Qingqing Zhu, National Institutes of Health, USA",
+          "page": 7,
+          "column": 0,
+          "order": 3
+        },
+        {
+          "type": "oral",
+          "title_raw": "Improving Outcome Prediction of Pulmonary Embolism by De-Biased Multi-Modality Model",
+          "authors_raw": [],
+          "speaker": "Shreyas Kulkarni, Brown University, USA",
+          "page": 7,
+          "column": 0,
+          "order": 4
+        },
+        {
+          "type": "oral",
+          "title_raw": "Contrastive Masked Image-Text Modeling for Medical Visual Representation Learning",
+          "authors_raw": [],
+          "speaker": "Cheng Chen, Massachusetts General Hospital and Harvard Medical School, USA",
+          "page": 7,
+          "column": 0,
+          "order": 5
+        },
+        {
+          "type": "oral",
+          "title_raw": "Multimodal Deep Fusion in Hyperbolic Space for Mild Cognitive Impairment Study",
+          "authors_raw": [],
+          "speaker": "Dajiang Zhu, The University of Texas at Arlington, USA",
+          "page": 7,
+          "column": 0,
+          "order": 6
+        }
+      ]
+    },
+    {
+      "session_id": "8",
+      "session_title": "Surgical Visualization and Data Science",
+      "session_kind": "oral",
+      "day": null,
+      "room": null,
+      "chairs": [],
+      "presentations": [
+        {
+          "type": "oral",
+          "title_raw": "Self-supervised Sim-to-Real Kinematics Reconstruction for Video-based Assessment of Intraoperative Suturing Skills",
+          "authors_raw": [
+            "Zijun Cui",
+            "University of Southern California",
+            "USA"
+          ],
+          "speaker": null,
+          "page": 8,
+          "column": 0,
+          "order": 1
+        },
+        {
+          "type": "oral",
+          "title_raw": "POV-Surgery: A Dataset for Egocentric Hand and Tool Pose Estimation During Surgical Activities",
+          "authors_raw": [],
+          "speaker": "Rui Wang, ETH Zürich, Switzerland",
+          "page": 8,
+          "column": 0,
+          "order": 2
+        },
+        {
+          "type": "oral",
+          "title_raw": "Intelligent Virtual B-scan Mirror (IVBM)",
+          "authors_raw": [],
+          "speaker": "Michael Sommersperger, Technical University of Munich, Germany",
+          "page": 8,
+          "column": 0,
+          "order": 3
+        },
+        {
+          "type": "oral",
+          "title_raw": "EndoSurf: Neural Surface Reconstruction of Deformable Tissues with Stereo Endoscope Videos",
+          "authors_raw": [],
+          "speaker": "Xuelian Cheng, Monash University, Australia",
+          "page": 8,
+          "column": 0,
+          "order": 4
+        },
+        {
+          "type": "oral",
+          "title_raw": "Neural LerPlane Representations for Fast 4D Reconstruction of Deformable Tissues",
+          "authors_raw": [],
+          "speaker": "Chen Yang, Shanghai Jiao Tong University, China",
+          "page": 8,
+          "column": 0,
+          "order": 5
+        },
+        {
+          "type": "oral",
+          "title_raw": "ACT-Net: Anchor-context Action Detection in Surgery Videos",
+          "authors_raw": [],
+          "speaker": "Jiang Liu, University of Birmingham, United Kingdom",
+          "page": 8,
+          "column": 0,
+          "order": 6
+        }
+      ]
+    },
+    {
+      "session_id": "9",
+      "session_title": "Segmentation – Methods and Applications",
+      "session_kind": "oral",
+      "day": null,
+      "room": null,
+      "chairs": [],
+      "presentations": [
+        {
+          "type": "oral",
+          "title_raw": "SwinMM: Masked Multi-view with Swin Transformers for 3D Medical Image Segmentation",
+          "authors_raw": [],
+          "speaker": "Yiqing Wang, Shanghai Jiao Tong University, China",
+          "page": 9,
+          "column": 0,
+          "order": 1
+        },
+        {
+          "type": "oral",
+          "title_raw": "MultiTalent: A Multi-Dataset Approach to Medical Image Segmentation",
+          "authors_raw": [],
+          "speaker": "Constantin Ulrich, German Cancer Research Center, Germany",
+          "page": 9,
+          "column": 0,
+          "order": 2
+        },
+        {
+          "type": "oral",
+          "title_raw": "Structure-Preserving Instance Segmentation via Skeleton-Aware Distance Transform",
+          "authors_raw": [],
+          "speaker": "Donglai Wei, Boston College, USA",
+          "page": 9,
+          "column": 0,
+          "order": 3
+        },
+        {
+          "type": "oral",
+          "title_raw": "Pelvic Fracture Segmentation Using a Multi-scale Distance-weighted Neural Network",
+          "authors_raw": [],
+          "speaker": "Yanzhen Liu, Beihang University, China",
+          "page": 9,
+          "column": 0,
+          "order": 4
+        },
+        {
+          "type": "oral",
+          "title_raw": "Robust and Generalisable Segmentation of Subtle Epilepsy-causing Lesions: a Graph Convolutional Approach",
+          "authors_raw": [],
+          "speaker": "Hannah Spitzer, LMU University Hospital, Germany",
+          "page": 9,
+          "column": 0,
+          "order": 5
+        },
+        {
+          "type": "oral",
+          "title_raw": "CorSegRec: A Topology-Preserving Scheme for Extracting Fully-Connected Coronary Arteries from CT Angiography",
+          "authors_raw": [],
+          "speaker": "Dinggang Shen, ShanghaiTech University & Shanghai United Imaging Intelligence Co., Ltd., China",
+          "page": 9,
+          "column": 0,
+          "order": 6
+        }
+      ]
+    },
+    {
+      "session_id": "10",
+      "session_title": "Clinical Translation II – Computer Assisted Intervention",
+      "session_kind": "oral",
+      "day": null,
+      "room": null,
+      "chairs": [],
+      "presentations": [
+        {
+          "type": "oral",
+          "title_raw": "From Mesh Completion to AI Designed Crown",
+          "authors_raw": [],
+          "speaker": "Golriz Hosseinimanesh, Polytechnique Montreal, Canada",
+          "page": 10,
+          "column": 0,
+          "order": 1
+        },
+        {
+          "type": "oral",
+          "title_raw": "Optical Ultrasound Imaging for Endovascular Repair of Abdominal Aortic Aneurysms: A Pilot Study",
+          "authors_raw": [],
+          "speaker": "Adrien Desjardins, University College London, United Kingdom",
+          "page": 10,
+          "column": 0,
+          "order": 2
+        },
+        {
+          "type": "oral",
+          "title_raw": "Estimated time to surgical procedure completion: An exploration of video analysis methods",
+          "authors_raw": [],
+          "speaker": "Yariv Colbeci, Theator, Israel",
+          "page": 10,
+          "column": 0,
+          "order": 3
+        },
+        {
+          "type": "oral",
+          "title_raw": "Automatic Surgical Reconstruction for Orbital Blow-out Fracture via Symmetric Prior Anatomical Knowledge-Guided Adversarial Generative Network",
+          "authors_raw": [],
+          "speaker": "Jiangchang Xu, Shanghai Jiao Tong University, China",
+          "page": 10,
+          "column": 0,
+          "order": 4
+        }
+      ]
+    },
+    {
+      "session_id": "11",
+      "session_title": "Machine Learning III – Advances in Learning Strategies",
+      "session_kind": "oral",
+      "day": null,
+      "room": null,
+      "chairs": [],
+      "presentations": [
+        {
+          "type": "oral",
+          "title_raw": "Uncertainty and Shape-Aware Continual Test-Time Adaptation for Cross-Domain Segmentation of Medical Images",
+          "authors_raw": [],
+          "speaker": "Jiayi Zhu, University of New South Wales, Australia",
+          "page": 11,
+          "column": 0,
+          "order": 1
+        },
+        {
+          "type": "oral",
+          "title_raw": "Open-Ended Medical Visual Question Answering Through Prefix Tuning of Language Models",
+          "authors_raw": [],
+          "speaker": "Tom van Sonsbeek, University of Amsterdam, the Netherlands",
+          "page": 11,
+          "column": 0,
+          "order": 2
+        },
+        {
+          "type": "oral",
+          "title_raw": "Joint prediction of response to therapy, molecular traits, and spatial organisation in colorectal cancer biopsies",
+          "authors_raw": [],
+          "speaker": "Ruby Wood, University of Oxford, United Kingdom",
+          "page": 11,
+          "column": 0,
+          "order": 3
+        },
+        {
+          "type": "oral",
+          "title_raw": "Speech Audio Synthesis from Tagged MRI and Non-Negative Matrix Factorization via Plastic Transformer",
+          "authors_raw": [],
+          "speaker": "Xiaofeng Liu, Harvard Medical School, USA",
+          "page": 11,
+          "column": 0,
+          "order": 4
+        },
+        {
+          "type": "oral",
+          "title_raw": "Deployment of Image Analysis Algorithms under Prevalence Shifts",
+          "authors_raw": [],
+          "speaker": "Patrick Godau and Piotr Kalinowski, German Cancer Research Center (DKFZ), Germany",
+          "page": 11,
+          "column": 0,
+          "order": 5
+        },
+        {
+          "type": "oral",
+          "title_raw": "ProtoASNet: Dynamic Prototypes for Inherently Interpretable and Uncertainty-Aware Aortic Stenosis Classification in Echocardiography",
+          "authors_raw": [],
+          "speaker": "Hooman Vaseli, University of British Columbia, Canada",
+          "page": 11,
+          "column": 0,
+          "order": 6
+        }
+      ]
+    },
+    {
+      "session_id": "12",
+      "session_title": "Physics-based Image Formation and Reconstruction",
+      "session_kind": "oral",
+      "day": null,
+      "room": null,
+      "chairs": [],
+      "presentations": [
+        {
+          "type": "oral",
+          "title_raw": "BigFUSE: Global Context-Aware Image Fusion in Dual-View Light-Sheet Fluorescence Microscopy with Image Formation Prior",
+          "authors_raw": [],
+          "speaker": "Carsten Marr, Helmholtz Munich, Germany",
+          "page": 12,
+          "column": 0,
+          "order": 1
+        },
+        {
+          "type": "oral",
+          "title_raw": "Physics-based Decoding Improves Magnetic Resonance Fingerprinting",
+          "authors_raw": [],
+          "speaker": "Pingfan Song, University of Cambridge, United Kingdom",
+          "page": 12,
+          "column": 0,
+          "order": 2
+        },
+        {
+          "type": "oral",
+          "title_raw": "LLCaps: Learning to Illuminate Low-Light Capsule Endoscopy with Curved Wavelet Attention and Reverse Diffusion",
+          "authors_raw": [],
+          "speaker": "Long Bai, The Chinese University of Hong Kong, Hong Kong SAR, China",
+          "page": 12,
+          "column": 0,
+          "order": 3
+        },
+        {
+          "type": "oral",
+          "title_raw": "Physics-Informed Neural Networks for Tissue Elasticity Reconstruction in Magnetic Resonance Elastography",
+          "authors_raw": [],
+          "speaker": "Matthew Ragoza, University of Pittsburgh, USA",
+          "page": 12,
+          "column": 0,
+          "order": 4
+        },
+        {
+          "type": "oral",
+          "title_raw": "Learned Alternating Minimization Algorithm for Dual-Domain Sparse-View CT Reconstruction",
+          "authors_raw": [],
+          "speaker": "Chi Ding, University of Florida, USA",
+          "page": 12,
+          "column": 0,
+          "order": 5
+        },
+        {
+          "type": "oral",
+          "title_raw": "Inter-slice Consistency for Unpaired Low-Dose CT Denoising using Boosted Contrastive Learning",
+          "authors_raw": [],
+          "speaker": "Jie Jing, Sichuan University, China",
+          "page": 12,
+          "column": 0,
+          "order": 6
+        }
+      ]
+    }
+  ]
+}

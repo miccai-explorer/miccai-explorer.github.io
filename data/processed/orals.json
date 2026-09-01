@@ -1,0 +1,2719 @@
+{
+  "generated_from": {
+    "2021": "data/raw/orals_2021.json",
+    "2022": "data/raw/orals_2022.json",
+    "2023": "data/raw/orals_2023.json",
+    "2024": "data/raw/orals_2024.json",
+    "2025": "data/raw/orals_2025.json"
+  },
+  "summary": {
+    "2021": {
+      "extracted": 60,
+      "matched": 60,
+      "skipped": 0,
+      "unmatched": 0,
+      "match_rate_pct": 100.0,
+      "types": {
+        "oral": 60
+      },
+      "methods": {
+        "exact": 60
+      }
+    },
+    "2022": {
+      "extracted": 41,
+      "matched": 41,
+      "skipped": 0,
+      "unmatched": 0,
+      "match_rate_pct": 100.0,
+      "types": {
+        "oral": 41
+      },
+      "methods": {
+        "exact": 41
+      }
+    },
+    "2023": {
+      "extracted": 68,
+      "matched": 68,
+      "skipped": 0,
+      "unmatched": 0,
+      "match_rate_pct": 100.0,
+      "types": {
+        "oral": 68
+      },
+      "methods": {
+        "exact": 68
+      }
+    },
+    "2024": {
+      "extracted": 96,
+      "matched": 96,
+      "skipped": 0,
+      "unmatched": 0,
+      "match_rate_pct": 100.0,
+      "types": {
+        "oral": 78,
+        "spotlight": 18
+      },
+      "methods": {
+        "exact": 96
+      }
+    },
+    "2025": {
+      "extracted": 112,
+      "matched": 112,
+      "skipped": 0,
+      "unmatched": 0,
+      "match_rate_pct": 100.0,
+      "types": {
+        "spotlight": 36,
+        "oral": 76
+      },
+      "methods": {
+        "exact": 112
+      }
+    }
+  },
+  "papers": {
+    "miccai-2021-Paper0503": {
+      "type": "oral",
+      "session_id": "Tue-Oral-AM-A",
+      "session_title": "Label Efficient Learning",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2021-Paper1210": {
+      "type": "oral",
+      "session_id": "Tue-Oral-AM-A",
+      "session_title": "Label Efficient Learning",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2021-Paper0322": {
+      "type": "oral",
+      "session_id": "Tue-Oral-AM-A",
+      "session_title": "Label Efficient Learning",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2021-Paper2229": {
+      "type": "oral",
+      "session_id": "Tue-Oral-AM-A",
+      "session_title": "Label Efficient Learning",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2021-Paper0040": {
+      "type": "oral",
+      "session_id": "Tue-Oral-AM-A",
+      "session_title": "Label Efficient Learning",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2021-Paper1509": {
+      "type": "oral",
+      "session_id": "Tue-Oral-AM-B",
+      "session_title": "Surgical Data Science",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2021-Paper1830": {
+      "type": "oral",
+      "session_id": "Tue-Oral-AM-B",
+      "session_title": "Surgical Data Science",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2021-Paper0184": {
+      "type": "oral",
+      "session_id": "Tue-Oral-AM-B",
+      "session_title": "Surgical Data Science",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2021-Paper0849": {
+      "type": "oral",
+      "session_id": "Tue-Oral-AM-B",
+      "session_title": "Surgical Data Science",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2021-Paper1900": {
+      "type": "oral",
+      "session_id": "Tue-Oral-AM-B",
+      "session_title": "Surgical Data Science",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2021-Paper1738": {
+      "type": "oral",
+      "session_id": "Tue-Oral-PM-A",
+      "session_title": "Image Registration",
+      "day": "11:00",
+      "match": "exact"
+    },
+    "miccai-2021-Paper0179": {
+      "type": "oral",
+      "session_id": "Tue-Oral-PM-A",
+      "session_title": "Image Registration",
+      "day": "11:00",
+      "match": "exact"
+    },
+    "miccai-2021-Paper0422": {
+      "type": "oral",
+      "session_id": "Tue-Oral-PM-A",
+      "session_title": "Image Registration",
+      "day": "11:00",
+      "match": "exact"
+    },
+    "miccai-2021-Paper0642": {
+      "type": "oral",
+      "session_id": "Tue-Oral-PM-A",
+      "session_title": "Image Registration",
+      "day": "11:00",
+      "match": "exact"
+    },
+    "miccai-2021-Paper0889": {
+      "type": "oral",
+      "session_id": "Tue-Oral-PM-A",
+      "session_title": "Image Registration",
+      "day": "11:00",
+      "match": "exact"
+    },
+    "miccai-2021-Paper2008": {
+      "type": "oral",
+      "session_id": "Tue-Oral-PM-B",
+      "session_title": "Intervention Planning and Simulation",
+      "day": "– 12:30 (UTC)",
+      "match": "exact"
+    },
+    "miccai-2021-Paper1512": {
+      "type": "oral",
+      "session_id": "Tue-Oral-PM-B",
+      "session_title": "Intervention Planning and Simulation",
+      "day": "– 12:30 (UTC)",
+      "match": "exact"
+    },
+    "miccai-2021-Paper2144": {
+      "type": "oral",
+      "session_id": "Tue-Oral-PM-B",
+      "session_title": "Intervention Planning and Simulation",
+      "day": "– 12:30 (UTC)",
+      "match": "exact"
+    },
+    "miccai-2021-Paper2581": {
+      "type": "oral",
+      "session_id": "Tue-Oral-PM-B",
+      "session_title": "Intervention Planning and Simulation",
+      "day": "– 12:30 (UTC)",
+      "match": "exact"
+    },
+    "miccai-2021-Paper0264": {
+      "type": "oral",
+      "session_id": "Tue-Oral-PM-B",
+      "session_title": "Intervention Planning and Simulation",
+      "day": "– 12:30 (UTC)",
+      "match": "exact"
+    },
+    "miccai-2021-Paper2103": {
+      "type": "oral",
+      "session_id": "Wed-Oral-AM-A",
+      "session_title": "Advances in Machine Learning",
+      "day": "13:30",
+      "match": "exact"
+    },
+    "miccai-2021-Paper1293": {
+      "type": "oral",
+      "session_id": "Wed-Oral-AM-A",
+      "session_title": "Advances in Machine Learning",
+      "day": "13:30",
+      "match": "exact"
+    },
+    "miccai-2021-Paper2084": {
+      "type": "oral",
+      "session_id": "Wed-Oral-AM-A",
+      "session_title": "Advances in Machine Learning",
+      "day": "13:30",
+      "match": "exact"
+    },
+    "miccai-2021-Paper1012": {
+      "type": "oral",
+      "session_id": "Wed-Oral-AM-A",
+      "session_title": "Advances in Machine Learning",
+      "day": "13:30",
+      "match": "exact"
+    },
+    "miccai-2021-Paper1794": {
+      "type": "oral",
+      "session_id": "Wed-Oral-AM-A",
+      "session_title": "Advances in Machine Learning",
+      "day": "13:30",
+      "match": "exact"
+    },
+    "miccai-2021-Paper1786": {
+      "type": "oral",
+      "session_id": "Wed-Oral-AM-B",
+      "session_title": "Image Reconstruction",
+      "day": "– 15:00 (UTC)",
+      "match": "exact"
+    },
+    "miccai-2021-Paper1716": {
+      "type": "oral",
+      "session_id": "Wed-Oral-AM-B",
+      "session_title": "Image Reconstruction",
+      "day": "– 15:00 (UTC)",
+      "match": "exact"
+    },
+    "miccai-2021-Paper0632": {
+      "type": "oral",
+      "session_id": "Wed-Oral-AM-B",
+      "session_title": "Image Reconstruction",
+      "day": "– 15:00 (UTC)",
+      "match": "exact"
+    },
+    "miccai-2021-Paper0763": {
+      "type": "oral",
+      "session_id": "Wed-Oral-AM-B",
+      "session_title": "Image Reconstruction",
+      "day": "– 15:00 (UTC)",
+      "match": "exact"
+    },
+    "miccai-2021-Paper0572": {
+      "type": "oral",
+      "session_id": "Wed-Oral-AM-B",
+      "session_title": "Image Reconstruction",
+      "day": "– 15:00 (UTC)",
+      "match": "exact"
+    },
+    "miccai-2021-Paper1866": {
+      "type": "oral",
+      "session_id": "Wed-Oral-PM-A",
+      "session_title": "Computer Aided Diagnosis",
+      "day": "11:00",
+      "match": "exact"
+    },
+    "miccai-2021-Paper1206": {
+      "type": "oral",
+      "session_id": "Wed-Oral-PM-A",
+      "session_title": "Computer Aided Diagnosis",
+      "day": "11:00",
+      "match": "exact"
+    },
+    "miccai-2021-Paper0754": {
+      "type": "oral",
+      "session_id": "Wed-Oral-PM-A",
+      "session_title": "Computer Aided Diagnosis",
+      "day": "11:00",
+      "match": "exact"
+    },
+    "miccai-2021-Paper0399": {
+      "type": "oral",
+      "session_id": "Wed-Oral-PM-A",
+      "session_title": "Computer Aided Diagnosis",
+      "day": "11:00",
+      "match": "exact"
+    },
+    "miccai-2021-Paper0383": {
+      "type": "oral",
+      "session_id": "Wed-Oral-PM-A",
+      "session_title": "Computer Aided Diagnosis",
+      "day": "11:00",
+      "match": "exact"
+    },
+    "miccai-2021-Paper0514": {
+      "type": "oral",
+      "session_id": "Wed-Oral-PM-B",
+      "session_title": "Uncertainty and Interpretability",
+      "day": "– 12:30 (UTC)",
+      "match": "exact"
+    },
+    "miccai-2021-Paper1378": {
+      "type": "oral",
+      "session_id": "Wed-Oral-PM-B",
+      "session_title": "Uncertainty and Interpretability",
+      "day": "– 12:30 (UTC)",
+      "match": "exact"
+    },
+    "miccai-2021-Paper1906": {
+      "type": "oral",
+      "session_id": "Wed-Oral-PM-B",
+      "session_title": "Uncertainty and Interpretability",
+      "day": "– 12:30 (UTC)",
+      "match": "exact"
+    },
+    "miccai-2021-Paper2380": {
+      "type": "oral",
+      "session_id": "Wed-Oral-PM-B",
+      "session_title": "Uncertainty and Interpretability",
+      "day": "– 12:30 (UTC)",
+      "match": "exact"
+    },
+    "miccai-2021-Paper0673": {
+      "type": "oral",
+      "session_id": "Wed-Oral-PM-B",
+      "session_title": "Uncertainty and Interpretability",
+      "day": "– 12:30 (UTC)",
+      "match": "exact"
+    },
+    "miccai-2021-Paper1688": {
+      "type": "oral",
+      "session_id": "Thu-Oral-AM-A",
+      "session_title": "Segmentation",
+      "day": "13:30",
+      "match": "exact"
+    },
+    "miccai-2021-Paper0537": {
+      "type": "oral",
+      "session_id": "Thu-Oral-AM-A",
+      "session_title": "Segmentation",
+      "day": "13:30",
+      "match": "exact"
+    },
+    "miccai-2021-Paper2051": {
+      "type": "oral",
+      "session_id": "Thu-Oral-AM-A",
+      "session_title": "Segmentation",
+      "day": "13:30",
+      "match": "exact"
+    },
+    "miccai-2021-Paper0969": {
+      "type": "oral",
+      "session_id": "Thu-Oral-AM-A",
+      "session_title": "Segmentation",
+      "day": "13:30",
+      "match": "exact"
+    },
+    "miccai-2021-Paper0663": {
+      "type": "oral",
+      "session_id": "Thu-Oral-AM-A",
+      "session_title": "Segmentation",
+      "day": "13:30",
+      "match": "exact"
+    },
+    "miccai-2021-Paper0336": {
+      "type": "oral",
+      "session_id": "Thu-Oral-AM-B",
+      "session_title": "Image Synthesis",
+      "day": "– 15:00 (UTC)",
+      "match": "exact"
+    },
+    "miccai-2021-Paper2533": {
+      "type": "oral",
+      "session_id": "Thu-Oral-AM-B",
+      "session_title": "Image Synthesis",
+      "day": "– 15:00 (UTC)",
+      "match": "exact"
+    },
+    "miccai-2021-Paper1611": {
+      "type": "oral",
+      "session_id": "Thu-Oral-AM-B",
+      "session_title": "Image Synthesis",
+      "day": "– 15:00 (UTC)",
+      "match": "exact"
+    },
+    "miccai-2021-Paper1549": {
+      "type": "oral",
+      "session_id": "Thu-Oral-AM-B",
+      "session_title": "Image Synthesis",
+      "day": "– 15:00 (UTC)",
+      "match": "exact"
+    },
+    "miccai-2021-Paper0527": {
+      "type": "oral",
+      "session_id": "Thu-Oral-AM-B",
+      "session_title": "Image Synthesis",
+      "day": "– 15:00 (UTC)",
+      "match": "exact"
+    },
+    "miccai-2021-Paper0692": {
+      "type": "oral",
+      "session_id": "Thu-Oral-PM-A",
+      "session_title": "Domain Adaptation",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2021-Paper0081": {
+      "type": "oral",
+      "session_id": "Thu-Oral-PM-A",
+      "session_title": "Domain Adaptation",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2021-Paper0521": {
+      "type": "oral",
+      "session_id": "Thu-Oral-PM-A",
+      "session_title": "Domain Adaptation",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2021-Paper1000": {
+      "type": "oral",
+      "session_id": "Thu-Oral-PM-A",
+      "session_title": "Domain Adaptation",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2021-Paper0525": {
+      "type": "oral",
+      "session_id": "Thu-Oral-PM-A",
+      "session_title": "Domain Adaptation",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2021-Paper2106": {
+      "type": "oral",
+      "session_id": "Thur-Oral-PM-B",
+      "session_title": "Image-Guided Interventions and Surgery",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2021-Paper2117": {
+      "type": "oral",
+      "session_id": "Thur-Oral-PM-B",
+      "session_title": "Image-Guided Interventions and Surgery",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2021-Paper0398": {
+      "type": "oral",
+      "session_id": "Thur-Oral-PM-B",
+      "session_title": "Image-Guided Interventions and Surgery",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2021-Paper1042": {
+      "type": "oral",
+      "session_id": "Thur-Oral-PM-B",
+      "session_title": "Image-Guided Interventions and Surgery",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2021-Paper2511": {
+      "type": "oral",
+      "session_id": "Thur-Oral-PM-B",
+      "session_title": "Image-Guided Interventions and Surgery",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2022-Paper1579": {
+      "type": "oral",
+      "session_id": "1",
+      "session_title": "Computer Aided Diagnosis",
+      "day": "Sept 19, 2022 (Monday), 9:00 - 10:30",
+      "match": "exact"
+    },
+    "miccai-2022-Paper1987": {
+      "type": "oral",
+      "session_id": "1",
+      "session_title": "Computer Aided Diagnosis",
+      "day": "Sept 19, 2022 (Monday), 9:00 - 10:30",
+      "match": "exact"
+    },
+    "miccai-2022-Paper1608": {
+      "type": "oral",
+      "session_id": "1",
+      "session_title": "Computer Aided Diagnosis",
+      "day": "Sept 19, 2022 (Monday), 9:00 - 10:30",
+      "match": "exact"
+    },
+    "miccai-2022-Paper1938": {
+      "type": "oral",
+      "session_id": "1",
+      "session_title": "Computer Aided Diagnosis",
+      "day": "Sept 19, 2022 (Monday), 9:00 - 10:30",
+      "match": "exact"
+    },
+    "miccai-2022-Paper1698": {
+      "type": "oral",
+      "session_id": "1",
+      "session_title": "Computer Aided Diagnosis",
+      "day": "Sept 19, 2022 (Monday), 9:00 - 10:30",
+      "match": "exact"
+    },
+    "miccai-2022-Paper2316": {
+      "type": "oral",
+      "session_id": "1",
+      "session_title": "Computer Aided Diagnosis",
+      "day": "Sept 19, 2022 (Monday), 9:00 - 10:30",
+      "match": "exact"
+    },
+    "miccai-2022-Paper0324": {
+      "type": "oral",
+      "session_id": "2",
+      "session_title": "Interpretability/Uncertainty",
+      "day": "Sept 19, 2022 (Monday), 13:30 - 14:30",
+      "match": "exact"
+    },
+    "miccai-2022-Paper1328": {
+      "type": "oral",
+      "session_id": "2",
+      "session_title": "Interpretability/Uncertainty",
+      "day": "Sept 19, 2022 (Monday), 13:30 - 14:30",
+      "match": "exact"
+    },
+    "miccai-2022-Paper1476": {
+      "type": "oral",
+      "session_id": "2",
+      "session_title": "Interpretability/Uncertainty",
+      "day": "Sept 19, 2022 (Monday), 13:30 - 14:30",
+      "match": "exact"
+    },
+    "miccai-2022-Paper2344": {
+      "type": "oral",
+      "session_id": "2",
+      "session_title": "Interpretability/Uncertainty",
+      "day": "Sept 19, 2022 (Monday), 13:30 - 14:30",
+      "match": "exact"
+    },
+    "miccai-2022-Paper0280": {
+      "type": "oral",
+      "session_id": "3",
+      "session_title": "Surgical Data Science",
+      "day": "Sept 19, 2022 (Monday), 15:30 - 17:00",
+      "match": "exact"
+    },
+    "miccai-2022-Paper1091": {
+      "type": "oral",
+      "session_id": "3",
+      "session_title": "Surgical Data Science",
+      "day": "Sept 19, 2022 (Monday), 15:30 - 17:00",
+      "match": "exact"
+    },
+    "miccai-2022-Paper1162": {
+      "type": "oral",
+      "session_id": "3",
+      "session_title": "Surgical Data Science",
+      "day": "Sept 19, 2022 (Monday), 15:30 - 17:00",
+      "match": "exact"
+    },
+    "miccai-2022-Paper1512": {
+      "type": "oral",
+      "session_id": "3",
+      "session_title": "Surgical Data Science",
+      "day": "Sept 19, 2022 (Monday), 15:30 - 17:00",
+      "match": "exact"
+    },
+    "miccai-2022-Paper2513": {
+      "type": "oral",
+      "session_id": "3",
+      "session_title": "Surgical Data Science",
+      "day": "Sept 19, 2022 (Monday), 15:30 - 17:00",
+      "match": "exact"
+    },
+    "miccai-2022-Paper0015": {
+      "type": "oral",
+      "session_id": "4",
+      "session_title": "Image Reconstruction & Registration",
+      "day": "Sept 20, 2022 (Tuesday), 9:00 - 10:30",
+      "match": "exact"
+    },
+    "miccai-2022-Paper0974": {
+      "type": "oral",
+      "session_id": "4",
+      "session_title": "Image Reconstruction & Registration",
+      "day": "Sept 20, 2022 (Tuesday), 9:00 - 10:30",
+      "match": "exact"
+    },
+    "miccai-2022-Paper1226": {
+      "type": "oral",
+      "session_id": "4",
+      "session_title": "Image Reconstruction & Registration",
+      "day": "Sept 20, 2022 (Tuesday), 9:00 - 10:30",
+      "match": "exact"
+    },
+    "miccai-2022-Paper1782": {
+      "type": "oral",
+      "session_id": "4",
+      "session_title": "Image Reconstruction & Registration",
+      "day": "Sept 20, 2022 (Tuesday), 9:00 - 10:30",
+      "match": "exact"
+    },
+    "miccai-2022-Paper1852": {
+      "type": "oral",
+      "session_id": "4",
+      "session_title": "Image Reconstruction & Registration",
+      "day": "Sept 20, 2022 (Tuesday), 9:00 - 10:30",
+      "match": "exact"
+    },
+    "miccai-2022-Paper2428": {
+      "type": "oral",
+      "session_id": "4",
+      "session_title": "Image Reconstruction & Registration",
+      "day": "Sept 20, 2022 (Tuesday), 9:00 - 10:30",
+      "match": "exact"
+    },
+    "miccai-2022-Paper0735": {
+      "type": "oral",
+      "session_id": "5",
+      "session_title": "Microscopy Image Analysis",
+      "day": "Sept 20, 2022 (Tuesday), 13:30 - 14:30",
+      "match": "exact"
+    },
+    "miccai-2022-Paper1173": {
+      "type": "oral",
+      "session_id": "5",
+      "session_title": "Microscopy Image Analysis",
+      "day": "Sept 20, 2022 (Tuesday), 13:30 - 14:30",
+      "match": "exact"
+    },
+    "miccai-2022-Paper1447": {
+      "type": "oral",
+      "session_id": "5",
+      "session_title": "Microscopy Image Analysis",
+      "day": "Sept 20, 2022 (Tuesday), 13:30 - 14:30",
+      "match": "exact"
+    },
+    "miccai-2022-Paper1454": {
+      "type": "oral",
+      "session_id": "5",
+      "session_title": "Microscopy Image Analysis",
+      "day": "Sept 20, 2022 (Tuesday), 13:30 - 14:30",
+      "match": "exact"
+    },
+    "miccai-2022-Paper0239": {
+      "type": "oral",
+      "session_id": "6",
+      "session_title": "Image Segmentation",
+      "day": "Sept 20, 2022 (Tuesday), 15:30 - 17:00",
+      "match": "exact"
+    },
+    "miccai-2022-Paper1473": {
+      "type": "oral",
+      "session_id": "6",
+      "session_title": "Image Segmentation",
+      "day": "Sept 20, 2022 (Tuesday), 15:30 - 17:00",
+      "match": "exact"
+    },
+    "miccai-2022-Paper1504": {
+      "type": "oral",
+      "session_id": "6",
+      "session_title": "Image Segmentation",
+      "day": "Sept 20, 2022 (Tuesday), 15:30 - 17:00",
+      "match": "exact"
+    },
+    "miccai-2022-Paper1693": {
+      "type": "oral",
+      "session_id": "6",
+      "session_title": "Image Segmentation",
+      "day": "Sept 20, 2022 (Tuesday), 15:30 - 17:00",
+      "match": "exact"
+    },
+    "miccai-2022-Paper2156": {
+      "type": "oral",
+      "session_id": "6",
+      "session_title": "Image Segmentation",
+      "day": "Sept 20, 2022 (Tuesday), 15:30 - 17:00",
+      "match": "exact"
+    },
+    "miccai-2022-Paper2184": {
+      "type": "oral",
+      "session_id": "6",
+      "session_title": "Image Segmentation",
+      "day": "Sept 20, 2022 (Tuesday), 15:30 - 17:00",
+      "match": "exact"
+    },
+    "miccai-2022-Paper0144": {
+      "type": "oral",
+      "session_id": "7",
+      "session_title": "Surgical Planning & Simulation",
+      "day": "Sept 21, 2022 (Wednesday), 8:30 - 9:30",
+      "match": "exact"
+    },
+    "miccai-2022-Paper1527": {
+      "type": "oral",
+      "session_id": "7",
+      "session_title": "Surgical Planning & Simulation",
+      "day": "Sept 21, 2022 (Wednesday), 8:30 - 9:30",
+      "match": "exact"
+    },
+    "miccai-2022-Paper1806": {
+      "type": "oral",
+      "session_id": "7",
+      "session_title": "Surgical Planning & Simulation",
+      "day": "Sept 21, 2022 (Wednesday), 8:30 - 9:30",
+      "match": "exact"
+    },
+    "miccai-2022-Paper2496": {
+      "type": "oral",
+      "session_id": "7",
+      "session_title": "Surgical Planning & Simulation",
+      "day": "Sept 21, 2022 (Wednesday), 8:30 - 9:30",
+      "match": "exact"
+    },
+    "miccai-2022-Paper0194": {
+      "type": "oral",
+      "session_id": "8",
+      "session_title": "Integration Beyond Imaging",
+      "day": "Sept 21, 2022 (Wednesday), 13:30 - 15:00",
+      "match": "exact"
+    },
+    "miccai-2022-Paper0417": {
+      "type": "oral",
+      "session_id": "8",
+      "session_title": "Integration Beyond Imaging",
+      "day": "Sept 21, 2022 (Wednesday), 13:30 - 15:00",
+      "match": "exact"
+    },
+    "miccai-2022-Paper1682": {
+      "type": "oral",
+      "session_id": "8",
+      "session_title": "Integration Beyond Imaging",
+      "day": "Sept 21, 2022 (Wednesday), 13:30 - 15:00",
+      "match": "exact"
+    },
+    "miccai-2022-Paper2619": {
+      "type": "oral",
+      "session_id": "8",
+      "session_title": "Integration Beyond Imaging",
+      "day": "Sept 21, 2022 (Wednesday), 13:30 - 15:00",
+      "match": "exact"
+    },
+    "miccai-2022-Paper1279": {
+      "type": "oral",
+      "session_id": "8",
+      "session_title": "Integration Beyond Imaging",
+      "day": "Sept 21, 2022 (Wednesday), 13:30 - 15:00",
+      "match": "exact"
+    },
+    "miccai-2022-Paper2742": {
+      "type": "oral",
+      "session_id": "8",
+      "session_title": "Integration Beyond Imaging",
+      "day": "Sept 21, 2022 (Wednesday), 13:30 - 15:00",
+      "match": "exact"
+    },
+    "miccai-2023-Paper0495": {
+      "type": "oral",
+      "session_id": "1",
+      "session_title": "Clinical Translation I – Medical Image Computing",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper0231": {
+      "type": "oral",
+      "session_id": "1",
+      "session_title": "Clinical Translation I – Medical Image Computing",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper2463": {
+      "type": "oral",
+      "session_id": "1",
+      "session_title": "Clinical Translation I – Medical Image Computing",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper1157": {
+      "type": "oral",
+      "session_id": "1",
+      "session_title": "Clinical Translation I – Medical Image Computing",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper1847": {
+      "type": "oral",
+      "session_id": "2",
+      "session_title": "Computational Pathology",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper3175": {
+      "type": "oral",
+      "session_id": "2",
+      "session_title": "Computational Pathology",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper1312": {
+      "type": "oral",
+      "session_id": "2",
+      "session_title": "Computational Pathology",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper2719": {
+      "type": "oral",
+      "session_id": "2",
+      "session_title": "Computational Pathology",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper2548": {
+      "type": "oral",
+      "session_id": "2",
+      "session_title": "Computational Pathology",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper0742": {
+      "type": "oral",
+      "session_id": "2",
+      "session_title": "Computational Pathology",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper2360": {
+      "type": "oral",
+      "session_id": "3",
+      "session_title": "Machine Learning I – Semi-Supervised & Self-Supervised",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper1614": {
+      "type": "oral",
+      "session_id": "3",
+      "session_title": "Machine Learning I – Semi-Supervised & Self-Supervised",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper2450": {
+      "type": "oral",
+      "session_id": "3",
+      "session_title": "Machine Learning I – Semi-Supervised & Self-Supervised",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper2419": {
+      "type": "oral",
+      "session_id": "3",
+      "session_title": "Machine Learning I – Semi-Supervised & Self-Supervised",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper0176": {
+      "type": "oral",
+      "session_id": "3",
+      "session_title": "Machine Learning I – Semi-Supervised & Self-Supervised",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper0603": {
+      "type": "oral",
+      "session_id": "3",
+      "session_title": "Machine Learning I – Semi-Supervised & Self-Supervised",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper1410": {
+      "type": "oral",
+      "session_id": "4",
+      "session_title": "Computer Assisted Interventions and Surgery",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper2722": {
+      "type": "oral",
+      "session_id": "4",
+      "session_title": "Computer Assisted Interventions and Surgery",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper3362": {
+      "type": "oral",
+      "session_id": "4",
+      "session_title": "Computer Assisted Interventions and Surgery",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper1213": {
+      "type": "oral",
+      "session_id": "4",
+      "session_title": "Computer Assisted Interventions and Surgery",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper3247": {
+      "type": "oral",
+      "session_id": "4",
+      "session_title": "Computer Assisted Interventions and Surgery",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper1001": {
+      "type": "oral",
+      "session_id": "4",
+      "session_title": "Computer Assisted Interventions and Surgery",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper1676": {
+      "type": "oral",
+      "session_id": "5",
+      "session_title": "Machine Learning II – Towards Transparent AI",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper1461": {
+      "type": "oral",
+      "session_id": "5",
+      "session_title": "Machine Learning II – Towards Transparent AI",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper2128": {
+      "type": "oral",
+      "session_id": "5",
+      "session_title": "Machine Learning II – Towards Transparent AI",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper0682": {
+      "type": "oral",
+      "session_id": "5",
+      "session_title": "Machine Learning II – Towards Transparent AI",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper3214": {
+      "type": "oral",
+      "session_id": "5",
+      "session_title": "Machine Learning II – Towards Transparent AI",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper0753": {
+      "type": "oral",
+      "session_id": "5",
+      "session_title": "Machine Learning II – Towards Transparent AI",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper1793": {
+      "type": "oral",
+      "session_id": "6",
+      "session_title": "Neuroimaging – Morphology to Functionality",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper3659": {
+      "type": "oral",
+      "session_id": "6",
+      "session_title": "Neuroimaging – Morphology to Functionality",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper2908": {
+      "type": "oral",
+      "session_id": "6",
+      "session_title": "Neuroimaging – Morphology to Functionality",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper2485": {
+      "type": "oral",
+      "session_id": "6",
+      "session_title": "Neuroimaging – Morphology to Functionality",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper2917": {
+      "type": "oral",
+      "session_id": "6",
+      "session_title": "Neuroimaging – Morphology to Functionality",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper1392": {
+      "type": "oral",
+      "session_id": "6",
+      "session_title": "Neuroimaging – Morphology to Functionality",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper2564": {
+      "type": "oral",
+      "session_id": "7",
+      "session_title": "Computer Aided Diagnosis with Longitudinal and Multi-modal Data",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper0455": {
+      "type": "oral",
+      "session_id": "7",
+      "session_title": "Computer Aided Diagnosis with Longitudinal and Multi-modal Data",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper0843": {
+      "type": "oral",
+      "session_id": "7",
+      "session_title": "Computer Aided Diagnosis with Longitudinal and Multi-modal Data",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper1899": {
+      "type": "oral",
+      "session_id": "7",
+      "session_title": "Computer Aided Diagnosis with Longitudinal and Multi-modal Data",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper1768": {
+      "type": "oral",
+      "session_id": "7",
+      "session_title": "Computer Aided Diagnosis with Longitudinal and Multi-modal Data",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper2572": {
+      "type": "oral",
+      "session_id": "7",
+      "session_title": "Computer Aided Diagnosis with Longitudinal and Multi-modal Data",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper3443": {
+      "type": "oral",
+      "session_id": "8",
+      "session_title": "Surgical Visualization and Data Science",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper2156": {
+      "type": "oral",
+      "session_id": "8",
+      "session_title": "Surgical Visualization and Data Science",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper2092": {
+      "type": "oral",
+      "session_id": "8",
+      "session_title": "Surgical Visualization and Data Science",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper0178": {
+      "type": "oral",
+      "session_id": "8",
+      "session_title": "Surgical Visualization and Data Science",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper0518": {
+      "type": "oral",
+      "session_id": "8",
+      "session_title": "Surgical Visualization and Data Science",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper1160": {
+      "type": "oral",
+      "session_id": "8",
+      "session_title": "Surgical Visualization and Data Science",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper0466": {
+      "type": "oral",
+      "session_id": "9",
+      "session_title": "Segmentation – Methods and Applications",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper1663": {
+      "type": "oral",
+      "session_id": "9",
+      "session_title": "Segmentation – Methods and Applications",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper0622": {
+      "type": "oral",
+      "session_id": "9",
+      "session_title": "Segmentation – Methods and Applications",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper1597": {
+      "type": "oral",
+      "session_id": "9",
+      "session_title": "Segmentation – Methods and Applications",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper3152": {
+      "type": "oral",
+      "session_id": "9",
+      "session_title": "Segmentation – Methods and Applications",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper2102": {
+      "type": "oral",
+      "session_id": "9",
+      "session_title": "Segmentation – Methods and Applications",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper2512": {
+      "type": "oral",
+      "session_id": "10",
+      "session_title": "Clinical Translation II – Computer Assisted Intervention",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper3392": {
+      "type": "oral",
+      "session_id": "10",
+      "session_title": "Clinical Translation II – Computer Assisted Intervention",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper0986": {
+      "type": "oral",
+      "session_id": "10",
+      "session_title": "Clinical Translation II – Computer Assisted Intervention",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper2247": {
+      "type": "oral",
+      "session_id": "10",
+      "session_title": "Clinical Translation II – Computer Assisted Intervention",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper1836": {
+      "type": "oral",
+      "session_id": "11",
+      "session_title": "Machine Learning III – Advances in Learning Strategies",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper2884": {
+      "type": "oral",
+      "session_id": "11",
+      "session_title": "Machine Learning III – Advances in Learning Strategies",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper3011": {
+      "type": "oral",
+      "session_id": "11",
+      "session_title": "Machine Learning III – Advances in Learning Strategies",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper0216": {
+      "type": "oral",
+      "session_id": "11",
+      "session_title": "Machine Learning III – Advances in Learning Strategies",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper2990": {
+      "type": "oral",
+      "session_id": "11",
+      "session_title": "Machine Learning III – Advances in Learning Strategies",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper2474": {
+      "type": "oral",
+      "session_id": "11",
+      "session_title": "Machine Learning III – Advances in Learning Strategies",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper2993": {
+      "type": "oral",
+      "session_id": "12",
+      "session_title": "Physics-based Image Formation and Reconstruction",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper1717": {
+      "type": "oral",
+      "session_id": "12",
+      "session_title": "Physics-based Image Formation and Reconstruction",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper0561": {
+      "type": "oral",
+      "session_id": "12",
+      "session_title": "Physics-based Image Formation and Reconstruction",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper1728": {
+      "type": "oral",
+      "session_id": "12",
+      "session_title": "Physics-based Image Formation and Reconstruction",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper1024": {
+      "type": "oral",
+      "session_id": "12",
+      "session_title": "Physics-based Image Formation and Reconstruction",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2023-Paper1303": {
+      "type": "oral",
+      "session_id": "12",
+      "session_title": "Physics-based Image Formation and Reconstruction",
+      "day": null,
+      "match": "exact"
+    },
+    "miccai-2024-Paper3611": {
+      "type": "oral",
+      "session_id": "1",
+      "session_title": "Generative modelling: Image Reconstruction and Synthesis",
+      "day": "Monday, October 7, 2024, 11:30 to 12:30",
+      "match": "exact"
+    },
+    "miccai-2024-Paper0748": {
+      "type": "oral",
+      "session_id": "1",
+      "session_title": "Generative modelling: Image Reconstruction and Synthesis",
+      "day": "Monday, October 7, 2024, 11:30 to 12:30",
+      "match": "exact"
+    },
+    "miccai-2024-Paper1246": {
+      "type": "oral",
+      "session_id": "1",
+      "session_title": "Generative modelling: Image Reconstruction and Synthesis",
+      "day": "Monday, October 7, 2024, 11:30 to 12:30",
+      "match": "exact"
+    },
+    "miccai-2024-Paper2125": {
+      "type": "oral",
+      "session_id": "1",
+      "session_title": "Generative modelling: Image Reconstruction and Synthesis",
+      "day": "Monday, October 7, 2024, 11:30 to 12:30",
+      "match": "exact"
+    },
+    "miccai-2024-Paper0310": {
+      "type": "oral",
+      "session_id": "2",
+      "session_title": "Surgical Scene Understanding",
+      "day": "Monday, October 7, 2024, 11:30 to 12:30",
+      "match": "exact"
+    },
+    "miccai-2024-Paper1856": {
+      "type": "oral",
+      "session_id": "2",
+      "session_title": "Surgical Scene Understanding",
+      "day": "Monday, October 7, 2024, 11:30 to 12:30",
+      "match": "exact"
+    },
+    "miccai-2024-Paper1520": {
+      "type": "oral",
+      "session_id": "2",
+      "session_title": "Surgical Scene Understanding",
+      "day": "Monday, October 7, 2024, 11:30 to 12:30",
+      "match": "exact"
+    },
+    "miccai-2024-Paper1332": {
+      "type": "oral",
+      "session_id": "2",
+      "session_title": "Surgical Scene Understanding",
+      "day": "Monday, October 7, 2024, 11:30 to 12:30",
+      "match": "exact"
+    },
+    "miccai-2024-Paper0195": {
+      "type": "oral",
+      "session_id": "3",
+      "session_title": "Machine Learning Strategies for MICCAI",
+      "day": "Monday, October 7, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper2916": {
+      "type": "oral",
+      "session_id": "3",
+      "session_title": "Machine Learning Strategies for MICCAI",
+      "day": "Monday, October 7, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper0102": {
+      "type": "oral",
+      "session_id": "3",
+      "session_title": "Machine Learning Strategies for MICCAI",
+      "day": "Monday, October 7, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper3260": {
+      "type": "oral",
+      "session_id": "3",
+      "session_title": "Machine Learning Strategies for MICCAI",
+      "day": "Monday, October 7, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper2774": {
+      "type": "oral",
+      "session_id": "3",
+      "session_title": "Machine Learning Strategies for MICCAI",
+      "day": "Monday, October 7, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper0165": {
+      "type": "spotlight",
+      "session_id": "3",
+      "session_title": "Machine Learning Strategies for MICCAI",
+      "day": "Monday, October 7, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper2320": {
+      "type": "spotlight",
+      "session_id": "3",
+      "session_title": "Machine Learning Strategies for MICCAI",
+      "day": "Monday, October 7, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper0605": {
+      "type": "spotlight",
+      "session_id": "3",
+      "session_title": "Machine Learning Strategies for MICCAI",
+      "day": "Monday, October 7, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper1426": {
+      "type": "oral",
+      "session_id": "4",
+      "session_title": "Health Equity: Care for All",
+      "day": "Monday, October 7, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper3722": {
+      "type": "oral",
+      "session_id": "4",
+      "session_title": "Health Equity: Care for All",
+      "day": "Monday, October 7, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper1516": {
+      "type": "oral",
+      "session_id": "4",
+      "session_title": "Health Equity: Care for All",
+      "day": "Monday, October 7, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper0234": {
+      "type": "oral",
+      "session_id": "4",
+      "session_title": "Health Equity: Care for All",
+      "day": "Monday, October 7, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper1328": {
+      "type": "oral",
+      "session_id": "4",
+      "session_title": "Health Equity: Care for All",
+      "day": "Monday, October 7, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper1807": {
+      "type": "spotlight",
+      "session_id": "4",
+      "session_title": "Health Equity: Care for All",
+      "day": "Monday, October 7, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper3105": {
+      "type": "spotlight",
+      "session_id": "4",
+      "session_title": "Health Equity: Care for All",
+      "day": "Monday, October 7, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper2402": {
+      "type": "spotlight",
+      "session_id": "4",
+      "session_title": "Health Equity: Care for All",
+      "day": "Monday, October 7, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper1358": {
+      "type": "oral",
+      "session_id": "5",
+      "session_title": "Computer Aided Diagnosis",
+      "day": "Monday, October 7, 2024, 16:30 to 18:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper1149": {
+      "type": "oral",
+      "session_id": "5",
+      "session_title": "Computer Aided Diagnosis",
+      "day": "Monday, October 7, 2024, 16:30 to 18:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper0658": {
+      "type": "oral",
+      "session_id": "5",
+      "session_title": "Computer Aided Diagnosis",
+      "day": "Monday, October 7, 2024, 16:30 to 18:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper3284": {
+      "type": "oral",
+      "session_id": "5",
+      "session_title": "Computer Aided Diagnosis",
+      "day": "Monday, October 7, 2024, 16:30 to 18:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper2802": {
+      "type": "oral",
+      "session_id": "5",
+      "session_title": "Computer Aided Diagnosis",
+      "day": "Monday, October 7, 2024, 16:30 to 18:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper1861": {
+      "type": "oral",
+      "session_id": "5",
+      "session_title": "Computer Aided Diagnosis",
+      "day": "Monday, October 7, 2024, 16:30 to 18:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper0453": {
+      "type": "oral",
+      "session_id": "6",
+      "session_title": "Clinical Translation: Functional Imaging and Oncology",
+      "day": "Monday, October 7, 2024, 16:30 to 18:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper1687": {
+      "type": "oral",
+      "session_id": "6",
+      "session_title": "Clinical Translation: Functional Imaging and Oncology",
+      "day": "Monday, October 7, 2024, 16:30 to 18:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper1063": {
+      "type": "oral",
+      "session_id": "6",
+      "session_title": "Clinical Translation: Functional Imaging and Oncology",
+      "day": "Monday, October 7, 2024, 16:30 to 18:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper1554": {
+      "type": "oral",
+      "session_id": "6",
+      "session_title": "Clinical Translation: Functional Imaging and Oncology",
+      "day": "Monday, October 7, 2024, 16:30 to 18:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper1370": {
+      "type": "oral",
+      "session_id": "6",
+      "session_title": "Clinical Translation: Functional Imaging and Oncology",
+      "day": "Monday, October 7, 2024, 16:30 to 18:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper3180": {
+      "type": "oral",
+      "session_id": "6",
+      "session_title": "Clinical Translation: Functional Imaging and Oncology",
+      "day": "Monday, October 7, 2024, 16:30 to 18:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper2191": {
+      "type": "oral",
+      "session_id": "7",
+      "session_title": "Health Equity: Low Resource Settings",
+      "day": "Tuesday, October 8, 2024, 8:30 to 9:30",
+      "match": "exact"
+    },
+    "miccai-2024-Paper2336": {
+      "type": "oral",
+      "session_id": "7",
+      "session_title": "Health Equity: Low Resource Settings",
+      "day": "Tuesday, October 8, 2024, 8:30 to 9:30",
+      "match": "exact"
+    },
+    "miccai-2024-Paper2279": {
+      "type": "oral",
+      "session_id": "7",
+      "session_title": "Health Equity: Low Resource Settings",
+      "day": "Tuesday, October 8, 2024, 8:30 to 9:30",
+      "match": "exact"
+    },
+    "miccai-2024-Paper1551": {
+      "type": "oral",
+      "session_id": "7",
+      "session_title": "Health Equity: Low Resource Settings",
+      "day": "Tuesday, October 8, 2024, 8:30 to 9:30",
+      "match": "exact"
+    },
+    "miccai-2024-Paper2260": {
+      "type": "oral",
+      "session_id": "8",
+      "session_title": "Image Registration",
+      "day": "Tuesday, October 8, 2024, 8:30 to 9:30",
+      "match": "exact"
+    },
+    "miccai-2024-Paper1899": {
+      "type": "oral",
+      "session_id": "8",
+      "session_title": "Image Registration",
+      "day": "Tuesday, October 8, 2024, 8:30 to 9:30",
+      "match": "exact"
+    },
+    "miccai-2024-Paper1172": {
+      "type": "oral",
+      "session_id": "8",
+      "session_title": "Image Registration",
+      "day": "Tuesday, October 8, 2024, 8:30 to 9:30",
+      "match": "exact"
+    },
+    "miccai-2024-Paper3212": {
+      "type": "oral",
+      "session_id": "8",
+      "session_title": "Image Registration",
+      "day": "Tuesday, October 8, 2024, 8:30 to 9:30",
+      "match": "exact"
+    },
+    "miccai-2024-Paper2829": {
+      "type": "oral",
+      "session_id": "9",
+      "session_title": "Image Segmentation",
+      "day": "Tuesday, October 8, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper4020": {
+      "type": "oral",
+      "session_id": "9",
+      "session_title": "Image Segmentation",
+      "day": "Tuesday, October 8, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper3528": {
+      "type": "oral",
+      "session_id": "9",
+      "session_title": "Image Segmentation",
+      "day": "Tuesday, October 8, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper1439": {
+      "type": "oral",
+      "session_id": "9",
+      "session_title": "Image Segmentation",
+      "day": "Tuesday, October 8, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper1365": {
+      "type": "oral",
+      "session_id": "9",
+      "session_title": "Image Segmentation",
+      "day": "Tuesday, October 8, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper0245": {
+      "type": "spotlight",
+      "session_id": "9",
+      "session_title": "Image Segmentation",
+      "day": "Tuesday, October 8, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper0663": {
+      "type": "spotlight",
+      "session_id": "9",
+      "session_title": "Image Segmentation",
+      "day": "Tuesday, October 8, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper0415": {
+      "type": "spotlight",
+      "session_id": "9",
+      "session_title": "Image Segmentation",
+      "day": "Tuesday, October 8, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper1466": {
+      "type": "oral",
+      "session_id": "10",
+      "session_title": "Foundation Models and Multimodal Data for MICCAI",
+      "day": "Tuesday, October 8, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper2644": {
+      "type": "oral",
+      "session_id": "10",
+      "session_title": "Foundation Models and Multimodal Data for MICCAI",
+      "day": "Tuesday, October 8, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper1489": {
+      "type": "oral",
+      "session_id": "10",
+      "session_title": "Foundation Models and Multimodal Data for MICCAI",
+      "day": "Tuesday, October 8, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper1759": {
+      "type": "oral",
+      "session_id": "10",
+      "session_title": "Foundation Models and Multimodal Data for MICCAI",
+      "day": "Tuesday, October 8, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper1472": {
+      "type": "oral",
+      "session_id": "10",
+      "session_title": "Foundation Models and Multimodal Data for MICCAI",
+      "day": "Tuesday, October 8, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper0668": {
+      "type": "spotlight",
+      "session_id": "10",
+      "session_title": "Foundation Models and Multimodal Data for MICCAI",
+      "day": "Tuesday, October 8, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper1276": {
+      "type": "spotlight",
+      "session_id": "10",
+      "session_title": "Foundation Models and Multimodal Data for MICCAI",
+      "day": "Tuesday, October 8, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper3820": {
+      "type": "spotlight",
+      "session_id": "10",
+      "session_title": "Foundation Models and Multimodal Data for MICCAI",
+      "day": "Tuesday, October 8, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper4180": {
+      "type": "oral",
+      "session_id": "11",
+      "session_title": "Transparency, Fairness and Uncertainty",
+      "day": "Tuesday, October 8, 2024, 16:30 to 18:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper1306": {
+      "type": "oral",
+      "session_id": "11",
+      "session_title": "Transparency, Fairness and Uncertainty",
+      "day": "Tuesday, October 8, 2024, 16:30 to 18:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper4008": {
+      "type": "oral",
+      "session_id": "11",
+      "session_title": "Transparency, Fairness and Uncertainty",
+      "day": "Tuesday, October 8, 2024, 16:30 to 18:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper2799": {
+      "type": "oral",
+      "session_id": "11",
+      "session_title": "Transparency, Fairness and Uncertainty",
+      "day": "Tuesday, October 8, 2024, 16:30 to 18:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper2427": {
+      "type": "oral",
+      "session_id": "11",
+      "session_title": "Transparency, Fairness and Uncertainty",
+      "day": "Tuesday, October 8, 2024, 16:30 to 18:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper2943": {
+      "type": "oral",
+      "session_id": "11",
+      "session_title": "Transparency, Fairness and Uncertainty",
+      "day": "Tuesday, October 8, 2024, 16:30 to 18:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper3403": {
+      "type": "oral",
+      "session_id": "12",
+      "session_title": "Surgical Data Science",
+      "day": "Tuesday, October 8, 2024, 16:30 to 18:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper0311": {
+      "type": "oral",
+      "session_id": "12",
+      "session_title": "Surgical Data Science",
+      "day": "Tuesday, October 8, 2024, 16:30 to 18:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper3323": {
+      "type": "oral",
+      "session_id": "12",
+      "session_title": "Surgical Data Science",
+      "day": "Tuesday, October 8, 2024, 16:30 to 18:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper2092": {
+      "type": "oral",
+      "session_id": "12",
+      "session_title": "Surgical Data Science",
+      "day": "Tuesday, October 8, 2024, 16:30 to 18:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper3401": {
+      "type": "oral",
+      "session_id": "12",
+      "session_title": "Surgical Data Science",
+      "day": "Tuesday, October 8, 2024, 16:30 to 18:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper0757": {
+      "type": "oral",
+      "session_id": "12",
+      "session_title": "Surgical Data Science",
+      "day": "Tuesday, October 8, 2024, 16:30 to 18:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper0511": {
+      "type": "oral",
+      "session_id": "13",
+      "session_title": "Neuroimaging",
+      "day": "Wednesday, October 9, 2024, 8:30 to 9:30",
+      "match": "exact"
+    },
+    "miccai-2024-Paper3725": {
+      "type": "oral",
+      "session_id": "13",
+      "session_title": "Neuroimaging",
+      "day": "Wednesday, October 9, 2024, 8:30 to 9:30",
+      "match": "exact"
+    },
+    "miccai-2024-Paper1241": {
+      "type": "oral",
+      "session_id": "13",
+      "session_title": "Neuroimaging",
+      "day": "Wednesday, October 9, 2024, 8:30 to 9:30",
+      "match": "exact"
+    },
+    "miccai-2024-Paper1898": {
+      "type": "oral",
+      "session_id": "13",
+      "session_title": "Neuroimaging",
+      "day": "Wednesday, October 9, 2024, 8:30 to 9:30",
+      "match": "exact"
+    },
+    "miccai-2024-Paper0761": {
+      "type": "oral",
+      "session_id": "14",
+      "session_title": "Computational Pathology",
+      "day": "Wednesday, October 9, 2024, 8:30 to 9:30",
+      "match": "exact"
+    },
+    "miccai-2024-Paper1741": {
+      "type": "oral",
+      "session_id": "14",
+      "session_title": "Computational Pathology",
+      "day": "Wednesday, October 9, 2024, 8:30 to 9:30",
+      "match": "exact"
+    },
+    "miccai-2024-Paper1368": {
+      "type": "oral",
+      "session_id": "14",
+      "session_title": "Computational Pathology",
+      "day": "Wednesday, October 9, 2024, 8:30 to 9:30",
+      "match": "exact"
+    },
+    "miccai-2024-Paper2459": {
+      "type": "oral",
+      "session_id": "14",
+      "session_title": "Computational Pathology",
+      "day": "Wednesday, October 9, 2024, 8:30 to 9:30",
+      "match": "exact"
+    },
+    "miccai-2024-Paper1110": {
+      "type": "oral",
+      "session_id": "15",
+      "session_title": "Computer Assisted Interventions",
+      "day": "Wednesday, October 9, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper1656": {
+      "type": "oral",
+      "session_id": "15",
+      "session_title": "Computer Assisted Interventions",
+      "day": "Wednesday, October 9, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper0771": {
+      "type": "oral",
+      "session_id": "15",
+      "session_title": "Computer Assisted Interventions",
+      "day": "Wednesday, October 9, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper3454": {
+      "type": "oral",
+      "session_id": "15",
+      "session_title": "Computer Assisted Interventions",
+      "day": "Wednesday, October 9, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper0242": {
+      "type": "oral",
+      "session_id": "15",
+      "session_title": "Computer Assisted Interventions",
+      "day": "Wednesday, October 9, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper0376": {
+      "type": "spotlight",
+      "session_id": "15",
+      "session_title": "Computer Assisted Interventions",
+      "day": "Wednesday, October 9, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper1481": {
+      "type": "spotlight",
+      "session_id": "15",
+      "session_title": "Computer Assisted Interventions",
+      "day": "Wednesday, October 9, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper0638": {
+      "type": "spotlight",
+      "session_id": "15",
+      "session_title": "Computer Assisted Interventions",
+      "day": "Wednesday, October 9, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper2031": {
+      "type": "oral",
+      "session_id": "16",
+      "session_title": "Clinical Translation: Neuro, Spine and Ultrasound",
+      "day": "Wednesday, October 9, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper1638": {
+      "type": "oral",
+      "session_id": "16",
+      "session_title": "Clinical Translation: Neuro, Spine and Ultrasound",
+      "day": "Wednesday, October 9, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper0306": {
+      "type": "oral",
+      "session_id": "16",
+      "session_title": "Clinical Translation: Neuro, Spine and Ultrasound",
+      "day": "Wednesday, October 9, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper2277": {
+      "type": "oral",
+      "session_id": "16",
+      "session_title": "Clinical Translation: Neuro, Spine and Ultrasound",
+      "day": "Wednesday, October 9, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper1321": {
+      "type": "oral",
+      "session_id": "16",
+      "session_title": "Clinical Translation: Neuro, Spine and Ultrasound",
+      "day": "Wednesday, October 9, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper0293": {
+      "type": "spotlight",
+      "session_id": "16",
+      "session_title": "Clinical Translation: Neuro, Spine and Ultrasound",
+      "day": "Wednesday, October 9, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper3962": {
+      "type": "spotlight",
+      "session_id": "16",
+      "session_title": "Clinical Translation: Neuro, Spine and Ultrasound",
+      "day": "Wednesday, October 9, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2024-Paper1510": {
+      "type": "spotlight",
+      "session_id": "16",
+      "session_title": "Clinical Translation: Neuro, Spine and Ultrasound",
+      "day": "Wednesday, October 9, 2024, 13:30 to 15:00",
+      "match": "exact"
+    },
+    "miccai-2025-Paper2258": {
+      "type": "spotlight",
+      "session_id": "1",
+      "session_title": "Augmented Reality and Video Generation",
+      "day": "Wednesday, September 24, 2025, 10:30 to 12:00",
+      "match": "exact"
+    },
+    "miccai-2025-Paper1034": {
+      "type": "spotlight",
+      "session_id": "1",
+      "session_title": "Augmented Reality and Video Generation",
+      "day": "Wednesday, September 24, 2025, 10:30 to 12:00",
+      "match": "exact"
+    },
+    "miccai-2025-Paper1222": {
+      "type": "spotlight",
+      "session_id": "1",
+      "session_title": "Augmented Reality and Video Generation",
+      "day": "Wednesday, September 24, 2025, 10:30 to 12:00",
+      "match": "exact"
+    },
+    "miccai-2025-Paper1410": {
+      "type": "spotlight",
+      "session_id": "1",
+      "session_title": "Augmented Reality and Video Generation",
+      "day": "Wednesday, September 24, 2025, 10:30 to 12:00",
+      "match": "exact"
+    },
+    "miccai-2025-Paper1634": {
+      "type": "spotlight",
+      "session_id": "1",
+      "session_title": "Augmented Reality and Video Generation",
+      "day": "Wednesday, September 24, 2025, 10:30 to 12:00",
+      "match": "exact"
+    },
+    "miccai-2025-Paper2138": {
+      "type": "spotlight",
+      "session_id": "1",
+      "session_title": "Augmented Reality and Video Generation",
+      "day": "Wednesday, September 24, 2025, 10:30 to 12:00",
+      "match": "exact"
+    },
+    "miccai-2025-Paper2021": {
+      "type": "oral",
+      "session_id": "1",
+      "session_title": "Augmented Reality and Video Generation",
+      "day": "Wednesday, September 24, 2025, 10:30 to 12:00",
+      "match": "exact"
+    },
+    "miccai-2025-Paper1768": {
+      "type": "oral",
+      "session_id": "1",
+      "session_title": "Augmented Reality and Video Generation",
+      "day": "Wednesday, September 24, 2025, 10:30 to 12:00",
+      "match": "exact"
+    },
+    "miccai-2025-Paper0550": {
+      "type": "oral",
+      "session_id": "1",
+      "session_title": "Augmented Reality and Video Generation",
+      "day": "Wednesday, September 24, 2025, 10:30 to 12:00",
+      "match": "exact"
+    },
+    "miccai-2025-Paper4670": {
+      "type": "oral",
+      "session_id": "1",
+      "session_title": "Augmented Reality and Video Generation",
+      "day": "Wednesday, September 24, 2025, 10:30 to 12:00",
+      "match": "exact"
+    },
+    "miccai-2025-Paper4105": {
+      "type": "oral",
+      "session_id": "1",
+      "session_title": "Augmented Reality and Video Generation",
+      "day": "Wednesday, September 24, 2025, 10:30 to 12:00",
+      "match": "exact"
+    },
+    "miccai-2025-Paper5025": {
+      "type": "oral",
+      "session_id": "1",
+      "session_title": "Augmented Reality and Video Generation",
+      "day": "Wednesday, September 24, 2025, 10:30 to 12:00",
+      "match": "exact"
+    },
+    "miccai-2025-Paper0228": {
+      "type": "spotlight",
+      "session_id": "2",
+      "session_title": "Language Models - Text and Images",
+      "day": "Wednesday, September 24, 2025, 10:30 to 12:00",
+      "match": "exact"
+    },
+    "miccai-2025-Paper4536": {
+      "type": "spotlight",
+      "session_id": "2",
+      "session_title": "Language Models - Text and Images",
+      "day": "Wednesday, September 24, 2025, 10:30 to 12:00",
+      "match": "exact"
+    },
+    "miccai-2025-Paper0981": {
+      "type": "spotlight",
+      "session_id": "2",
+      "session_title": "Language Models - Text and Images",
+      "day": "Wednesday, September 24, 2025, 10:30 to 12:00",
+      "match": "exact"
+    },
+    "miccai-2025-Paper0710": {
+      "type": "spotlight",
+      "session_id": "2",
+      "session_title": "Language Models - Text and Images",
+      "day": "Wednesday, September 24, 2025, 10:30 to 12:00",
+      "match": "exact"
+    },
+    "miccai-2025-Paper0670": {
+      "type": "spotlight",
+      "session_id": "2",
+      "session_title": "Language Models - Text and Images",
+      "day": "Wednesday, September 24, 2025, 10:30 to 12:00",
+      "match": "exact"
+    },
+    "miccai-2025-Paper3688": {
+      "type": "spotlight",
+      "session_id": "2",
+      "session_title": "Language Models - Text and Images",
+      "day": "Wednesday, September 24, 2025, 10:30 to 12:00",
+      "match": "exact"
+    },
+    "miccai-2025-Paper2364": {
+      "type": "oral",
+      "session_id": "2",
+      "session_title": "Language Models - Text and Images",
+      "day": "Wednesday, September 24, 2025, 10:30 to 12:00",
+      "match": "exact"
+    },
+    "miccai-2025-Paper0994": {
+      "type": "oral",
+      "session_id": "2",
+      "session_title": "Language Models - Text and Images",
+      "day": "Wednesday, September 24, 2025, 10:30 to 12:00",
+      "match": "exact"
+    },
+    "miccai-2025-Paper4862": {
+      "type": "oral",
+      "session_id": "2",
+      "session_title": "Language Models - Text and Images",
+      "day": "Wednesday, September 24, 2025, 10:30 to 12:00",
+      "match": "exact"
+    },
+    "miccai-2025-Paper5020": {
+      "type": "oral",
+      "session_id": "2",
+      "session_title": "Language Models - Text and Images",
+      "day": "Wednesday, September 24, 2025, 10:30 to 12:00",
+      "match": "exact"
+    },
+    "miccai-2025-Paper4023": {
+      "type": "oral",
+      "session_id": "2",
+      "session_title": "Language Models - Text and Images",
+      "day": "Wednesday, September 24, 2025, 10:30 to 12:00",
+      "match": "exact"
+    },
+    "miccai-2025-Paper1470": {
+      "type": "oral",
+      "session_id": "2",
+      "session_title": "Language Models - Text and Images",
+      "day": "Wednesday, September 24, 2025, 10:30 to 12:00",
+      "match": "exact"
+    },
+    "miccai-2025-Paper3619": {
+      "type": "oral",
+      "session_id": "3",
+      "session_title": "Image Contextualization and Multimodal Fusion",
+      "day": "Wednesday, September 24, 2025, 14:30 to 15:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper3193": {
+      "type": "oral",
+      "session_id": "3",
+      "session_title": "Image Contextualization and Multimodal Fusion",
+      "day": "Wednesday, September 24, 2025, 14:30 to 15:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper2218": {
+      "type": "oral",
+      "session_id": "3",
+      "session_title": "Image Contextualization and Multimodal Fusion",
+      "day": "Wednesday, September 24, 2025, 14:30 to 15:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper0187": {
+      "type": "oral",
+      "session_id": "3",
+      "session_title": "Image Contextualization and Multimodal Fusion",
+      "day": "Wednesday, September 24, 2025, 14:30 to 15:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper4377": {
+      "type": "oral",
+      "session_id": "3",
+      "session_title": "Image Contextualization and Multimodal Fusion",
+      "day": "Wednesday, September 24, 2025, 14:30 to 15:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper2683": {
+      "type": "oral",
+      "session_id": "4",
+      "session_title": "Detection, Segmentation, and Registration",
+      "day": "Wednesday, September 24, 2025, 14:30 to 15:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper3113": {
+      "type": "oral",
+      "session_id": "4",
+      "session_title": "Detection, Segmentation, and Registration",
+      "day": "Wednesday, September 24, 2025, 14:30 to 15:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper2815": {
+      "type": "oral",
+      "session_id": "4",
+      "session_title": "Detection, Segmentation, and Registration",
+      "day": "Wednesday, September 24, 2025, 14:30 to 15:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper4381": {
+      "type": "oral",
+      "session_id": "4",
+      "session_title": "Detection, Segmentation, and Registration",
+      "day": "Wednesday, September 24, 2025, 14:30 to 15:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper5400": {
+      "type": "oral",
+      "session_id": "4",
+      "session_title": "Detection, Segmentation, and Registration",
+      "day": "Wednesday, September 24, 2025, 14:30 to 15:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper0115": {
+      "type": "spotlight",
+      "session_id": "5",
+      "session_title": "Navigation and Surgical Workflows",
+      "day": "Wednesday, September 24, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper0652": {
+      "type": "spotlight",
+      "session_id": "5",
+      "session_title": "Navigation and Surgical Workflows",
+      "day": "Wednesday, September 24, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper2085": {
+      "type": "spotlight",
+      "session_id": "5",
+      "session_title": "Navigation and Surgical Workflows",
+      "day": "Wednesday, September 24, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper3460": {
+      "type": "spotlight",
+      "session_id": "5",
+      "session_title": "Navigation and Surgical Workflows",
+      "day": "Wednesday, September 24, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper3980": {
+      "type": "spotlight",
+      "session_id": "5",
+      "session_title": "Navigation and Surgical Workflows",
+      "day": "Wednesday, September 24, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper3215": {
+      "type": "spotlight",
+      "session_id": "5",
+      "session_title": "Navigation and Surgical Workflows",
+      "day": "Wednesday, September 24, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper1396": {
+      "type": "oral",
+      "session_id": "5",
+      "session_title": "Navigation and Surgical Workflows",
+      "day": "Wednesday, September 24, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper4116": {
+      "type": "oral",
+      "session_id": "5",
+      "session_title": "Navigation and Surgical Workflows",
+      "day": "Wednesday, September 24, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper2575": {
+      "type": "oral",
+      "session_id": "5",
+      "session_title": "Navigation and Surgical Workflows",
+      "day": "Wednesday, September 24, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper2130": {
+      "type": "oral",
+      "session_id": "5",
+      "session_title": "Navigation and Surgical Workflows",
+      "day": "Wednesday, September 24, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper4509": {
+      "type": "oral",
+      "session_id": "5",
+      "session_title": "Navigation and Surgical Workflows",
+      "day": "Wednesday, September 24, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper1453": {
+      "type": "oral",
+      "session_id": "5",
+      "session_title": "Navigation and Surgical Workflows",
+      "day": "Wednesday, September 24, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper0087": {
+      "type": "spotlight",
+      "session_id": "6",
+      "session_title": "Towards Deployment, Bias, Trustworthiness, and Privacy",
+      "day": "Wednesday, September 24, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper1266": {
+      "type": "spotlight",
+      "session_id": "6",
+      "session_title": "Towards Deployment, Bias, Trustworthiness, and Privacy",
+      "day": "Wednesday, September 24, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper3881": {
+      "type": "spotlight",
+      "session_id": "6",
+      "session_title": "Towards Deployment, Bias, Trustworthiness, and Privacy",
+      "day": "Wednesday, September 24, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper1672": {
+      "type": "spotlight",
+      "session_id": "6",
+      "session_title": "Towards Deployment, Bias, Trustworthiness, and Privacy",
+      "day": "Wednesday, September 24, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper1381": {
+      "type": "spotlight",
+      "session_id": "6",
+      "session_title": "Towards Deployment, Bias, Trustworthiness, and Privacy",
+      "day": "Wednesday, September 24, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper5426": {
+      "type": "spotlight",
+      "session_id": "6",
+      "session_title": "Towards Deployment, Bias, Trustworthiness, and Privacy",
+      "day": "Wednesday, September 24, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper0430": {
+      "type": "oral",
+      "session_id": "6",
+      "session_title": "Towards Deployment, Bias, Trustworthiness, and Privacy",
+      "day": "Wednesday, September 24, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper0787": {
+      "type": "oral",
+      "session_id": "6",
+      "session_title": "Towards Deployment, Bias, Trustworthiness, and Privacy",
+      "day": "Wednesday, September 24, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper1032": {
+      "type": "oral",
+      "session_id": "6",
+      "session_title": "Towards Deployment, Bias, Trustworthiness, and Privacy",
+      "day": "Wednesday, September 24, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper1404": {
+      "type": "oral",
+      "session_id": "6",
+      "session_title": "Towards Deployment, Bias, Trustworthiness, and Privacy",
+      "day": "Wednesday, September 24, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper3136": {
+      "type": "oral",
+      "session_id": "6",
+      "session_title": "Towards Deployment, Bias, Trustworthiness, and Privacy",
+      "day": "Wednesday, September 24, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper2888": {
+      "type": "oral",
+      "session_id": "6",
+      "session_title": "Towards Deployment, Bias, Trustworthiness, and Privacy",
+      "day": "Wednesday, September 24, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper0433": {
+      "type": "oral",
+      "session_id": "7",
+      "session_title": "Data Quality, Restoration, and Super-resolution",
+      "day": "Thursday, September 25, 2025, 8:30 to 9:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper2328": {
+      "type": "oral",
+      "session_id": "7",
+      "session_title": "Data Quality, Restoration, and Super-resolution",
+      "day": "Thursday, September 25, 2025, 8:30 to 9:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper0645": {
+      "type": "oral",
+      "session_id": "7",
+      "session_title": "Data Quality, Restoration, and Super-resolution",
+      "day": "Thursday, September 25, 2025, 8:30 to 9:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper0343": {
+      "type": "oral",
+      "session_id": "7",
+      "session_title": "Data Quality, Restoration, and Super-resolution",
+      "day": "Thursday, September 25, 2025, 8:30 to 9:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper2947": {
+      "type": "oral",
+      "session_id": "7",
+      "session_title": "Data Quality, Restoration, and Super-resolution",
+      "day": "Thursday, September 25, 2025, 8:30 to 9:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper3121": {
+      "type": "oral",
+      "session_id": "8",
+      "session_title": "Explainability and Interpretability",
+      "day": "Thursday, September 25, 2025, 8:30 to 9:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper3770": {
+      "type": "oral",
+      "session_id": "8",
+      "session_title": "Explainability and Interpretability",
+      "day": "Thursday, September 25, 2025, 8:30 to 9:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper5442": {
+      "type": "oral",
+      "session_id": "8",
+      "session_title": "Explainability and Interpretability",
+      "day": "Thursday, September 25, 2025, 8:30 to 9:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper0394": {
+      "type": "oral",
+      "session_id": "8",
+      "session_title": "Explainability and Interpretability",
+      "day": "Thursday, September 25, 2025, 8:30 to 9:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper4211": {
+      "type": "oral",
+      "session_id": "8",
+      "session_title": "Explainability and Interpretability",
+      "day": "Thursday, September 25, 2025, 8:30 to 9:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper0014": {
+      "type": "oral",
+      "session_id": "9",
+      "session_title": "Generalizability and Adaptation",
+      "day": "Thursday, September 25, 2025, 14:30 to 15:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper2605": {
+      "type": "oral",
+      "session_id": "9",
+      "session_title": "Generalizability and Adaptation",
+      "day": "Thursday, September 25, 2025, 14:30 to 15:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper3066": {
+      "type": "oral",
+      "session_id": "9",
+      "session_title": "Generalizability and Adaptation",
+      "day": "Thursday, September 25, 2025, 14:30 to 15:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper2931": {
+      "type": "oral",
+      "session_id": "9",
+      "session_title": "Generalizability and Adaptation",
+      "day": "Thursday, September 25, 2025, 14:30 to 15:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper3564": {
+      "type": "oral",
+      "session_id": "9",
+      "session_title": "Generalizability and Adaptation",
+      "day": "Thursday, September 25, 2025, 14:30 to 15:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper1992": {
+      "type": "oral",
+      "session_id": "10",
+      "session_title": "Multimodal and Longitudinal Prediction",
+      "day": "Thursday, September 25, 2025, 14:30 to 15:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper0874": {
+      "type": "oral",
+      "session_id": "10",
+      "session_title": "Multimodal and Longitudinal Prediction",
+      "day": "Thursday, September 25, 2025, 14:30 to 15:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper3806": {
+      "type": "oral",
+      "session_id": "10",
+      "session_title": "Multimodal and Longitudinal Prediction",
+      "day": "Thursday, September 25, 2025, 14:30 to 15:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper1182": {
+      "type": "oral",
+      "session_id": "10",
+      "session_title": "Multimodal and Longitudinal Prediction",
+      "day": "Thursday, September 25, 2025, 14:30 to 15:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper2744": {
+      "type": "oral",
+      "session_id": "10",
+      "session_title": "Multimodal and Longitudinal Prediction",
+      "day": "Thursday, September 25, 2025, 14:30 to 15:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper1180": {
+      "type": "spotlight",
+      "session_id": "11",
+      "session_title": "Graphs - Learning and Data",
+      "day": "Thursday, September 25, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper1575": {
+      "type": "spotlight",
+      "session_id": "11",
+      "session_title": "Graphs - Learning and Data",
+      "day": "Thursday, September 25, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper1815": {
+      "type": "spotlight",
+      "session_id": "11",
+      "session_title": "Graphs - Learning and Data",
+      "day": "Thursday, September 25, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper2356": {
+      "type": "spotlight",
+      "session_id": "11",
+      "session_title": "Graphs - Learning and Data",
+      "day": "Thursday, September 25, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper2910": {
+      "type": "spotlight",
+      "session_id": "11",
+      "session_title": "Graphs - Learning and Data",
+      "day": "Thursday, September 25, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper3289": {
+      "type": "spotlight",
+      "session_id": "11",
+      "session_title": "Graphs - Learning and Data",
+      "day": "Thursday, September 25, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper1503": {
+      "type": "oral",
+      "session_id": "11",
+      "session_title": "Graphs - Learning and Data",
+      "day": "Thursday, September 25, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper4834": {
+      "type": "oral",
+      "session_id": "11",
+      "session_title": "Graphs - Learning and Data",
+      "day": "Thursday, September 25, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper0234": {
+      "type": "oral",
+      "session_id": "11",
+      "session_title": "Graphs - Learning and Data",
+      "day": "Thursday, September 25, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper1868": {
+      "type": "oral",
+      "session_id": "11",
+      "session_title": "Graphs - Learning and Data",
+      "day": "Thursday, September 25, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper3982": {
+      "type": "oral",
+      "session_id": "11",
+      "session_title": "Graphs - Learning and Data",
+      "day": "Thursday, September 25, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper2438": {
+      "type": "oral",
+      "session_id": "11",
+      "session_title": "Graphs - Learning and Data",
+      "day": "Thursday, September 25, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper0033": {
+      "type": "spotlight",
+      "session_id": "12",
+      "session_title": "Reconstruction and Synthesis",
+      "day": "Thursday, September 25, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper0774": {
+      "type": "spotlight",
+      "session_id": "12",
+      "session_title": "Reconstruction and Synthesis",
+      "day": "Thursday, September 25, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper2716": {
+      "type": "spotlight",
+      "session_id": "12",
+      "session_title": "Reconstruction and Synthesis",
+      "day": "Thursday, September 25, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper2865": {
+      "type": "spotlight",
+      "session_id": "12",
+      "session_title": "Reconstruction and Synthesis",
+      "day": "Thursday, September 25, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper1332": {
+      "type": "spotlight",
+      "session_id": "12",
+      "session_title": "Reconstruction and Synthesis",
+      "day": "Thursday, September 25, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper1908": {
+      "type": "spotlight",
+      "session_id": "12",
+      "session_title": "Reconstruction and Synthesis",
+      "day": "Thursday, September 25, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper0668": {
+      "type": "oral",
+      "session_id": "12",
+      "session_title": "Reconstruction and Synthesis",
+      "day": "Thursday, September 25, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper0380": {
+      "type": "oral",
+      "session_id": "12",
+      "session_title": "Reconstruction and Synthesis",
+      "day": "Thursday, September 25, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper1216": {
+      "type": "oral",
+      "session_id": "12",
+      "session_title": "Reconstruction and Synthesis",
+      "day": "Thursday, September 25, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper4006": {
+      "type": "oral",
+      "session_id": "12",
+      "session_title": "Reconstruction and Synthesis",
+      "day": "Thursday, September 25, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper1272": {
+      "type": "oral",
+      "session_id": "12",
+      "session_title": "Reconstruction and Synthesis",
+      "day": "Thursday, September 25, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper2374": {
+      "type": "oral",
+      "session_id": "12",
+      "session_title": "Reconstruction and Synthesis",
+      "day": "Thursday, September 25, 2025, 17:00 to 18:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper4574": {
+      "type": "oral",
+      "session_id": "13",
+      "session_title": "Surgical Data Science",
+      "day": "Friday, September 26, 2025, 8:30 to 9:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper2299": {
+      "type": "oral",
+      "session_id": "13",
+      "session_title": "Surgical Data Science",
+      "day": "Friday, September 26, 2025, 8:30 to 9:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper2634": {
+      "type": "oral",
+      "session_id": "13",
+      "session_title": "Surgical Data Science",
+      "day": "Friday, September 26, 2025, 8:30 to 9:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper0780": {
+      "type": "oral",
+      "session_id": "13",
+      "session_title": "Surgical Data Science",
+      "day": "Friday, September 26, 2025, 8:30 to 9:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper3165": {
+      "type": "oral",
+      "session_id": "13",
+      "session_title": "Surgical Data Science",
+      "day": "Friday, September 26, 2025, 8:30 to 9:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper3517": {
+      "type": "oral",
+      "session_id": "14",
+      "session_title": "Missing Data and Weak Supervision",
+      "day": "Friday, September 26, 2025, 8:30 to 9:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper0788": {
+      "type": "oral",
+      "session_id": "14",
+      "session_title": "Missing Data and Weak Supervision",
+      "day": "Friday, September 26, 2025, 8:30 to 9:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper1585": {
+      "type": "oral",
+      "session_id": "14",
+      "session_title": "Missing Data and Weak Supervision",
+      "day": "Friday, September 26, 2025, 8:30 to 9:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper3438": {
+      "type": "oral",
+      "session_id": "14",
+      "session_title": "Missing Data and Weak Supervision",
+      "day": "Friday, September 26, 2025, 8:30 to 9:30",
+      "match": "exact"
+    },
+    "miccai-2025-Paper0653": {
+      "type": "oral",
+      "session_id": "14",
+      "session_title": "Missing Data and Weak Supervision",
+      "day": "Friday, September 26, 2025, 8:30 to 9:30",
+      "match": "exact"
+    }
+  }
+}

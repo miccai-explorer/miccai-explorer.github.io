@@ -1,0 +1,1050 @@
+{
+  "year": 2021,
+  "source_pdf": "data/manually_downloaded/OralSchedules/2021.pdf",
+  "n_sessions": 12,
+  "n_presentations": 60,
+  "sessions": [
+    {
+      "session_id": "Tue-Oral-AM-A",
+      "session_title": "Label Efficient Learning",
+      "session_kind": "oral",
+      "day": null,
+      "room": null,
+      "chairs": [
+        "Darko Stern, Maria A. Zuluaga"
+      ],
+      "presentations": [
+        {
+          "type": "oral",
+          "title_raw": "TransPath: Transformer-based Self-supervised Learning for Histopathological Image Classification",
+          "authors_raw": [
+            "Xiyue Wang",
+            "Sen Yang",
+            "Jun Zhang",
+            "Minghui Wang",
+            "Jing Zhang",
+            "Junzhou Huang",
+            "Wei Yang",
+            "Xiao Han"
+          ],
+          "speaker": null,
+          "page": 1,
+          "column": 0,
+          "order": 1
+        },
+        {
+          "type": "oral",
+          "title_raw": "Dual-Consistency Semi-Supervised Learning with Uncertainty Quantification for COVID-19 Lesion Segmentation from CT Images",
+          "authors_raw": [
+            "Yanwen Li",
+            "Luyang Luo",
+            "Huangjing Lin",
+            "Hao Chen",
+            "Pheng-Ann Heng"
+          ],
+          "speaker": null,
+          "page": 1,
+          "column": 0,
+          "order": 2
+        },
+        {
+          "type": "oral",
+          "title_raw": "Self-supervised visual representation learning for histopathological images",
+          "authors_raw": [
+            "Pengshuai Yang",
+            "Zhiwei Hong",
+            "Xiaoxu Yin",
+            "Chengzhan Zhu",
+            "Rui Jiang"
+          ],
+          "speaker": null,
+          "page": 1,
+          "column": 0,
+          "order": 3
+        },
+        {
+          "type": "oral",
+          "title_raw": "Functional Magnetic Resonance Imaging data augmentation through conditional ICA",
+          "authors_raw": [
+            "Badr Tajini",
+            "Hugo Richard",
+            "Bertrand Thirion"
+          ],
+          "speaker": null,
+          "page": 1,
+          "column": 0,
+          "order": 4
+        },
+        {
+          "type": "oral",
+          "title_raw": "USCL: Pretraining Deep Ultrasound Image Diagnosis Model through Video Contrastive Representation Learning",
+          "authors_raw": [
+            "Yixiong Chen",
+            "Chunhui Zhang",
+            "Li Liu",
+            "Cheng Feng",
+            "Changfeng Dong",
+            "Yongfang Luo",
+            "Xiang Wan"
+          ],
+          "speaker": null,
+          "page": 1,
+          "column": 0,
+          "order": 5
+        }
+      ]
+    },
+    {
+      "session_id": "Tue-Oral-AM-B",
+      "session_title": "Surgical Data Science",
+      "session_kind": "oral",
+      "day": null,
+      "room": null,
+      "chairs": [
+        "Sophia Bano, Mingchen Gao"
+      ],
+      "presentations": [
+        {
+          "type": "oral",
+          "title_raw": "Surgical Instruction Generation with Transformers",
+          "authors_raw": [
+            "Jinglu Zhang",
+            "Yinyu Nie",
+            "Jian Chang",
+            "Jian Jun Zhang"
+          ],
+          "speaker": null,
+          "page": 1,
+          "column": 1,
+          "order": 1
+        },
+        {
+          "type": "oral",
+          "title_raw": "Task Fingerprinting for Meta Learning in Biomedical Image Analysis",
+          "authors_raw": [
+            "Patrick Godau",
+            "Lena Maier-Hein"
+          ],
+          "speaker": null,
+          "page": 1,
+          "column": 1,
+          "order": 2
+        },
+        {
+          "type": "oral",
+          "title_raw": "Trans-SVNet: Accurate Phase Recognition from Surgical Videos via Hybrid Embedding Aggregation Transformer",
+          "authors_raw": [
+            "Xiaojie Gao",
+            "Yueming Jin",
+            "Yonghao Long",
+            "Qi Dou",
+            "Pheng-Ann Heng"
+          ],
+          "speaker": null,
+          "page": 1,
+          "column": 1,
+          "order": 3
+        },
+        {
+          "type": "oral",
+          "title_raw": "Surgical Workflow Anticipation using Instrument Interaction",
+          "authors_raw": [
+            "Kun Yuan",
+            "Matthew Holden",
+            "Shijian Gao",
+            "Won-Sook Lee"
+          ],
+          "speaker": null,
+          "page": 1,
+          "column": 1,
+          "order": 4
+        },
+        {
+          "type": "oral",
+          "title_raw": "Detection of critical structures in laparoscopic cholecystectomy using label relaxation and self-supervision",
+          "authors_raw": [
+            "David Owen",
+            "Maria Grammatikopoulou",
+            "Imanol Luengo",
+            "Danail Stoyanov"
+          ],
+          "speaker": null,
+          "page": 1,
+          "column": 1,
+          "order": 5
+        }
+      ]
+    },
+    {
+      "session_id": "Tue-Oral-PM-A",
+      "session_title": "Image Registration",
+      "session_kind": "oral",
+      "day": "11:00",
+      "room": null,
+      "chairs": [
+        "Hervé Lombaert, Qian Wang"
+      ],
+      "presentations": [
+        {
+          "type": "oral",
+          "title_raw": "Spectral Embedding Approximation and Descriptor Learning for Craniofacial Volumetric Image Correspondence",
+          "authors_raw": [
+            "Diya Sun",
+            "Yungeng Zhang",
+            "Yuru Pei",
+            "Tianmin Xu",
+            "Hongbin Zha"
+          ],
+          "speaker": null,
+          "page": 2,
+          "column": 0,
+          "order": 1
+        },
+        {
+          "type": "oral",
+          "title_raw": "Medical Image Registration Based on Uncoupled Learning and Accumulative Enhancement",
+          "authors_raw": [
+            "Yucheng Shu",
+            "Hao Wang",
+            "Bin Xiao",
+            "Xiuli Bi",
+            "Weisheng Li"
+          ],
+          "speaker": null,
+          "page": 2,
+          "column": 0,
+          "order": 2
+        },
+        {
+          "type": "oral",
+          "title_raw": "Conditional Deformable Image Registration with Convolutional Neural Network",
+          "authors_raw": [
+            "Tony C. W. Mok",
+            "Albert C. S. Chung"
+          ],
+          "speaker": null,
+          "page": 2,
+          "column": 0,
+          "order": 3
+        },
+        {
+          "type": "oral",
+          "title_raw": "Cross-modal Attention for MRI and Ultrasound Volume Registration",
+          "authors_raw": [
+            "Xinrui Song",
+            "Hengtao Guo",
+            "Xuanang Xu",
+            "Hanqing Chao",
+            "Sheng Xu",
+            "Baris Turkbey",
+            "Bradford J. Wood",
+            "Ge Wang",
+            "Pingkun Yan"
+          ],
+          "speaker": null,
+          "page": 2,
+          "column": 0,
+          "order": 4
+        },
+        {
+          "type": "oral",
+          "title_raw": "4D-CBCT Registration with a FBCT-derived Plug-and-Play Feasibility Regularizer",
+          "authors_raw": [
+            "Yudi Sang",
+            "Dan Ruan"
+          ],
+          "speaker": null,
+          "page": 2,
+          "column": 0,
+          "order": 5
+        }
+      ]
+    },
+    {
+      "session_id": "Tue-Oral-PM-B",
+      "session_title": "Intervention Planning and Simulation",
+      "session_kind": "oral",
+      "day": "– 12:30 (UTC)",
+      "room": null,
+      "chairs": [
+        "Ehsan Adeli, Samuel Kadoury"
+      ],
+      "presentations": [
+        {
+          "type": "oral",
+          "title_raw": "A new Approach to Orthopedic Surgery Planning using Deep Reinforcement Learning and Simulation",
+          "authors_raw": [
+            "Joëlle Ackermann",
+            "Matthias Wieland",
+            "Armando Hoch",
+            "Reinhold Ganz",
+            "Jess G. Snedeker",
+            "Martin R. Oswald",
+            "Marc Pollefeys",
+            "Patrick O. Zingg",
+            "Hooman Esfandiari",
+            "Philipp Fürnstahl"
+          ],
+          "speaker": null,
+          "page": 2,
+          "column": 1,
+          "order": 1
+        },
+        {
+          "type": "oral",
+          "title_raw": "High-particle simulation of Monte-Carlo dose distribution with 3D ConvLSTMs",
+          "authors_raw": [
+            "Sonia Martinot",
+            "Norbert Bus",
+            "Maria Vakalopoulou",
+            "Charlotte Robert",
+            "Eric Deutsch",
+            "Nikos Paragios"
+          ],
+          "speaker": null,
+          "page": 2,
+          "column": 1,
+          "order": 2
+        },
+        {
+          "type": "oral",
+          "title_raw": "Whole Heart Mesh Generation For Image-Based Computational Simulations By Learning Free-From Deformations",
+          "authors_raw": [
+            "Fanwei Kong",
+            "Shawn C. Shadden"
+          ],
+          "speaker": null,
+          "page": 2,
+          "column": 1,
+          "order": 3
+        },
+        {
+          "type": "oral",
+          "title_raw": "Rapid treatment planning for low-dose-rate prostate brachytherapy with TP-GAN",
+          "authors_raw": [
+            "Tajwar Abrar Aleef",
+            "Ingrid T. Spadinger",
+            "Michael D. Peacock",
+            "Septimiu E. Salcudean",
+            "S. Sara Mahdavi"
+          ],
+          "speaker": null,
+          "page": 2,
+          "column": 1,
+          "order": 4
+        },
+        {
+          "type": "oral",
+          "title_raw": "Deep Simulation of Facial Appearance Changes Following Craniomaxillofacial Bony Movements in Orthognathic Surgical Planning",
+          "authors_raw": [
+            "Lei Ma",
+            "Daeseung Kim",
+            "Chunfeng Lian",
+            "Deqiang Xiao",
+            "Tianshu Kuang",
+            "Qin Liu",
+            "Yankun Lang",
+            "Hannah H. Deng",
+            "Jaime Gateno",
+            "Ye Wu",
+            "Erkun Yang",
+            "Michael A.K. Liebschner",
+            "James J. Xia",
+            "Pew-Thian Yap"
+          ],
+          "speaker": null,
+          "page": 2,
+          "column": 1,
+          "order": 5
+        }
+      ]
+    },
+    {
+      "session_id": "Wed-Oral-AM-A",
+      "session_title": "Advances in Machine Learning",
+      "session_kind": "oral",
+      "day": "13:30",
+      "room": null,
+      "chairs": [
+        "Baiying Lei, Yixuan Yuan"
+      ],
+      "presentations": [
+        {
+          "type": "oral",
+          "title_raw": "Distilling effective supervision for robust medical image segmentation with noisy labels",
+          "authors_raw": [
+            "Jialin Shi",
+            "Ji Wu"
+          ],
+          "speaker": null,
+          "page": 3,
+          "column": 0,
+          "order": 1
+        },
+        {
+          "type": "oral",
+          "title_raw": "Personalized Retrogress-Resilient Framework for Real-World Medical Federated Learning",
+          "authors_raw": [
+            "Zhen Chen",
+            "Meilu Zhu",
+            "Chen Yang",
+            "Yixuan Yuan"
+          ],
+          "speaker": null,
+          "page": 3,
+          "column": 0,
+          "order": 2
+        },
+        {
+          "type": "oral",
+          "title_raw": "Variational Topic Inference for Chest X-Ray Report Generation",
+          "authors_raw": [
+            "Ivona Najdenkoska",
+            "Xiantong Zhen",
+            "Marcel Worring",
+            "Ling Shao"
+          ],
+          "speaker": null,
+          "page": 3,
+          "column": 0,
+          "order": 3
+        },
+        {
+          "type": "oral",
+          "title_raw": "Targeted Gradient Descent: A Novel Method for Convolutional Neural Networks Fine-tuning and Online-learning",
+          "authors_raw": [
+            "Junyu Chen",
+            "Evren Asma",
+            "Chung Chan"
+          ],
+          "speaker": null,
+          "page": 3,
+          "column": 0,
+          "order": 4
+        },
+        {
+          "type": "oral",
+          "title_raw": "Group Shift Pointwise Convolution for Volumetric Medical Image Segmentation",
+          "authors_raw": [
+            "Junjun He",
+            "Jin Ye",
+            "Cheng Li",
+            "Diping Song",
+            "Wanli Chen",
+            "Shanshan Wang",
+            "Lixu Gu",
+            "Yu Qiao"
+          ],
+          "speaker": null,
+          "page": 3,
+          "column": 0,
+          "order": 5
+        }
+      ]
+    },
+    {
+      "session_id": "Wed-Oral-AM-B",
+      "session_title": "Image Reconstruction",
+      "session_kind": "oral",
+      "day": "– 15:00 (UTC)",
+      "room": null,
+      "chairs": [
+        "Ruogu Fang, Alberto Gomez"
+      ],
+      "presentations": [
+        {
+          "type": "oral",
+          "title_raw": "Learned super resolution ultrasound for improved breast lesion characterization",
+          "authors_raw": [
+            "Or Bar-Shira",
+            "Ahuva Grubstein",
+            "Yael Rapson",
+            "Dror Suhami",
+            "Eli Atar",
+            "Keren Peri-Hanania",
+            "Ronnie Rosen",
+            "Yonina C. Eldar"
+          ],
+          "speaker": null,
+          "page": 3,
+          "column": 1,
+          "order": 1
+        },
+        {
+          "type": "oral",
+          "title_raw": "Acceleration by deep-learnt sharing of superfluous information in multi-contrast MRI",
+          "authors_raw": [
+            "Sudhanya Chatterjee",
+            "Suresh Emmanuel Joel",
+            "Ramesh Venkatesan",
+            "Dattesh Dayanand Shanbhag"
+          ],
+          "speaker": null,
+          "page": 3,
+          "column": 1,
+          "order": 2
+        },
+        {
+          "type": "oral",
+          "title_raw": "RLP-Net: Recursive Light Propagation Network for 3-D Virtual Refocusing",
+          "authors_raw": [
+            "Changyeop Shin",
+            "Hyun Ryu",
+            "Eun-Seo Cho",
+            "Young-Gyu Yoon"
+          ],
+          "speaker": null,
+          "page": 3,
+          "column": 1,
+          "order": 3
+        },
+        {
+          "type": "oral",
+          "title_raw": "Universal Undersampled MRI Reconstruction",
+          "authors_raw": [
+            "Xinwen Liu",
+            "Jing Wang",
+            "Feng Liu",
+            "S. Kevin Zhou"
+          ],
+          "speaker": null,
+          "page": 3,
+          "column": 1,
+          "order": 4
+        },
+        {
+          "type": "oral",
+          "title_raw": "Real-Time Mapping of Tissue Properties for Magnetic Resonance Fingerprinting",
+          "authors_raw": [
+            "Yilin Liu",
+            "Yong Chen",
+            "Pew-Thian Yap"
+          ],
+          "speaker": null,
+          "page": 3,
+          "column": 1,
+          "order": 5
+        }
+      ]
+    },
+    {
+      "session_id": "Wed-Oral-PM-A",
+      "session_title": "Computer Aided Diagnosis",
+      "session_kind": "oral",
+      "day": "11:00",
+      "room": null,
+      "chairs": [
+        "Mingxia Liu, Su Ruan"
+      ],
+      "presentations": [
+        {
+          "type": "oral",
+          "title_raw": "AutoFB: Automating Fetal Biometry Estimation from Standard Ultrasound Planes",
+          "authors_raw": [
+            "Sophia Bano",
+            "Brian Dromey",
+            "Francisco Vasconcelos",
+            "Raffaele Napolitano",
+            "Anna L. David",
+            "Donald M. Peebles",
+            "Danail Stoyanov"
+          ],
+          "speaker": null,
+          "page": 4,
+          "column": 0,
+          "order": 1
+        },
+        {
+          "type": "oral",
+          "title_raw": "Continual Learning with Bayesian Model based on a Fixed Pre-trained Feature Extractor",
+          "authors_raw": [
+            "Yang Yang",
+            "Zhiying Cui",
+            "Junjie Xu",
+            "Changhong Zhong",
+            "Ruixuan Wang",
+            "Wei-Shi Zheng"
+          ],
+          "speaker": null,
+          "page": 4,
+          "column": 0,
+          "order": 2
+        },
+        {
+          "type": "oral",
+          "title_raw": "Learning from Subjective Ratings Using Auto-Decoded Deep Latent Embeddings",
+          "authors_raw": [
+            "Bowen Li",
+            "Xinping Ren",
+            "Ke Yan",
+            "Le Lu",
+            "Lingyun Huang",
+            "Guotong Xie",
+            "Jing Xiao",
+            "Dar‐In Tai",
+            "Adam P. Harrison"
+          ],
+          "speaker": null,
+          "page": 4,
+          "column": 0,
+          "order": 3
+        },
+        {
+          "type": "oral",
+          "title_raw": "Self-Supervised Longitudinal Neighbourhood Embedding",
+          "authors_raw": [
+            "Jiahong Ouyang",
+            "Qingyu Zhao",
+            "Ehsan Adeli",
+            "Edith V Sullivan",
+            "Adolf Pfefferbaum",
+            "Greg Zaharchuk",
+            "Kilian M. Pohl"
+          ],
+          "speaker": null,
+          "page": 4,
+          "column": 0,
+          "order": 4
+        },
+        {
+          "type": "oral",
+          "title_raw": "AMINN: Autoencoder-based Multiple Instance Neural Network Improves Outcome Prediction of Multifocal Liver Metastases",
+          "authors_raw": [
+            "Jianan Chen",
+            "Helen M. C. Cheung",
+            "Laurent Milot",
+            "Anne L. Martel"
+          ],
+          "speaker": null,
+          "page": 4,
+          "column": 0,
+          "order": 5
+        }
+      ]
+    },
+    {
+      "session_id": "Wed-Oral-PM-B",
+      "session_title": "Uncertainty and Interpretability",
+      "session_kind": "oral",
+      "day": "– 12:30 (UTC)",
+      "room": null,
+      "chairs": [
+        "Christian Baumgartner, Guotai Wang"
+      ],
+      "presentations": [
+        {
+          "type": "oral",
+          "title_raw": "Focusing on Clinically Interpretable Features: Selective Attention Regularization for Liver Biopsy Image Classification",
+          "authors_raw": [
+            "Chong Yin",
+            "Siqi Liu",
+            "Rui Shao",
+            "Pong C. Yuen"
+          ],
+          "speaker": null,
+          "page": 4,
+          "column": 1,
+          "order": 1
+        },
+        {
+          "type": "oral",
+          "title_raw": "Detecting when pre-trained nnU-Net models fail silently for Covid-19 lung lesion segmentation",
+          "authors_raw": [
+            "Camila Gonzalez",
+            "Karol Gotkowski",
+            "Andreas Bucher",
+            "Ricarda Fischbach",
+            "Isabel Kaltenborn",
+            "Anirban Mukhopadhyay"
+          ],
+          "speaker": null,
+          "page": 4,
+          "column": 1,
+          "order": 2
+        },
+        {
+          "type": "oral",
+          "title_raw": "Deep Neural Dynamic Bayesian Networks applied to EEG sleep spindles modeling",
+          "authors_raw": [
+            "Carlos A. Loza",
+            "Laura L. Colgin"
+          ],
+          "speaker": null,
+          "page": 4,
+          "column": 1,
+          "order": 3
+        },
+        {
+          "type": "oral",
+          "title_raw": "Sharpening Local Interpretable Model-agnostic Explanations for Histopathology: Improved Understandability and Reliability",
+          "authors_raw": [
+            "Mara Graziani",
+            "Iam Palatnik de Sousa",
+            "Marley M.B.R. Vellasco",
+            "Eduardo Costa da Silva",
+            "Henning Müller",
+            "Vincent Andrearczyk"
+          ],
+          "speaker": null,
+          "page": 4,
+          "column": 1,
+          "order": 4
+        },
+        {
+          "type": "oral",
+          "title_raw": "Scalable, Axiomatic Explanations of Deep Alzheimer's Diagnosis from Heterogeneous Data",
+          "authors_raw": [
+            "Sebastian Pölsterl",
+            "Christina Aigner",
+            "Christian Wachinger"
+          ],
+          "speaker": null,
+          "page": 4,
+          "column": 1,
+          "order": 5
+        }
+      ]
+    },
+    {
+      "session_id": "Thu-Oral-AM-A",
+      "session_title": "Segmentation",
+      "session_kind": "oral",
+      "day": "13:30",
+      "room": null,
+      "chairs": [
+        "Caroline Petitjean, Tuo Zhang"
+      ],
+      "presentations": [
+        {
+          "type": "oral",
+          "title_raw": "3D-UCaps: 3D Capsules Unet for Volumetric Image Segmentation",
+          "authors_raw": [
+            "Tan Nguyen",
+            "Binh-Son Hua",
+            "Ngan Le"
+          ],
+          "speaker": null,
+          "page": 5,
+          "column": 0,
+          "order": 1
+        },
+        {
+          "type": "oral",
+          "title_raw": "CoTr: Efficiently Bridging CNN and Transformer for 3D Medical Image Segmentation",
+          "authors_raw": [
+            "Yutong Xie",
+            "Jianpeng Zhang",
+            "Chunhua Shen",
+            "Yong Xia"
+          ],
+          "speaker": null,
+          "page": 5,
+          "column": 0,
+          "order": 2
+        },
+        {
+          "type": "oral",
+          "title_raw": "Federated Contrastive Learning for Volumetric Medical Image Segmentation",
+          "authors_raw": [
+            "Yawen Wu",
+            "Dewen Zeng",
+            "Zhepeng Wang",
+            "Yiyu Shi",
+            "Jingtong Hu"
+          ],
+          "speaker": null,
+          "page": 5,
+          "column": 0,
+          "order": 3
+        },
+        {
+          "type": "oral",
+          "title_raw": "Orthogonal Ensemble Networks for Biomedical Image Segmentation",
+          "authors_raw": [
+            "Agostina J. Larrazabal",
+            "César Martínez",
+            "Jose Dolz",
+            "Enzo Ferrante"
+          ],
+          "speaker": null,
+          "page": 5,
+          "column": 0,
+          "order": 4
+        },
+        {
+          "type": "oral",
+          "title_raw": "Quality-Aware Memory Network for Interactive Volumetric Image Segmentation",
+          "authors_raw": [
+            "Tianfei Zhou",
+            "Liulei Li",
+            "Gustav Bredell",
+            "Jianwu Li",
+            "Ender Konukoglu"
+          ],
+          "speaker": null,
+          "page": 5,
+          "column": 0,
+          "order": 5
+        }
+      ]
+    },
+    {
+      "session_id": "Thu-Oral-AM-B",
+      "session_title": "Image Synthesis",
+      "session_kind": "oral",
+      "day": "– 15:00 (UTC)",
+      "room": null,
+      "chairs": [
+        "Adrian Dalca, Luping Zhou"
+      ],
+      "presentations": [
+        {
+          "type": "oral",
+          "title_raw": "Demystifying T1-MRI to FDG18-PET Image Translation via Representational Similarity",
+          "authors_raw": [
+            "Chia-Hsiang Kao",
+            "Yong-Sheng Chen",
+            "Li-Fen Chen",
+            "Wei-Chen Chiu"
+          ],
+          "speaker": null,
+          "page": 5,
+          "column": 1,
+          "order": 1
+        },
+        {
+          "type": "oral",
+          "title_raw": "Q-space Conditioned Translation Networks for Directional Synthesis of Diffusion Weighted Images from Multi-modal Structural MRI",
+          "authors_raw": [
+            "Mengwei Ren",
+            "Heejong Kim",
+            "Neel Dey",
+            "Guido Gerig"
+          ],
+          "speaker": null,
+          "page": 5,
+          "column": 1,
+          "order": 2
+        },
+        {
+          "type": "oral",
+          "title_raw": "Text2Brain: Synthesis of Brain Activation Maps from Free-form Text Query",
+          "authors_raw": [
+            "Gia H. Ngo",
+            "Minh Nguyen",
+            "Nancy F. Chen",
+            "Mert R. Sabuncu"
+          ],
+          "speaker": null,
+          "page": 5,
+          "column": 1,
+          "order": 3
+        },
+        {
+          "type": "oral",
+          "title_raw": "Collaborative Image Synthesis and Disease Diagnosis for Classification of Neurodegenerative Disorders with Incomplete Multi-modal Neuroimages",
+          "authors_raw": [
+            "Yongsheng Pan",
+            "Yuanyuan Chen",
+            "Dinggang Shen",
+            "Yong Xia"
+          ],
+          "speaker": null,
+          "page": 5,
+          "column": 1,
+          "order": 4
+        },
+        {
+          "type": "oral",
+          "title_raw": "Controllable cardiac synthesis via disentangled anatomy arithmetic",
+          "authors_raw": [
+            "Spyridon Thermos",
+            "Xiao Liu",
+            "Alison O'Neil",
+            "Sotirios A. Tsaftaris"
+          ],
+          "speaker": null,
+          "page": 5,
+          "column": 1,
+          "order": 5
+        }
+      ]
+    },
+    {
+      "session_id": "Thu-Oral-PM-A",
+      "session_title": "Domain Adaptation",
+      "session_kind": "oral",
+      "day": null,
+      "room": null,
+      "chairs": [
+        "Yi Hong, Islem Rekik"
+      ],
+      "presentations": [
+        {
+          "type": "oral",
+          "title_raw": "Anatomy of Domain Shift Impact on U-Net Layers in MRI Segmentation",
+          "authors_raw": [
+            "Ivan Zakazov",
+            "Boris Shirokikh",
+            "Alexey Chernyavskiy",
+            "Mikhail Belyaev"
+          ],
+          "speaker": null,
+          "page": 6,
+          "column": 0,
+          "order": 1
+        },
+        {
+          "type": "oral",
+          "title_raw": "Semi-supervised Meta-learning with Disentanglement for Domain-generalised Medical Image Segmentation",
+          "authors_raw": [
+            "Xiao Liu",
+            "Spyridon Thermos",
+            "Alison O'Neil",
+            "Sotirios A. Tsaftaris"
+          ],
+          "speaker": null,
+          "page": 6,
+          "column": 0,
+          "order": 2
+        },
+        {
+          "type": "oral",
+          "title_raw": "Multi-Task, Multi-Domain Deep Segmentation with Shared Representations and Contrastive Regularization for Sparse Pediatric Datasets",
+          "authors_raw": [
+            "Arnaud Boutillon",
+            "Pierre-Henri Conze",
+            "Christelle Pons",
+            "Valerie Burdin",
+            "Bhushan Borotikar"
+          ],
+          "speaker": null,
+          "page": 6,
+          "column": 0,
+          "order": 3
+        },
+        {
+          "type": "oral",
+          "title_raw": "FoldIt: Haustral Folds Detection and Segmentation in Colonoscopy Videos",
+          "authors_raw": [
+            "Shawn Mathew",
+            "Saad Nadeem",
+            "Arie Kaufman"
+          ],
+          "speaker": null,
+          "page": 6,
+          "column": 0,
+          "order": 4
+        },
+        {
+          "type": "oral",
+          "title_raw": "Cooperative Training and Latent Space Data Augmentation for Robust Medical Image Segmentation",
+          "authors_raw": [
+            "Chen Chen",
+            "Kerstin Hammernik",
+            "Cheng Ouyang",
+            "Chen Qin",
+            "Wenjia Bai",
+            "Daniel Rueckert"
+          ],
+          "speaker": null,
+          "page": 6,
+          "column": 0,
+          "order": 5
+        }
+      ]
+    },
+    {
+      "session_id": "Thur-Oral-PM-B",
+      "session_title": "Image-Guided Interventions and Surgery",
+      "session_kind": "oral",
+      "day": null,
+      "room": null,
+      "chairs": [
+        "Ilker Hacihaliloglu, Nicola Rieke"
+      ],
+      "presentations": [
+        {
+          "type": "oral",
+          "title_raw": "C-arm positioning for spinal standard projections in different intra-operative settings",
+          "authors_raw": [
+            "Lisa Kausch",
+            "Sarina Thomas",
+            "Holger Kunze",
+            "Tobias Norajitra",
+            "André Klein",
+            "Jan Siad El Barbari",
+            "Maxim Privalov",
+            "Sven Vetter",
+            "Andreas Mahnken",
+            "Lena Maier-Hein",
+            "Klaus H. Maier-Hein"
+          ],
+          "speaker": null,
+          "page": 6,
+          "column": 1,
+          "order": 1
+        },
+        {
+          "type": "oral",
+          "title_raw": "Quantitative Assessments for Ultrasound Probe Calibration",
+          "authors_raw": [
+            "Elvis C. S. Chen",
+            "Burton Ma",
+            "Terry M. Peters"
+          ],
+          "speaker": null,
+          "page": 6,
+          "column": 1,
+          "order": 2
+        },
+        {
+          "type": "oral",
+          "title_raw": "Multimodal Sensing Guidewire for C-arm Navigation with Random UV Enhanced Optical Sensors using Spatio-temporal Networks",
+          "authors_raw": [
+            "Andrei Svecic",
+            "Gilles Soulez",
+            "Frederic Monet",
+            "Raman Kashyap",
+            "Samuel Kadoury"
+          ],
+          "speaker": null,
+          "page": 6,
+          "column": 1,
+          "order": 3
+        },
+        {
+          "type": "oral",
+          "title_raw": "Using Multiple Images and Contours for Deformable 3D-2D Registration of a Preoperative CT in Laparoscopic Liver Surgery",
+          "authors_raw": [
+            "Yamid Espinel",
+            "Lilian Calvet",
+            "Karim Botros",
+            "Emmanuel Buc",
+            "Christophe Tilmant",
+            "Adrien Bartoli"
+          ],
+          "speaker": null,
+          "page": 6,
+          "column": 1,
+          "order": 4
+        },
+        {
+          "type": "oral",
+          "title_raw": "Co-Generation and Segmentation for Generalized Surgical Instrument Segmentation on Unlabelled Data",
+          "authors_raw": [
+            "Megha Kalia",
+            "Tajwar Abrar Aleef",
+            "Nassir Navab",
+            "Peter Black",
+            "Septimiu E. Salcudean"
+          ],
+          "speaker": null,
+          "page": 6,
+          "column": 1,
+          "order": 5
+        }
+      ]
+    }
+  ]
+}

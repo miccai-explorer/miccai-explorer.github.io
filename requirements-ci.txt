@@ -1,0 +1,23 @@
+# Exactly what building the website needs, pinned. Installed by
+# .github/workflows/deploy.yml; nothing else uses this file.
+#
+# Why pinned, when requirements.txt is not: every generated chart writes the
+# plotly.js CDN version into its own <script> tag, taken from whatever plotly
+# is installed at build time. Unpinned, a plotly release months from now would
+# silently change the bundle every reader downloads, with no commit from us.
+# The rest are pinned for the same reason in weaker form: a build that runs
+# unattended on a schedule should not be able to change its own output.
+#
+# The heavy pipeline dependencies (torch, transformers, umap-learn,
+# scikit-learn, pdfplumber) are deliberately absent. Embeddings, projections,
+# clusters and the oral schedules are pre-computed and committed, so CI only
+# renders them.
+#
+# To move these forward: bump here, rebuild locally, check what changed in
+# website/charts/, then commit both together.
+
+plotly==6.8.0
+jinja2==3.1.6
+networkx==3.4.2
+numpy==2.2.6
+pyyaml==6.0.3

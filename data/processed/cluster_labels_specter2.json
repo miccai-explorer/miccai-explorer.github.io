@@ -1,0 +1,22 @@
+{
+  "0": "Whole Slide Image Classification",
+  "1": "Medical Vision-Language Models",
+  "2": "SAM-Based Medical Segmentation",
+  "3": "Diffusion Medical Image Synthesis",
+  "4": "MRI Synthesis & Harmonization",
+  "5": "Semi-Supervised Medical Segmentation",
+  "6": "Cross-Domain Segmentation",
+  "7": "Dental & Oral Imaging",
+  "8": "Tumor & Lesion CAD",
+  "9": "Functional Brain Connectivity",
+  "10": "Federated Medical Learning",
+  "11": "Surgical Phase Recognition",
+  "12": "Medical Image Reconstruction & Restoration",
+  "13": "Histopathology-Genomic Survival",
+  "14": "Alzheimer's & Cognitive Decline",
+  "15": "Cardiac Image Analysis",
+  "16": "Retinal Disease Analysis",
+  "17": "Surgical Scene 3D Reconstruction",
+  "18": "Deformable Image Registration",
+  "19": "Radiology Report Generation"
+}

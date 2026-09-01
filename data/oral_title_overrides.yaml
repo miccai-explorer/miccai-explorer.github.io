@@ -1,0 +1,28 @@
+# Manual title overrides for analysis/match_orals.py
+#
+# The program books and the proceedings site publish the same paper
+# independently, so a title can differ between them (camera-ready retitling,
+# typography, a line-wrap the parser could not repair). match_orals.py resolves
+# what it can; exact match, then fuzzy, then a speaker-surname tie-break; and
+# refuses to guess beyond that: anything left over is a hard error.
+#
+# This file is where those leftovers get settled by hand. Keys are the title
+# exactly as the PDF prints it (as reported by match_orals.py); values are
+# either a paper_id, or null to mark a program entry that is deliberately not
+# a proceedings paper.
+#
+# Generate a starting stub for the unresolved entries with:
+#     python analysis/match_orals.py --report
+# which writes data/oral_title_overrides.todo.yaml for you to merge in here.
+#
+# Format:
+#
+#   2026:
+#     "Title Exactly As Printed In The Program": miccai-2026-Paper0123
+#     "Keynote: Something That Is Not A Paper": null
+#
+# Currently empty, and not because the mechanism is untested: all 377
+# presentations across 2021-2025 matched exactly on normalized title, so no
+# override was needed. Invited talks and panel discussions are dropped by
+# extract_orals.py structurally rather than being listed here. Keep this file
+# even while empty; a future year will need it.

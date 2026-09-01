@@ -1,0 +1,22 @@
+{
+  "0": "3D Shape Modeling, Dental & Craniofacial",
+  "1": "Spine, Bone & Orthopedic Imaging",
+  "2": "Medical Image Segmentation Architectures",
+  "3": "Cancer Prognosis & Survival Prediction",
+  "4": "Cardiac & Vascular Imaging",
+  "5": "Semi-supervised Segmentation & Domain Adaptation",
+  "6": "Deformable Image Registration",
+  "7": "Medical Image Classification & Detection",
+  "8": "MRI Reconstruction & Physics-Informed Imaging",
+  "9": "Segmentation Training Strategies",
+  "10": "Retinal & Ophthalmic Imaging",
+  "11": "Vision-Language Models & Radiology Reports",
+  "12": "Interventional & Surgical Guidance",
+  "13": "Neurodegenerative Disease & Brain Analysis",
+  "14": "Medical Image Reconstruction & Synthesis",
+  "15": "Whole Slide Image & MIL Classification",
+  "16": "Surgical Video & Endoscopic Analysis",
+  "17": "Brain Connectivity & Neuroimaging",
+  "18": "Federated Learning",
+  "19": "Computational Pathology & Microscopy"
+}

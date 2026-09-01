@@ -1,0 +1,22 @@
+{
+	"0": "MRI Reconstruction & Physics-Informed Imaging",
+	"1": "Ultrasound Imaging & Analysis",
+	"2": "Cardiac & Vascular Imaging",
+	"3": "Medical Image Segmentation Architectures",
+	"4": "Cancer Prognosis & Survival Prediction",
+	"5": "Computational Pathology & Histology",
+	"6": "Neurodegenerative Disease Diagnosis",
+	"7": "CT/PET Reconstruction & Image Synthesis",
+	"8": "Endoscopy & Colonoscopy Analysis",
+	"9": "Musculoskeletal & Orthopedic Imaging",
+	"10": "Federated Learning",
+	"11": "Vision-Language Models & Radiology Reports",
+	"12": "Surgical Scene Understanding & Robotics",
+	"13": "Domain Adaptation & Generalization",
+	"14": "Brain MRI Analysis & Morphometry",
+	"15": "Semi-supervised & Weakly Supervised Segmentation",
+	"16": "Retinal & Ophthalmic Imaging",
+	"17": "Medical Image Classification & Detection",
+	"18": "Deformable Image Registration",
+	"19": "Functional Brain Connectivity & Connectomics"
+}

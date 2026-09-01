@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}MICCAI Explorer{% endblock %}</title>
+  <meta name="description" content="Interactive explorer for MICCAI papers 2021-2025: semantic maps, peer-review score analysis, rebuttal impact, co-authorship networks, and research trends.">
+  <meta property="og:title" content="MICCAI Explorer">
+  <meta property="og:description" content="Interactive analysis of MICCAI papers and peer reviews, 2021-2025.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ site_url }}/">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔬</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ base_url }}/assets/style.css">
+  {% block head %}{% endblock %}
+  {# Google Analytics 4. Written only when site_settings.google_analytics_id is
+     set in the root config.yaml, so a local preview and a fresh clone carry no
+     tracking tag at all. Loaded last in <head> and async, so it never delays
+     the stylesheet or the fonts on a slow connection. #}
+  {% if analytics_id %}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ analytics_id }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{ analytics_id }}');
+  </script>
+  {% endif %}
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="{{ base_url }}/" class="nav-brand">MICCAI Explorer</a>
+  <div class="nav-links">
+    <a href="{{ base_url }}/"
+       class="nav-overview{% if active_page == 'index' %} active{% endif %}">
+      Overview &amp; Trends
+    </a>
+    {% if has_orals_page %}
+    <a href="{{ base_url }}/orals.html"
+       class="nav-overview{% if active_page == 'orals' %} active{% endif %}">
+      Orals &amp; Spotlights
+    </a>
+    {% endif %}
+    {% for yr in years %}
+    <a href="{{ base_url }}/year/{{ yr }}.html"
+       class="nav-year-link{% if active_year == yr %} active{% endif %}"
+       aria-label="MICCAI {{ yr }}">
+      {% if year_meta[yr].has_white_bg %}
+      <span class="nav-logo-pill">
+        <img src="{{ base_url }}/assets/logos/{{ year_meta[yr].logo }}"
+             alt="{{ yr }}" class="nav-logo logo-{{ yr }}">
+      </span>
+      {% else %}
+      <img src="{{ base_url }}/assets/logos/{{ year_meta[yr].logo }}"
+           alt="{{ yr }}" class="nav-logo logo-{{ yr }}">
+      {% endif %}
+    </a>
+    {% endfor %}
+    {# No {% if %} guard here, unlike the Orals entry above: this page has no
+       optional input that can be missing, so it is always built. #}
+    <a href="{{ base_url }}/papers.html"
+       class="nav-overview{% if active_page == 'papers' %} active{% endif %}">
+      All Papers
+    </a>
+  </div>
+</nav>
+
+{% block page_header %}{% endblock %}
+
+{% block content %}{% endblock %}
+
+<footer class="site-footer">
+  {# About and the repository are linked here rather than in the nav bar because
+     the nav is a single fixed-height row that does not wrap, and it already
+     carries seven entries; an eighth overflows a narrow screen. The footer is
+     also the only navigation left below 700px, where .nav-links is hidden
+     entirely. The repository link is skipped when site_settings.repo_url is
+     unset, so a fork that has not set its own does not link back to this one. #}
+  <p class="footer-links">
+    MICCAI Explorer by <a href="https://kabhishe.com">Kumar Abhishek</a>
+    <span class="footer-sep">&middot;</span>
+    <a href="{{ base_url }}/about.html">About</a>
+    {% if repo_url %}<span class="footer-sep">&middot;</span>
+    {# GitHub's own mark, inlined rather than pulled from a CDN so the footer
+       needs no network request and cannot break if that host goes away. It is
+       aria-hidden because the link text already says GitHub; announcing the
+       icon too would read the word twice. #}
+    <a href="{{ repo_url }}"><svg class="gh-mark" viewBox="0 0 16 16"
+         aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0
+         3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
+         0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01
+         1.08.58 1.23.82.72 1.21 1.87.87
+         2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95
+         0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18
+         1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16
+         1.92.08 2.12.51.56.82 1.27.82 2.15 0
+         3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0
+         .21.15.46.55.38A8.012 8.012 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub</a>{% endif %}
+  </p>
+  <p>MICCAI papers and reviews © respective authors.<span class="footer-sep">&middot;</span>
+    Data sourced from <a href="https://papers.miccai.org" target="_blank">papers.miccai.org</a>.
+    <span class="footer-sep">&middot;</span>
+    Last updated {{ build_date }}.
+  </p>
+</footer>
+
+<!-- Collapsible Top Papers tables -->
+<script>
+(function () {
+  document.querySelectorAll("table.papers-table").forEach(function (t) {
+    var card = t.closest(".card");
+    var head = card && card.querySelector(".card-head");
+    if (!card || !head || card.classList.contains("papers-collapse")) return;
+    card.classList.add("papers-collapse", "collapsed");
+    var body = document.createElement("div");
+    body.className = "collapse-body";
+    var n = head.nextSibling;
+    while (n) { var next = n.nextSibling; body.appendChild(n); n = next; }
+    card.appendChild(body);
+    head.classList.add("collapsible-head");
+    head.setAttribute("role", "button");
+    head.setAttribute("tabindex", "0");
+    head.setAttribute("aria-expanded", "false");
+    var count = t.querySelectorAll("tbody tr").length;
+    var left = head.querySelector(".card-head-left") || head;
+    var title = left.querySelector(".card-title");
+    if (title) {
+      var badge = document.createElement("span");
+      badge.className = "collapse-count";
+      badge.textContent = count + " papers";
+      title.appendChild(badge);
+    }
+    var chev = document.createElement("span");
+    chev.className = "collapse-chevron";
+    chev.textContent = "\u25BE";
+    head.appendChild(chev);
+    function toggle() {
+      var open = card.classList.toggle("collapsed");
+      head.setAttribute("aria-expanded", open ? "false" : "true");
+    }
+    head.addEventListener("click", toggle);
+    head.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+# Principal colours sampled from each year's MICCAI conference logo.
+#
+# THIS FILE IS A PROVENANCE RECORD, NOT AN INPUT. No code reads it. Editing a
+# value here changes nothing on the site.
+#
+# The colours actually used are hardcoded in two places, and both must be
+# edited by hand to match:
+#   analysis/build_charts.py  YEAR_PALETTES   {"main": ..., "secondary": ...}
+#   analysis/build_site.py    YEAR_META_RAW   "color" / "color2"
+#
+# They cannot simply be generated from this file, because picking WHICH two of
+# the three primaries to use, and which is main rather than secondary, is a
+# judgement call: 2022 skips #231f20 (near-black, second in its list) in favour
+# of the red, and 2023 promotes the green over the red that leads its list.
+# Closing that gap means adding explicit main/secondary keys here and having
+# both scripts read them; see REPRODUCIBILITY.md gap G3.
+#
+# Verified 2026-08-30: all three copies agree.
+#
+# "additional_avoid_if_possible" are further colours present in the logo that
+# read poorly as chart accents (too dark, too pale, or too close to a primary).
+
+2025:
+  primary:
+    - "#d2242b"
+    - "#2b50a3"
+    - "#692f90"
+  additional_avoid_if_possible:
+    - "#3a55a5"
+
+2024:
+  primary:
+    - "#ce5258"
+    - "#2d835d"
+    - "#404041"
+  additional_avoid_if_possible:
+    - "#265f3b"
+    - "#231f20"
+    - "#0f1a12"
+    - "#0c130f"
+    - "#231f20"
+
+2023:
+  primary:
+    - "#e81e25"
+    - "#559e39"
+    - "#000000"
+  additional_avoid_if_possible:
+    - "#e24f57"
+
+2022:
+  primary:
+    - "#23408f"
+    - "#231f20"
+    - "#ed2425"
+  additional_avoid_if_possible:
+    - "#343a40"
+
+2021:
+  primary:
+    - "#27368a"
+    - "#00aeef"
+    - "#f2f6fa"
+  additional_avoid_if_possible:
+    - "#575ea8"

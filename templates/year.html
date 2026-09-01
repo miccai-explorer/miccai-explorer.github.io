@@ -1,0 +1,419 @@
+{% extends "base.html" %}
+{% block title %}MICCAI {{ year }} - MICCAI Explorer{% endblock %}
+
+{% block head %}
+<!-- Per-year accent: each year page is themed with its conference logo colors -->
+<style>
+  :root {
+    --accent:         {{ meta.color }};
+    --accent-bg:      {{ meta.accent_bg }};
+    --accent-on-dark: {{ meta.color_on_dark }};
+    --nav-active:     {{ meta.color }};
+    --strip-accent:   {{ meta.color }};
+  }
+</style>
+{% endblock %}
+
+{% block page_header %}
+<!-- Year logo header -->
+<div class="year-logo-header">
+  {% if meta.has_white_bg %}
+  <span class="year-logo-pill">
+    <img src="{{ base_url }}/assets/logos/{{ meta.logo }}"
+         alt="MICCAI {{ year }} {{ meta.city }}" class="year-logo-img logo-{{ year }}">
+  </span>
+  {% else %}
+  <img src="{{ base_url }}/assets/logos/{{ meta.logo }}"
+       alt="MICCAI {{ year }} {{ meta.city }}" class="year-logo-img logo-{{ year }}">
+  {% endif %}
+  <div class="year-title-block">
+    <div class="year-title">MICCAI {{ year }}</div>
+    <div class="year-city">{{ meta.city }}</div>
+  </div>
+</div>
+
+<!-- Stat strip -->
+<div class="stat-strip">
+  <div class="stat-cell">
+    <div class="stat-label">Papers</div>
+    <div class="stat-value">{{ stats.n_papers | format_int }}</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-label">Unique Authors</div>
+    <div class="stat-value">{{ stats.n_authors | format_int }}</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-label">With Code</div>
+    <div class="stat-value accent">{{ stats.pct_code }}%</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-label">Avg Review Score</div>
+    <div class="stat-value">{{ stats.avg_score }} <span class="stat-scale">/ {{ scale_max }}</span></div>
+  </div>
+</div>
+
+<!-- In-page section navigation -->
+<nav class="section-nav" aria-label="Page sections">
+  <a href="#sec-map">Semantic Map</a>
+  <a href="#sec-topics">Topics &amp; Authors</a>
+  <a href="#sec-reviews">Review Analysis</a>
+  <a href="#sec-code">Code &amp; Trends</a>
+  <a href="#sec-network">Co-authorship</a>
+  <a href="#sec-titles">Title Patterns</a>
+  <a href="#sec-top">Top Papers</a>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="page-body">
+
+  <p class="card-sub" style="margin:0 0 4px;">
+    <a href="{{ base_url }}/papers.html?year={{ year }}">Browse all
+    {{ stats.n_papers | format_int }} papers from {{ year }}</a>
+    in the searchable list.
+  </p>
+
+  <!-- Semantic map -->
+  <h2 class="section-heading" id="sec-map">Semantic Map</h2>
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-left">
+        <p class="card-title">{{ stats.n_papers | format_int }} papers in {{ n_clusters }} research clusters</p>
+        <p class="card-sub">{{ embed_model }} embeddings → UMAP. Click a point to open the paper.</p>
+      </div>
+      <span class="badge badge-active">By cluster</span>
+    </div>
+    <iframe src="{{ base_url }}/charts/map_{{ year }}.html"
+            class="chart-frame" height="{{ heights.map }}" scrolling="no" frameborder="0" loading="lazy"></iframe>
+  </div>
+
+  <!-- Subject areas & Authors side by side -->
+  <h2 class="section-heading" id="sec-topics">Topics &amp; Authors</h2>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-left">
+          <p class="card-title">Top Subject Areas</p>
+          <p class="card-sub">Top 20 by paper count</p>
+        </div>
+      </div>
+      <iframe src="{{ base_url }}/charts/subjects_{{ year }}.html"
+              class="chart-frame" height="{{ heights.subjects }}" scrolling="no" frameborder="0" loading="lazy"></iframe>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-left">
+          <p class="card-title">Top 20 Authors</p>
+          <p class="card-sub">By paper count</p>
+        </div>
+      </div>
+      <iframe src="{{ base_url }}/charts/authors_{{ year }}.html"
+              class="chart-frame" height="{{ heights.authors }}" scrolling="no" frameborder="0" loading="lazy"></iframe>
+    </div>
+  </div>
+
+  <!-- Review analysis -->
+  <h2 class="section-heading" id="sec-reviews">Review Analysis</h2>
+  <div class="grid-2-1">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-left">
+          <p class="card-title">Review Score Distribution</p>
+          <p class="card-sub">Raw 1-{{ scale_max }} scale ({{ year }} scoring)</p>
+        </div>
+      </div>
+      <iframe src="{{ base_url }}/charts/scores_{{ year }}.html"
+              class="chart-frame" height="{{ heights.scores }}" scrolling="no" frameborder="0" loading="lazy"></iframe>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-left">
+          <p class="card-title">Reviewer Disagreement</p>
+          <p class="card-sub">Max − min score per paper</p>
+        </div>
+      </div>
+      <iframe src="{{ base_url }}/charts/controversy_{{ year }}.html"
+              class="chart-frame" height="{{ heights.controversy }}" scrolling="no" frameborder="0" loading="lazy"></iframe>
+    </div>
+  </div>
+
+  {% if has_sankey %}
+  <!-- Rebuttal Sankey (only years with post-rebuttal verdict labels: 2024/2025) -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-left">
+        <p class="card-title">Rebuttal Impact: Reviewer Verdict Flow</p>
+        <p class="card-sub">
+          Pre-rebuttal verdict (left) → post-rebuttal verdict (right), one band per reviewer.
+          Green bands improved, red bands downgraded, gray unchanged.
+          Reviewers without a post-rebuttal response are excluded ·
+          {{ stats.pct_early_subs }}% of submissions were early-accepted (no rebuttal round).
+        </p>
+      </div>
+    </div>
+    <iframe src="{{ base_url }}/charts/rebuttal_{{ year }}.html"
+            class="chart-frame" height="{{ heights.rebuttal }}" scrolling="no" frameborder="0" loading="lazy"></iframe>
+  </div>
+  {% endif %}
+
+  <!-- Code availability & Buzzwords -->
+  <h2 class="section-heading" id="sec-code">Code &amp; Research Trends</h2>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-left">
+          <p class="card-title">Code Availability by Subject Area</p>
+          <p class="card-sub">Areas with ≥ 8 papers</p>
+        </div>
+        <span class="badge badge-active">{{ stats.pct_code }}% overall</span>
+      </div>
+      <iframe src="{{ base_url }}/charts/code_{{ year }}.html"
+              class="chart-frame" height="{{ heights.code }}" scrolling="no" frameborder="0" loading="lazy"></iframe>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-left">
+          <p class="card-title">Research Buzzword Frequency</p>
+          <p class="card-sub">Matched against title + abstract (may overlap)</p>
+        </div>
+      </div>
+      <iframe src="{{ base_url }}/charts/buzzwords_{{ year }}.html"
+              class="chart-frame" height="{{ heights.buzzwords }}" scrolling="no" frameborder="0" loading="lazy"></iframe>
+    </div>
+  </div>
+
+  <!-- Co-authorship network -->
+  <h2 class="section-heading" id="sec-network">Co-authorship Network</h2>
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-left">
+        <p class="card-title">Authors with ≥ {{ coauthor_min }} papers at MICCAI {{ year }}</p>
+        <p class="card-sub">Node size = paper count. Edge = shared authorship. Color = detected collaboration community; disconnected groups are laid out separately so they don't overlap the main cluster. Drag a node to reposition it, drag the background to pan, scroll to zoom.</p>
+      </div>
+    </div>
+    <iframe src="{{ base_url }}/charts/coauthor_{{ year }}.html"
+            class="chart-frame" height="{{ heights.coauthor }}" scrolling="no" frameborder="0" loading="lazy"></iframe>
+  </div>
+
+  <!-- Title patterns -->
+  <h2 class="section-heading" id="sec-titles">Paper Title Patterns</h2>
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-left">
+        <p class="card-title">Title length and most common first words</p>
+        <p class="card-sub">Articles and prepositions excluded from first-word count</p>
+      </div>
+    </div>
+    <iframe src="{{ base_url }}/charts/naming_{{ year }}.html"
+            class="chart-frame" height="{{ heights.naming }}" scrolling="no" frameborder="0" loading="lazy"></iframe>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-left">
+        <p class="card-title">Title &amp; Author Extremes</p>
+      </div>
+    </div>
+    <div class="paper-lists-grid">
+
+      <div class="paper-list-col">
+        <div class="paper-list-heading">Longest Titles</div>
+        <ol class="paper-list">
+          {% for item in title_lists.longest %}
+          <li class="paper-list-item">
+            <a href="{{ item.url }}" target="_blank" class="paper-list-link"
+               title="{{ item.title }}">{{ item.title | truncate(88, True, '…') }}</a>
+            <span class="paper-list-meta">{{ item.word_count }} words</span>
+          </li>
+          {% endfor %}
+        </ol>
+      </div>
+
+      <div class="paper-list-col">
+        <div class="paper-list-heading">Shortest Titles</div>
+        <ol class="paper-list">
+          {% for item in title_lists.shortest %}
+          <li class="paper-list-item">
+            <a href="{{ item.url }}" target="_blank" class="paper-list-link"
+               title="{{ item.title }}">{{ item.title | truncate(88, True, '…') }}</a>
+            <span class="paper-list-meta">{{ item.word_count }} words</span>
+          </li>
+          {% endfor %}
+        </ol>
+      </div>
+
+      <div class="paper-list-col">
+        <div class="paper-list-heading">Most Authors</div>
+        <ol class="paper-list">
+          {% for item in title_lists.most_authors %}
+          <li class="paper-list-item">
+            <a href="{{ item.url }}" target="_blank" class="paper-list-link"
+               title="{{ item.title }}">{{ item.title | truncate(88, True, '…') }}</a>
+            <span class="paper-list-meta">{{ item.n_authors }} authors</span>
+          </li>
+          {% endfor %}
+        </ol>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Top papers -->
+  <h2 class="section-heading" id="sec-top">Top Papers</h2>
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-left">
+        <p class="card-title">Top {{ top_n }} Papers (Overall)</p>
+        <p class="card-sub">Ranked by mean reviewer score (1-{{ scale_max }} scale)</p>
+      </div>
+    </div>
+    <table class="papers-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Title</th>
+          <th>Subject Area</th>
+          <th>Mean Reviewer<br>Score (Scores)</th>
+          {% if has_orals_page %}<th>Presentation</th>{% endif %}
+          <th>Early Accept?</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in top_overall %}
+        <tr>
+          <td class="num-col">{{ loop.index }}</td>
+          <td><a href="{{ p.url }}" target="_blank" title="{{ p.title }}">{{ p.title }}</a></td>
+          <td class="subject-col" title="{{ p.subject_full }}">{{ p.subject }}</td>
+          <td class="score-col">
+            <span class="score-mean">{{ "%.2f" | format(p.mean) }}</span>
+            <span class="score-list">({{ p.scores }})</span>
+          </td>
+          {% if has_orals_page %}<td class="pres-col"><span class="pres-{{ (p.presentation or "poster") | lower }}">{{ p.presentation or "Poster" }}</span></td>{% endif %}
+          <td>{% if p.early %}<span class="tick-yes">✓</span>{% else %}<span class="tick-no">✗</span>{% endif %}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% if rebuttal_mode == "scores" %}
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-left">
+        <p class="card-title">Top {{ top_n }} Papers (Rebuttal)</p>
+        <p class="card-sub">Papers with numeric post-rebuttal reviewer scores, ranked by mean post-rebuttal score.
+          Reviewers who did not respond post-rebuttal keep their original score.</p>
+      </div>
+    </div>
+    <table class="papers-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Title</th>
+          <th>Subject Area</th>
+          <th>Mean Reviewer<br>Score (Scores)</th>
+          {% if has_orals_page %}<th>Presentation</th>{% endif %}
+          <th>Mean Post-Rebuttal Score (Scores)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in top_rebuttal %}
+        <tr>
+          <td class="num-col">{{ loop.index }}</td>
+          <td><a href="{{ p.url }}" target="_blank" title="{{ p.title }}">{{ p.title }}</a></td>
+          <td class="subject-col" title="{{ p.subject_full }}">{{ p.subject }}</td>
+          <td class="score-col">
+            <span class="score-mean">{{ "%.2f" | format(p.mean) }}</span>
+            <span class="score-list">({{ p.scores }})</span>
+          </td>
+          {% if has_orals_page %}<td class="pres-col"><span class="pres-{{ (p.presentation or "poster") | lower }}">{{ p.presentation or "Poster" }}</span></td>{% endif %}
+          <td class="score-col">
+            <span class="score-mean">{{ "%.2f" | format(p.mean_post) }}</span>
+            <span class="score-list">({{ p.post_scores }})</span>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% elif rebuttal_mode == "verdicts" %}
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-left">
+        <p class="card-title">Top {{ top_n }} Papers (Rebuttal)</p>
+        <p class="card-sub">MICCAI {{ year }} reviewers recorded post-rebuttal verdicts (Accept/Reject) but no numeric scores.
+          Ranked by post-rebuttal verdicts, then improvement over pre-rebuttal verdicts.
+          Reviewers who did not respond post-rebuttal keep their original verdict.</p>
+      </div>
+    </div>
+    <table class="papers-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Title</th>
+          <th>Subject Area</th>
+          <th>Mean Reviewer<br>Score (Scores)</th>
+          {% if has_orals_page %}<th>Presentation</th>{% endif %}
+          <th>Post-Rebuttal Verdicts</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in top_rebuttal %}
+        <tr>
+          <td class="num-col">{{ loop.index }}</td>
+          <td><a href="{{ p.url }}" target="_blank" title="{{ p.title }}">{{ p.title }}</a></td>
+          <td class="subject-col" title="{{ p.subject_full }}">{{ p.subject }}</td>
+          <td class="score-col">
+            <span class="score-mean">{{ "%.2f" | format(p.mean) }}</span>
+            <span class="score-list">({{ p.scores }})</span>
+          </td>
+          {% if has_orals_page %}<td class="pres-col"><span class="pres-{{ (p.presentation or "poster") | lower }}">{{ p.presentation or "Poster" }}</span></td>{% endif %}
+          <td class="verdict-col">{{ p.post_verdicts }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% else %}
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-left">
+        <p class="card-title">Top {{ top_n }} Papers (Rebuttal)</p>
+        <p class="card-sub">Not available for MICCAI {{ year }}, because the open-access review data for this year
+          contains no post-rebuttal reviewer scores or verdicts, so a rebuttal ranking cannot be built.</p>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+</div>
+
+<!-- Highlight the section-nav link for the section currently in view -->
+<script>
+(function () {
+  var links = Array.prototype.slice.call(
+    document.querySelectorAll(".section-nav a"));
+  var targets = links.map(function (l) {
+    return document.getElementById(l.getAttribute("href").slice(1));
+  });
+  var ticking = false;
+  function update() {
+    ticking = false;
+    var y = window.scrollY + 140;
+    var active = 0;
+    for (var i = 0; i < targets.length; i++) {
+      if (targets[i] && targets[i].offsetTop <= y) active = i;
+    }
+    links.forEach(function (l, i) {
+      l.classList.toggle("active", i === active);
+    });
+  }
+  document.addEventListener("scroll", function () {
+    if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
+  }, { passive: true });
+  update();
+})();
+</script>
+{% endblock %}

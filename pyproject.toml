@@ -1,0 +1,122 @@
+[project]
+name = "miccai-explorer"
+version = "0.1.0"
+description = "Interactive explorer for MICCAI papers and peer reviews, 2021-2025"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "adapters>=1.3.0",
+    "beautifulsoup4>=4.15.0",
+    "jinja2>=3.1.6",
+    "lxml>=6.1.1",
+    "networkx>=3.4.2",
+    "numpy>=2.2.6",
+    "pdfplumber>=0.11.0",
+    "plotly>=6.8.0",
+    "pyyaml>=6.0.3",
+    "rapidfuzz>=3.9.0",
+    "requests>=2.34.2",
+    "scikit-learn>=1.7.2",
+    "sentence-transformers>=5.6.0",
+    "torch>=2.6.0",
+    "tqdm>=4.68.2",
+    "transformers>=4.57.6",
+    "umap-learn>=0.5.12",
+    "pacmap>=0.7.2",
+]
+
+# Formatting: PEP-8 line length; isort configured to agree with ruff format
+[dependency-groups]
+# The tools needed to work on this project, as opposed to run it. Declared so
+# that "uv sync" produces an environment that can run the tests and the linter:
+# without this they are pruned as undeclared, which breaks make_release.sh (it
+# runs pytest with the interpreter it is given).
+#
+# ruff is pinned to the exact version CI installs and the version the rule set
+# below was verified against, because ruff changes its defaults between
+# releases and an unpinned linter can fail a commit that changed nothing.
+# pytest gets a floor instead: nothing here depends on its exact behaviour.
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=7.0",
+    "ruff==0.16.4",
+]
+
+# Coverage is scoped, and the omit list below is the whole argument for the
+# percentage this repository publishes, so it is written out rather than
+# tuned until the number looks good.
+#
+# What is measured: the code that decides what the data says. The parsers, the
+# oral extraction and matching, the statistics, and the browse index. A bug in
+# any of these writes a plausible wrong number that nothing downstream can
+# catch, which is exactly the failure mode recorded four times over for the
+# review parsers.
+#
+# What is omitted, and why it is not a gap:
+#
+#   build_charts.py, build_oral_charts.py, build_site.py
+#       Rendering. Verified by byte-for-byte reproducibility instead: two
+#       builds of unchanged data produce identical files, so a rebuild diff
+#       shows only real changes. See REPRODUCIBILITY.md I9. Line coverage of a
+#       Plotly layout dict would assert that the code ran, not that the chart
+#       is right.
+#
+#   embed.py, use_model.py, normalize.py, scrape.py, audit_review_fields.py
+#       One-shot operator commands, run by hand and checked by looking at what
+#       they produced. Their outputs are committed, so the tests that matter
+#       are the golden counts over those artifacts, which do run.
+#
+# The percentage is printed in the CI log and is not published as a badge, so
+# there is nothing to be gained by flattering it: adding a module to this list
+# only hides code that is not tested. Raise it by writing tests.
+[tool.coverage.run]
+source = ["analysis", "scraper"]
+omit = [
+    "analysis/build_charts.py",
+    "analysis/build_oral_charts.py",
+    "analysis/build_site.py",
+    "analysis/embed.py",
+    "analysis/use_model.py",
+    "analysis/normalize.py",
+    "scraper/scrape.py",
+    "scraper/audit_review_fields.py",
+]
+
+[tool.coverage.report]
+show_missing = true
+
+[tool.ruff]
+line-length = 79
+
+# The rule set is stated explicitly so a ruff upgrade cannot silently change
+# what "passing" means. Verified against ruff 0.16.4.
+#
+#   E4  import placement      E7  statement-level mistakes
+#   E9  syntax / IO errors    F   pyflakes: undefined names, unused imports
+#   W   whitespace warnings   I   import sorting
+#
+# Deliberately NOT enabled: ruff's default extended set reports 210 findings
+# here, of which 156 are C408 ("rewrite dict() as a literal"). Every chart in
+# this project is built from Plotly keyword dicts, where dict(color=..., width=
+# ...) reads far better than a quoted-key literal. A rule that would make the
+# most-read code in the repository worse is not a rule worth having.
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "W", "I"]
+
+[tool.ruff.lint.per-file-ignores]
+# The test files and the field auditor put the module they are testing on
+# sys.path before importing it, which necessarily happens after other imports.
+"tests/*" = ["E402"]
+"scraper/audit_review_fields.py" = ["E402"]
+
+[tool.isort]
+profile = "black"
+line_length = 79
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu126" }
+
+[[tool.uv.index]]
+name = "pytorch-cu126"
+url = "https://download.pytorch.org/whl/cu126"
+explicit = true

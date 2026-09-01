@@ -1,0 +1,22 @@
+{
+  "0": "Cardiac & Vascular Imaging",
+  "1": "Computer-Aided Diagnosis & Biomarker Analysis",
+  "2": "Diffusion Models for Medical Image Synthesis",
+  "3": "Domain Adaptation & Generalization",
+  "4": "Functional Brain Connectivity & Connectomics",
+  "5": "Vision-Language Models & Radiology Reports",
+  "6": "Chest & Lung Imaging",
+  "7": "Endoscopy & Colonoscopy Analysis",
+  "8": "Musculoskeletal, Bone & Dental Imaging",
+  "9": "Medical Image Reconstruction & Enhancement",
+  "10": "Medical Image Segmentation",
+  "11": "Neurodegenerative Disease Diagnosis",
+  "12": "Deformable Image Registration",
+  "13": "Retinal & Vascular Imaging",
+  "14": "Whole Slide Image Analysis",
+  "15": "Semi-supervised & Weakly Supervised Segmentation",
+  "16": "Medical Image Classification & Robustness",
+  "17": "Multi-modal Fusion & Outcome Prediction",
+  "18": "Brain Morphometry & Anatomical Modeling",
+  "19": "Surgical Scene Understanding & Robotics"
+}

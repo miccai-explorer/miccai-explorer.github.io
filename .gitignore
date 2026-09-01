@@ -1,3 +1,23 @@
+# Release directory contents
+RELEASE/
+
+# Full program books from previous conferences
+data/manually_downloaded/ProgramBooks/*
+
+# Scraper checkpoints (temporary resume state — not needed in git)
+data/raw/checkpoints/*
+data/raw/*.json.bak
+
+# Local safety copy of scraped data, made before/after a re-scrape.
+# Roughly 40 MB of duplicate JSON; useful locally, never wanted in git.
+web-scrape-backup/
+
+# Pages fetched by scraper/audit_review_fields.py so a re-run costs no requests.
+.audit_cache/
+
+# Generated website output (built by CI and pushed to gh-pages branch)
+website/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
@@ -45,11 +65,19 @@ htmlcov/
 .cache
 nosetests.xml
 coverage.xml
+coverage.json
 *.cover
 *.py.cover
 .hypothesis/
 .pytest_cache/
 cover/
+
+# Written by the CI test job (.github/workflows/deploy.yml) and by anyone
+# reproducing it locally: the pytest reports and the shields.io badge
+# endpoints built from them. The published copies live under website/badges/,
+# which is inside the already-ignored website/ tree.
+reports/
+badges/
 
 # Translations
 *.mo

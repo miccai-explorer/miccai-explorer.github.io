@@ -1,0 +1,757 @@
+{
+  "year": 2022,
+  "source_pdf": "data/manually_downloaded/OralSchedules/2022.pdf",
+  "n_sessions": 8,
+  "n_presentations": 41,
+  "sessions": [
+    {
+      "session_id": "1",
+      "session_title": "Computer Aided Diagnosis",
+      "session_kind": "oral",
+      "day": "Sept 19, 2022 (Monday), 9:00 - 10:30",
+      "room": null,
+      "chairs": [
+        "Ester Bonmati, University College London, United Kingdom"
+      ],
+      "presentations": [
+        {
+          "type": "oral",
+          "title_raw": "Detecting Aortic Valve Pathology from the 3-Chamber Cine Cardiac MRI View",
+          "authors_raw": [
+            "Kavitha Vimalesvaran",
+            "Fatmatülzehra Uslu",
+            "Sameer Zaman",
+            "Christoforos Galazis",
+            "James Howard",
+            "Graham Cole",
+            "Anil A Bharath"
+          ],
+          "speaker": "Kavitha Vimalesvaran, Imperial College London, United Kingdom",
+          "page": 1,
+          "column": 0,
+          "order": 1
+        },
+        {
+          "type": "oral",
+          "title_raw": "Intervention & Interaction Federated Abnormality Detection with Noisy Clients",
+          "authors_raw": [
+            "Xinyu Liu",
+            "Wuyang Li",
+            "Yixuan Yuan"
+          ],
+          "speaker": "Xinyu Liu, City University of Hong Kong, Hong Kong SAR, China",
+          "page": 1,
+          "column": 0,
+          "order": 2
+        },
+        {
+          "type": "oral",
+          "title_raw": "Reinforcement Learning for Active Modality Selection during Diagnosis",
+          "authors_raw": [
+            "Gabriel Bernardino",
+            "Anders Jonsson",
+            "Filip Loncaric",
+            "Pablo-Miki Martí Castellote",
+            "Marta Sitges",
+            "Patrick Clarysse",
+            "Nicolas Duchateau"
+          ],
+          "speaker": "Gabriel Bernardino, Universite Lyon 1, France",
+          "page": 1,
+          "column": 0,
+          "order": 3
+        },
+        {
+          "type": "oral",
+          "title_raw": "Intra-class Contrastive Learning Improves Computer Aided Diagnosis of Breast Cancer in Mammography",
+          "authors_raw": [
+            "Kihyun You",
+            "Suho Lee",
+            "Kyuhee Jo",
+            "Eunkyung Park",
+            "Thijs Kooi",
+            "Hyeonseob Nam"
+          ],
+          "speaker": "Kihyun You, Lunit Inc., South Korea",
+          "page": 1,
+          "column": 0,
+          "order": 4
+        },
+        {
+          "type": "oral",
+          "title_raw": "Contrastive Learning for Echocardiographic View Integration",
+          "authors_raw": [
+            "Li-Hsin Cheng",
+            "Xiaowu Sun",
+            "Rob J. van der Geest"
+          ],
+          "speaker": "Li-Hsin Cheng, Leiden University Medical Center, the Netherlands",
+          "page": 1,
+          "column": 0,
+          "order": 5
+        },
+        {
+          "type": "oral",
+          "title_raw": "FairPrune: Achieving Fairness Through Pruning for Dermatological Disease Diagnosis",
+          "authors_raw": [
+            "Yawen Wu",
+            "Dewen Zeng",
+            "Xiaowei Xu",
+            "Yiyu Shi",
+            "Jingtong Hu"
+          ],
+          "speaker": "Yawen Wu , University of Pittsburgh, United States",
+          "page": 1,
+          "column": 0,
+          "order": 6
+        }
+      ]
+    },
+    {
+      "session_id": "2",
+      "session_title": "Interpretability/Uncertainty",
+      "session_kind": "oral",
+      "day": "Sept 19, 2022 (Monday), 13:30 - 14:30",
+      "room": null,
+      "chairs": [
+        "Aasa Feragen, Technical University of Denmark, Denmark"
+      ],
+      "presentations": [
+        {
+          "type": "oral",
+          "title_raw": "Interpretable Graph Neural Networks for Connectome-Based Brain Disorder Analysis",
+          "authors_raw": [
+            "Hejie Cui",
+            "Wei Dai",
+            "Yanqiao Zhu",
+            "Xiaoxiao Li",
+            "Lifang He",
+            "Carl Yang"
+          ],
+          "speaker": "Hejie Cui, Emory University, USA",
+          "page": 2,
+          "column": 0,
+          "order": 1
+        },
+        {
+          "type": "oral",
+          "title_raw": "What Can We Learn About a Generated Image Corrupting Its Latent Representation?",
+          "authors_raw": [
+            "Agnieszka Tomczak",
+            "Aarushi Gupta",
+            "Slobodan Ilic",
+            "Nassir Navab",
+            "Shadi Albarqouni"
+          ],
+          "speaker": "Agnieszka Tomczak, Technical University of Munich, Germany",
+          "page": 2,
+          "column": 0,
+          "order": 2
+        },
+        {
+          "type": "oral",
+          "title_raw": "Dual-graph Learning Convolutional Networks for Interpretable Alzheimer’s Disease Diagnosis",
+          "authors_raw": [
+            "Tingsong Xiao",
+            "Lu Zeng",
+            "Xiaoshuang Shi",
+            "Xiaofeng Zhu",
+            "Guorong Wu"
+          ],
+          "speaker": "Tingsong Xiao, University of Electronic Science and Technology of China, China",
+          "page": 2,
+          "column": 0,
+          "order": 3
+        },
+        {
+          "type": "oral",
+          "title_raw": "Accurate and Explainable Image-based Prediction Using a Lightweight Generative Model",
+          "authors_raw": [
+            "Chiara Mauri",
+            "Stefano Cerri",
+            "Oula Puonti",
+            "Mark Mühlau",
+            "Koen Van Leemput"
+          ],
+          "speaker": "Chiara Mauri, Technical University of Denmark, Denmark",
+          "page": 2,
+          "column": 0,
+          "order": 4
+        }
+      ]
+    },
+    {
+      "session_id": "3",
+      "session_title": "Surgical Data Science",
+      "session_kind": "oral",
+      "day": "Sept 19, 2022 (Monday), 15:30 - 17:00",
+      "room": null,
+      "chairs": [
+        "Sophia Bano, University College London, United Kingdom"
+      ],
+      "presentations": [
+        {
+          "type": "oral",
+          "title_raw": "Bayesian Dense Inverse Searching Algorithm For Real-Time Stereo Matching in Minimally Invasive Surgery",
+          "authors_raw": [
+            "Jingwei Song",
+            "Qiuchen Zhu",
+            "Jianyu Lin",
+            "Maani Ghaffari"
+          ],
+          "speaker": "Jingwei Song, University of Michigan, United States",
+          "page": 3,
+          "column": 0,
+          "order": 1
+        },
+        {
+          "type": "oral",
+          "title_raw": "Neural Rendering for Stereo 3D Reconstruction of Deformable Tissues in Robotic Surgery",
+          "authors_raw": [
+            "Yuehao Wang",
+            "Yonghao Long",
+            "Siu Hin Fan",
+            "Qi Dou"
+          ],
+          "speaker": "Yuehao Wang, The Chinese University of Hong Kong, Hong Kong SAR, China",
+          "page": 3,
+          "column": 0,
+          "order": 2
+        },
+        {
+          "type": "oral",
+          "title_raw": "Towards Holistic Surgical Scene Understanding",
+          "authors_raw": [
+            "Natalia Valderrama",
+            "Paola Ruiz Puentes",
+            "Isabela Hernández",
+            "Nicolás Ayobi",
+            "Mathilde Verlyck",
+            "Jessica Santander",
+            "Juan Caicedo",
+            "Nicolás Fernández",
+            "Pablo Arbeláez"
+          ],
+          "speaker": "Natalia Valderrama, Universidad de los Andes, Colombia",
+          "page": 3,
+          "column": 0,
+          "order": 3
+        },
+        {
+          "type": "oral",
+          "title_raw": "4D-OR: Semantic Scene Graphs for OR Domain Modeling",
+          "authors_raw": [
+            "Ege Özsoy",
+            "Evin Pınar Örnek",
+            "Ulrich Eck",
+            "Tobias Czempiel",
+            "Federico Tombari",
+            "Nassir Navab"
+          ],
+          "speaker": "Ege Özsoy, Technical University of Munich, Germany",
+          "page": 3,
+          "column": 0,
+          "order": 4
+        },
+        {
+          "type": "oral",
+          "title_raw": "Video-based Surgical Skills Assessment using Long term Tool Tracking",
+          "authors_raw": [
+            "Mona Fathollahi",
+            "Mohammad Hasan Sarhan",
+            "Ramon Pena",
+            "Lela DiMonte",
+            "Anshu Gupta",
+            "Aishani Ataliwala",
+            "Jocelyn Barker"
+          ],
+          "speaker": "Mohammad Hasan Sarhan, Johnson & Johnson Medical Ltd., Germany",
+          "page": 3,
+          "column": 0,
+          "order": 5
+        }
+      ]
+    },
+    {
+      "session_id": "4",
+      "session_title": "Image Reconstruction & Registration",
+      "session_kind": "oral",
+      "day": "Sept 20, 2022 (Tuesday), 9:00 - 10:30",
+      "room": null,
+      "chairs": [
+        "Mattias Heinrich, University of Lübeck, Germany"
+      ],
+      "presentations": [
+        {
+          "type": "oral",
+          "title_raw": "SVoRT: Iterative Transformer for Slice-to-Volume Registration in Fetal Brain MRI",
+          "authors_raw": [
+            "Junshen Xu",
+            "Daniel Moyer",
+            "P. Ellen Grant",
+            "Polina Golland",
+            "Juan Eugenio Iglesias",
+            "Elfar Adalsteinsson"
+          ],
+          "speaker": "Junshen Xu, Massachusetts Institute of Technology, United States",
+          "page": 4,
+          "column": 0,
+          "order": 1
+        },
+        {
+          "type": "oral",
+          "title_raw": "NAF: Neural Attenuation Fields for Sparse-View CBCT Reconstruction",
+          "authors_raw": [
+            "Ruyi Zha",
+            "Yanhao Zhang",
+            "Hongdong Li"
+          ],
+          "speaker": "Ruyi Zha, Australian National University, Australia",
+          "page": 4,
+          "column": 0,
+          "order": 2
+        },
+        {
+          "type": "oral",
+          "title_raw": "Deep Motion Network for Freehand 3D Ultrasound Reconstruction",
+          "authors_raw": [
+            "Mingyuan Luo",
+            "Xin Yang",
+            "Hongzhang Wang",
+            "Liwei Du",
+            "Dong Ni"
+          ],
+          "speaker": "Mingyuan Luo, Shenzhen University, China",
+          "page": 4,
+          "column": 0,
+          "order": 3
+        },
+        {
+          "type": "oral",
+          "title_raw": "Towards Performant and Reliable Undersampled MR Reconstruction Via Diffusion Model Sampling",
+          "authors_raw": [
+            "Cheng Peng",
+            "Pengfei Guo",
+            "S. Kevin Zhou",
+            "Vishal M Patel",
+            "Rama Chellappa"
+          ],
+          "speaker": "Cheng Peng, Johns Hopkins University, United States",
+          "page": 4,
+          "column": 0,
+          "order": 4
+        },
+        {
+          "type": "oral",
+          "title_raw": "BMD-GAN: Bone Mineral Density Estimation Using X-Ray Image Decomposition Into Projections Of Bone-Segmented Quantitative Computed Tomography Using Hierarchical Learning",
+          "authors_raw": [
+            "Yi Gu",
+            "Yoshito Otake",
+            "Keisuke Uemura",
+            "Mazen Soufi",
+            "Masaki Takao",
+            "Nobuhiko Sugano",
+            "Yoshinobu Sato"
+          ],
+          "speaker": "Yi Gu, Nara Institute of Science and Technology, Japan",
+          "page": 4,
+          "column": 0,
+          "order": 5
+        },
+        {
+          "type": "oral",
+          "title_raw": "Fast Spherical Mapping of Cortical Surface Meshes using Deep Unsupervised Learning",
+          "authors_raw": [
+            "Fenqiang Zhao",
+            "Zhengwang Wu",
+            "Li Wang",
+            "Weili Lin",
+            "Gang Li"
+          ],
+          "speaker": "Fenqiang Zhao, University of North Carolina at Chapel Hill, United States",
+          "page": 4,
+          "column": 0,
+          "order": 6
+        }
+      ]
+    },
+    {
+      "session_id": "5",
+      "session_title": "Microscopy Image Analysis",
+      "session_kind": "oral",
+      "day": "Sept 20, 2022 (Tuesday), 13:30 - 14:30",
+      "room": null,
+      "chairs": [
+        "Yuankai Huo, Vanderbilt University, United States"
+      ],
+      "presentations": [
+        {
+          "type": "oral",
+          "title_raw": "Implicit Neural Representations for Generative Modeling of Living Cell Shapes",
+          "authors_raw": [
+            "David Wiesner",
+            "Julian Suk",
+            "Sven Dummer",
+            "David Svoboda",
+            "Jelmer M. Wolterink"
+          ],
+          "speaker": "David Wiesner, Masaryk University, Czechia",
+          "page": 5,
+          "column": 0,
+          "order": 1
+        },
+        {
+          "type": "oral",
+          "title_raw": "Gigapixel Whole-Slide Images Classification Using Locally Supervised Learning",
+          "authors_raw": [
+            "Jingwei Zhang",
+            "Xin Zhang",
+            "Ke Ma",
+            "Rajarsi Gupta",
+            "Joel Saltz",
+            "Maria Vakalopoulou",
+            "Dimitris Samaras"
+          ],
+          "speaker": "Xin Zhang, National University of Singapore, Singapore",
+          "page": 5,
+          "column": 0,
+          "order": 2
+        },
+        {
+          "type": "oral",
+          "title_raw": "Discrepancy and Gradient-guided Multi-Modal Knowledge Distillation for Pathological Glioma Grading",
+          "authors_raw": [
+            "Xiaohan Xing",
+            "Zhen Chen",
+            "Meilu Zhu",
+            "Yuenan Hou",
+            "Zhifan Gao",
+            "Yixuan Yuan"
+          ],
+          "speaker": "Xiaohan Xing, City University of Hong Kong, Hong Kong SAR, China",
+          "page": 5,
+          "column": 0,
+          "order": 3
+        },
+        {
+          "type": "oral",
+          "title_raw": "Super-Focus: Domain Adaptation for Embryo Imaging via Self-Supervised Focal Plane Regression",
+          "authors_raw": [
+            "Chloe He",
+            "Céline Jacques",
+            "Jérôme Chambost",
+            "Jonas Malmsten",
+            "Koen Wouters",
+            "Thomas Fréour",
+            "Nikica Zaninovic",
+            "Cristina Hickman",
+            "Francisco Vasconcelos"
+          ],
+          "speaker": "Chloe He, University College London, United Kingdom",
+          "page": 5,
+          "column": 0,
+          "order": 4
+        }
+      ]
+    },
+    {
+      "session_id": "6",
+      "session_title": "Image Segmentation",
+      "session_kind": "oral",
+      "day": "Sept 20, 2022 (Tuesday), 15:30 - 17:00",
+      "room": null,
+      "chairs": [
+        "Herve Lombaert, ETS Montreal, Canada"
+      ],
+      "presentations": [
+        {
+          "type": "oral",
+          "title_raw": "CACTUSS: Common Anatomical CT-US Space for US examinations",
+          "authors_raw": [
+            "Yordanka Velikova",
+            "Walter Simson",
+            "Mehrdad Salehi",
+            "Mohammad Farid Azampour",
+            "Philipp Paprottka",
+            "Nassir Navab"
+          ],
+          "speaker": "Yordanka Velikova, Technical University of Munich, Germany",
+          "page": 6,
+          "column": 0,
+          "order": 1
+        },
+        {
+          "type": "oral",
+          "title_raw": "Transformer Based Feature Fusion for Left Ventricle Segmentation In 4D Flow MRI",
+          "authors_raw": [
+            "Xiaowu Sun",
+            "Li-Hsin Cheng",
+            "Sven Plein",
+            "Pankaj Garg",
+            "Rob J. van der Geest"
+          ],
+          "speaker": "Xiaowu Sun, Leiden University Medical Center, The Netherlands",
+          "page": 6,
+          "column": 0,
+          "order": 2
+        },
+        {
+          "type": "oral",
+          "title_raw": "Self-learning and One-shot Learning based Single-slice Annotation for 3D Medical Image Segmentation",
+          "authors_raw": [
+            "Yixuan Wu",
+            "Bo Zheng",
+            "Jintai Chen",
+            "Danny Z. Chen",
+            "Jian Wu"
+          ],
+          "speaker": "Yixuan Wu, Zhejiang University, China",
+          "page": 6,
+          "column": 0,
+          "order": 3
+        },
+        {
+          "type": "oral",
+          "title_raw": "DOMINO: Domain-aware Model Calibration in Medical Image Segmentation",
+          "authors_raw": [
+            "Skylar E. Stolte",
+            "Kyle Volle",
+            "Aprinda Indahlastari",
+            "Alejandro Albizu",
+            "Adam J. Woods",
+            "Kevin Brink",
+            "Matthew Hale",
+            "Ruogu Fang"
+          ],
+          "speaker": "Skylar E. Stolte, University of Florida, USA",
+          "page": 6,
+          "column": 0,
+          "order": 4
+        },
+        {
+          "type": "oral",
+          "title_raw": "Carbon Footprint of Selecting and Training Deep Learning Models for Medical Image Analysis",
+          "authors_raw": [
+            "Raghavendra Selvan",
+            "Nikhil Bhagwat",
+            "Lasse F. Wolff Anthony",
+            "Benjamin Kanding",
+            "Erik B. Dam"
+          ],
+          "speaker": "Raghavendra Selvan, University of Copenhagen, Denmark",
+          "page": 6,
+          "column": 0,
+          "order": 5
+        },
+        {
+          "type": "oral",
+          "title_raw": "Physiology-based simulation of the retinal vasculature enables annotation-free segmentation of OCT angiographs",
+          "authors_raw": [
+            "Martin J. Menten",
+            "Johannes C. Paetzold",
+            "Alina Dima",
+            "Bjoern H. Menze",
+            "Benjamin Knier",
+            "Daniel Rueckert"
+          ],
+          "speaker": "Martin J. Menten, Technical University of Munich and Klinikum Rechts der Isar, Germany",
+          "page": 6,
+          "column": 0,
+          "order": 6
+        }
+      ]
+    },
+    {
+      "session_id": "7",
+      "session_title": "Surgical Planning & Simulation",
+      "session_kind": "oral",
+      "day": "Sept 21, 2022 (Wednesday), 8:30 - 9:30",
+      "room": null,
+      "chairs": [
+        "Sandy Engelhardt, University Hospital Heidelberg, Germany"
+      ],
+      "presentations": [
+        {
+          "type": "oral",
+          "title_raw": "Deep Learning-based Facial Appearance Simulation Driven by Surgically Planned Craniomaxillofacial Bony Movement",
+          "authors_raw": [
+            "Xi Fang",
+            "Daeseung Kim",
+            "Xuanang Xu",
+            "Tianshu Kuang",
+            "Hannah H. Deng",
+            "Joshua C. Barber",
+            "Nathan Lampen",
+            "Jaime Gateno",
+            "Michael A.K. Liebschner",
+            "James J. Xia",
+            "Pingkun Yan"
+          ],
+          "speaker": "Xi Fang, Rensselaer Polytechnic Institute, United States",
+          "page": 7,
+          "column": 0,
+          "order": 1
+        },
+        {
+          "type": "oral",
+          "title_raw": "Ideal Midsagittal Plane Detection using Deep Hough Plane Network for Brain Surgical Planning",
+          "authors_raw": [
+            "Chenchen Qin",
+            "Wenxue Zhou",
+            "Jianbo Chang",
+            "Yihao Chen",
+            "Dasheng Wu",
+            "Yixun Liu",
+            "Ming Feng",
+            "Renzhi Wang",
+            "Wenming Yang",
+            "Jianhua Yao"
+          ],
+          "speaker": "Wenxue Zhou, Tencent AI Lab, China",
+          "page": 7,
+          "column": 0,
+          "order": 2
+        },
+        {
+          "type": "oral",
+          "title_raw": "SLAM-TKA: Real-time Intra-operative Measurement of Tibial Resection Plane in Conventional Total Knee Arthroplasty",
+          "authors_raw": [
+            "Shuai Zhang",
+            "Liang Zhao",
+            "Shoudong Huang",
+            "Hua Wang",
+            "Qi Luo",
+            "Qi Hao"
+          ],
+          "speaker": "Shuai Zhang, University of Technology Sydney, Australia",
+          "page": 7,
+          "column": 0,
+          "order": 3
+        },
+        {
+          "type": "oral",
+          "title_raw": "Deep Geometric Supervision Improves Spatial Generalization in Orthopedic Surgery Planning",
+          "authors_raw": [
+            "Florian Kordon",
+            "Andreas Maier",
+            "Benedict Swartman",
+            "Maxim Privalov",
+            "Jan S. El Barbari",
+            "Holger Kunze"
+          ],
+          "speaker": "Florian Kordon, Friedrich-Alexander-Universität Erlangen-Nürnberg, Germany",
+          "page": 7,
+          "column": 0,
+          "order": 4
+        }
+      ]
+    },
+    {
+      "session_id": "8",
+      "session_title": "Integration Beyond Imaging",
+      "session_kind": "oral",
+      "day": "Sept 21, 2022 (Wednesday), 13:30 - 15:00",
+      "room": null,
+      "chairs": [
+        "Kayhan Batmanghelich, University of Pittsburgh, United States"
+      ],
+      "presentations": [
+        {
+          "type": "oral",
+          "title_raw": "Tagged-MRI Sequence to Audio Synthesis via Self Residual Attention Guided Heterogeneous Translator",
+          "authors_raw": [
+            "Xiaofeng Liu",
+            "Fangxu Xing",
+            "Jerry L. Prince",
+            "Jiachen Zhuo",
+            "Maureen Stone",
+            "Georges El Fakhri",
+            "Jonghye Woo"
+          ],
+          "speaker": "Xiaofeng Liu, MGH and Harvard, United States",
+          "page": 8,
+          "column": 0,
+          "order": 1
+        },
+        {
+          "type": "oral",
+          "title_raw": "TranSQ: Transformer-based Semantic Query for Medical Report Generation",
+          "authors_raw": [
+            "Ming Kong",
+            "Zhengxing Huang",
+            "Kun Kuang",
+            "Qiang Zhu",
+            "Fei Wu"
+          ],
+          "speaker": "Ming Kong, Zhejiang University, China",
+          "page": 8,
+          "column": 0,
+          "order": 2
+        },
+        {
+          "type": "oral",
+          "title_raw": "Multimodal-GuideNet: Gaze-Probe Bidirectional Guidance in Obstetric Ultrasound Scanning",
+          "authors_raw": [
+            "Qianhui Men",
+            "Clare Teng",
+            "Lior Drukker",
+            "Aris T. Papageorghiou",
+            "J. Alison Noble"
+          ],
+          "speaker": "Qianhui Men, University of Oxford, United Kingdom",
+          "page": 8,
+          "column": 0,
+          "order": 3
+        },
+        {
+          "type": "oral",
+          "title_raw": "Fusing Modalities by Multiplexed Graph Neural Networks for Outcome Prediction in Tuberculosis",
+          "authors_raw": [
+            "Niharika S. D’Souza",
+            "Hongzhi Wang",
+            "Andrea Giovannini",
+            "Antonio Foncubierta- Rodriguez",
+            "Kristen Beck",
+            "Orest Boyko",
+            "Tanveer Syeda-Mahmood"
+          ],
+          "speaker": "Tanveer Syeda-Mahmood, IBM Research, United States",
+          "page": 8,
+          "column": 0,
+          "order": 4
+        },
+        {
+          "type": "oral",
+          "title_raw": "Identify Consistent Imaging Genomic Biomarkers for Characterizing the Survival-associated Interactions between Tumor-infiltrating Lymphocytes and Tumors",
+          "authors_raw": [
+            "Yingli Zuo",
+            "Yawen Wu",
+            "Zixiao Lu",
+            "Qi Zhu",
+            "Kun Huang",
+            "Daoqiang Zhang",
+            "Wei Shao"
+          ],
+          "speaker": "Yingli Zuo, Nanjing University of Aeronautics and Astronautics, China",
+          "page": 8,
+          "column": 0,
+          "order": 5
+        },
+        {
+          "type": "oral",
+          "title_raw": "Extended Electrophysiological Source Imaging with Spatial Graph Filters",
+          "authors_raw": [
+            "Feng Liu",
+            "Guihong Wan",
+            "Yevgeniy R. Semenov",
+            "Patrick L. Purdon"
+          ],
+          "speaker": "Feng Liu, Stevens Institute of Technology, United States",
+          "page": 8,
+          "column": 0,
+          "order": 6
+        }
+      ]
+    }
+  ]
+}

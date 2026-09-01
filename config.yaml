@@ -1,0 +1,274 @@
+# MICCAI Explorer: per-year configuration (single source of truth).
+# Used by scraper/scrape.py AND analysis/build_charts.py + analysis/build_site.py.
+# All URLs and parsing rules live here. No hardcoded values in Python files.
+# (Submission counts live separately in num_papers_submitted.yaml.)
+
+base_settings:
+  user_agent: "Mozilla/5.0 (compatible; MICCAI-Explorer-Scraper/1.0; +research)"
+  request_delay_min: 1.0      # seconds between requests
+  request_delay_max: 1.5
+  checkpoint_interval: 50     # save checkpoint every N papers
+  max_retries: 3
+  retry_delay: 5.0
+
+# Website settings (read by analysis/build_site.py).
+site_settings:
+  # Google Analytics 4 measurement id, e.g. "G-ABC1234XYZ". Leave it empty and
+  # no analytics tag is written into the pages at all, which is what a local
+  # preview and anyone building from a fresh clone should get.
+  #
+  # The MICCAI_GA_ID environment variable overrides this, and is the better
+  # place for the real id: setting it in the deploy workflow keeps the id out
+  # of the repository, so a fork that builds this project does not report its
+  # traffic to someone else's property.
+  google_analytics_id: ""
+
+  # Where this project lives and where it is written up. Both are shown on the
+  # About page, and the repository is also linked in the footer of every page.
+  # They sit here rather than in the Python for the same reason as the id above:
+  # a fork that builds this project should not link back to someone else's
+  # repository and blog on every page it serves. Leave either empty and the
+  # link is simply not written.
+  repo_url: "https://github.com/miccai-explorer/miccai-explorer.github.io"
+  blog_url: "https://pixels-and-predictions.pages.dev/posts/miccai_explorer/"
+
+# Global chart settings (not per-year). Read by analysis/build_charts.py.
+chart_settings:
+  # Co-authorship network renderer:
+  #   d3     - interactive: drag individual nodes, drag background to pan, scroll to zoom.
+  #            Loads d3 v7 from CDN instead of Plotly on those pages (~280KB vs ~3.5MB).
+  #   plotly - legacy static figure: pan and zoom only, no per-node dragging.
+  # Layout, node sizing and community colors are identical either way; only drawing differs.
+  network_renderer: "d3"
+
+# Oral / spotlight presentation schedules (read by analysis/extract_orals.py).
+# Source PDFs are the official
+# MICCAI program books, collected by hand into data/manually_downloaded/.
+#
+# Parsing model, identical for every year: pdfplumber gives words with font size
+# and (x, y). Words are assigned to a column by x-midpoint, grouped into lines by
+# y-proximity, then segmented into presentation blocks wherever the vertical gap
+# between consecutive lines exceeds `block_gap`. Inside a block, the title is the
+# run of lines before the first author/speaker marker.
+#
+#   n_columns    - 1 or 2: two-column years interleave and corrupt under naive
+#                  text extraction, so column assignment is mandatory, not cosmetic
+#   size_session - font size of the "Oral Session N: Theme" heading
+#   size_meta    - font size of the date / room / chairs lines
+#   size_content - font size of the presentation titles and author lines
+#   size_tol     - how close a line's size must be to count as that role. Kept
+#                  tight (0.08) because 2024's banner text sits at 13.1 while its
+#                  session headings sit at 13.0.
+#   block_mode   - how consecutive presentations are told apart:
+#                    "time"  - each starts with a printed time slot (2022, 2023)
+#                    "gap"   - each starts after a doubled vertical gap (2024, 2025)
+#                    "style" - each starts at a bold line following an italic
+#                              author line (2021, whose gutter "#N" markers and
+#                              uneven leading make the gap rule unreliable)
+#   block_gap    - vertical gap (pt) that starts a new presentation under "gap".
+#                  Intra-block leading is ~11-12pt; between blocks it doubles.
+#   time_prefix  - true where a presentation line starts with "09:30-09:45"
+#   marker_*    : regex matching the author / speaker line prefix. Regexes,
+#                  not literals: 2023 prints "Speakers:" for a two-person talk
+#                  and 2025 prints "Authors :" with a space before the colon.
+#   title_is_bold  - true where the title is set bold and everything else in the
+#                  block is not. More reliable than the marker where a line is
+#                  missing its prefix (2023) or the authors are set in the
+#                  regular rather than the italic face (2021).
+oral_schedules:
+  pdf_dir: "data/manually_downloaded/OralSchedules"
+
+  2025:
+    n_columns: 2
+    block_mode: "gap"
+    size_session: 13.0
+    size_meta: 12.0
+    size_content: 10.0
+    size_tol: 0.08
+    block_gap: 16.0
+    session_re: '^Oral(?:\s*&\s*Spotlight)?\s+Session\s+(?P<sid>\d+)\s*:\s*(?P<theme>.*)$'
+    has_types: true
+    time_prefix: false
+    marker_authors: '^Authors?\s*:'
+    marker_speaker: '^Speakers?\s*:'
+    title_is_bold: false
+    expected_sessions: 14
+
+  2024:
+    n_columns: 2
+    block_mode: "gap"
+    size_session: 13.0
+    size_meta: 12.0
+    size_content: 10.0
+    size_tol: 0.08
+    block_gap: 18.0
+    session_re: '^Oral(?:\s*&\s*Spotlight)?\s+Session\s+(?P<sid>\d+)\s*:\s*(?P<theme>.*)$'
+    has_types: true
+    time_prefix: false
+    # 2024 prints no author list; only the presenting speaker
+    marker_authors: null
+    marker_speaker: '^Speakers?\s*:'
+    title_is_bold: false
+    expected_sessions: 16
+
+  2023:
+    n_columns: 1
+    block_mode: "time"
+    size_session: 14.0
+    size_meta: 12.0
+    size_content: 12.0
+    size_tol: 0.08
+    block_gap: 999.0          # unused: blocks are delimited by the time prefix
+    session_re: '^Oral\s+(?P<sid>\d+)\s*:\s*(?P<theme>.*)$'
+    has_types: false
+    time_prefix: true
+    marker_authors: null
+    marker_speaker: '^Speakers?\s*:'
+    title_is_bold: true
+    expected_sessions: 12
+
+  2022:
+    n_columns: 1
+    block_mode: "time"
+    size_session: 13.0
+    size_meta: 9.0
+    size_content: 9.0
+    size_tol: 0.08
+    block_gap: 999.0          # unused: blocks are delimited by the time prefix
+    session_re: '^Oral\s+(?P<sid>\d+)\s*:\s*(?P<theme>.*)$'
+    has_types: false
+    time_prefix: true
+    marker_authors: null
+    marker_speaker: '^Speakers?\s*:'
+    title_is_bold: true
+    expected_sessions: 8
+
+  2021:
+    n_columns: 2
+    block_mode: "style"
+    size_session: 12.0
+    size_meta: 16.0           # the session theme is set larger than the session id
+    size_content: 11.0
+    size_tol: 0.6             # 2021 title lines run 10.5-11.0 where a #N gutter marker merges in
+    block_gap: 20.0
+    session_re: '^Oral\s+Session\s+(?P<sid>\S+)\s*$'
+    has_types: false
+    time_prefix: false
+    marker_authors: null
+    marker_speaker: null
+    title_is_bold: true
+    expected_sessions: 12
+
+years:
+
+  2025:
+    era: "2024_2025"
+    index_url:      "https://papers.miccai.org/miccai-2025/"
+    categories_url: "https://papers.miccai.org/miccai-2025/categories/"
+    tags_url:       "https://papers.miccai.org/miccai-2025/tags/"
+    paper_url_base: "https://papers.miccai.org/miccai-2025/"
+    # Paper URL format: {base}{NNNN}-Paper{PPPP}.html  (4-digit index, 4-digit paper num)
+    review_scale_max: 6
+    # score_normalized = (raw - 1) / (review_scale_max - 1) = (raw - 1) / 5
+    score_normalization_denominator: 5
+    score_field_substring: "scale of 1-6"
+    # Score answer format: "(N) Label text" or "Label text (N)" → extract \((\d+)\)
+    score_parse_mode: "parens"
+    # Post-rebuttal: text label only ("Accept", "Reject", etc.), no numeric score
+    post_rebuttal_has_score: false
+    # Confidence: "Very confident (4)" → extract \((\d+)\)
+    confidence_parse_mode: "parens"
+    coauthorship_network_min_papers: 6
+    num_top_papers: 20
+
+  2024:
+    era: "2024_2025"
+    index_url:      "https://papers.miccai.org/miccai-2024/"
+    categories_url: "https://papers.miccai.org/miccai-2024/categories/"
+    tags_url:       "https://papers.miccai.org/miccai-2024/tags/"
+    paper_url_base: "https://papers.miccai.org/miccai-2024/"
+    # Paper URL format: {base}{NNN}-Paper{PPPP}.html  (3-digit index, 4-digit paper num)
+    review_scale_max: 6
+    score_normalization_denominator: 5
+    score_field_substring: "scale of 1-6"
+    score_parse_mode: "parens"
+    # Post-rebuttal in 2024 DOES include a numeric score: "Accept... (5)"
+    post_rebuttal_has_score: true
+    confidence_parse_mode: "parens"
+    coauthorship_network_min_papers: 6
+    num_top_papers: 20
+
+  2023:
+    era: "2022_2023"
+    index_url:      "https://conferences.miccai.org/2023/papers/"
+    categories_url: "https://conferences.miccai.org/2023/papers/categories/"
+    tags_url:       "https://conferences.miccai.org/2023/papers/tags/"
+    paper_url_base: "https://conferences.miccai.org/2023/papers/"
+    review_scale_max: 8
+    score_normalization_denominator: 7
+    score_field_substring: "scale of 1-8"
+    # Score answer format in 2022-2023: bare integer only → <p>6</p>
+    # Parse with: re.search(r'^\s*(\d+)\s*$', text.strip())
+    score_parse_mode: "bare_integer"
+    post_rebuttal_has_score: false
+    confidence_parse_mode: "parens"
+    # Extra fields present in 2022-2023 reviews:
+    extra_review_fields:
+      - label_substring: "ranking of this paper in your review stack"
+        store_as: "review_stack_rank"
+        parse_mode: "bare_integer"
+      - label_substring: "number of papers in your stack"
+        store_as: "review_stack_size"
+        parse_mode: "bare_integer"
+    coauthorship_network_min_papers: 6
+    num_top_papers: 20
+
+  2022:
+    era: "2022_2023"
+    index_url:      "https://conferences.miccai.org/2022/papers/"
+    categories_url: "https://conferences.miccai.org/2022/papers/categories/"
+    tags_url:       "https://conferences.miccai.org/2022/papers/tags/"
+    paper_url_base: "https://conferences.miccai.org/2022/papers/"
+    review_scale_max: 8
+    score_normalization_denominator: 7
+    score_field_substring: "scale of 1-8"
+    score_parse_mode: "bare_integer"
+    # 2022 individual reviewers provide a post-rebuttal score (bare integer, same format as main score)
+    post_rebuttal_has_score: true
+    confidence_parse_mode: "parens"
+    extra_review_fields:
+      - label_substring: "ranking of this paper in your review stack"
+        store_as: "review_stack_rank"
+        parse_mode: "bare_integer"
+      - label_substring: "number of papers in your stack"
+        store_as: "review_stack_size"
+        parse_mode: "bare_integer"
+    coauthorship_network_min_papers: 4
+    num_top_papers: 20
+
+  2021:
+    era: "2021"
+    # Different domain; categories/tags pages use index.html suffix
+    index_url:      "https://miccai2021.org/openaccess/paperlinks/index.html"
+    categories_url: "https://miccai2021.org/openaccess/paperlinks/categories/index.html"
+    tags_url:       "https://miccai2021.org/openaccess/paperlinks/tags/index.html"
+    paper_url_base: "https://miccai2021.org/openaccess/paperlinks/"
+    # Paper page URLs include a date prefix: 2021/09/01/{NNN}-Paper{PPPP}.html
+    # This date is constant for all papers; extract actual URLs from index page.
+    review_scale_max: 9
+    score_normalization_denominator: 8
+    # Score field label differs from other years:
+    score_field_substring: "state your overall opinion of the paper"
+    # Score format: "probably reject (4)", "strong accept (9)" → extract \((\d+)\)
+    score_parse_mode: "parens"
+    post_rebuttal_has_score: false
+    confidence_parse_mode: "parens"
+    extra_review_fields:
+      - label_substring: "ranking of this paper in your review stack"
+        store_as: "review_stack_rank"
+        parse_mode: "bare_integer"
+      - label_substring: "number of papers in your stack"
+        store_as: "review_stack_size"
+        parse_mode: "bare_integer"
+    coauthorship_network_min_papers: 4
+    num_top_papers: 20
