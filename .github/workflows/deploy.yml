@@ -33,8 +33,8 @@ jobs:
     if: github.repository == 'miccai-explorer/miccai-explorer.github.io'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
       - run: pip install ruff==0.16.4
@@ -52,8 +52,8 @@ jobs:
     if: github.repository == 'miccai-explorer/miccai-explorer.github.io'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: "pip"
@@ -83,7 +83,7 @@ jobs:
             --junit reports/junit.xml \
             --out badges
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: badges
           path: badges/
@@ -96,10 +96,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: "pip"
@@ -131,7 +131,7 @@ jobs:
       # https://miccai-explorer.github.io/badges/tests.json, which is what the
       # README test badge reads; see .github/scripts/make_badges.py.
       - name: Add badge endpoints to the site
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: badges
           path: website/badges
