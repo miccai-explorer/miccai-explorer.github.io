@@ -731,7 +731,7 @@ def chart_confidence(papers: list, years: list) -> None:
 
 _AREAS_TEMPLATE = """<!DOCTYPE html><html><head><meta charset="utf-8"/>
 <title>Selection rate by subject area</title>
-<script src="https://cdn.plot.ly/plotly-__PLOTLYJS__.min.js"></script>
+__PLOTLYSCRIPT__
 <style>
 html,body{margin:0;font-family:__FONT__;background:__BG__;color:__TEXT__}
 .bar-ctrls{display:flex;align-items:center;gap:10px;padding:8px 14px 2px;

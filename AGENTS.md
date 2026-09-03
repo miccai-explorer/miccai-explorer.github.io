@@ -24,7 +24,11 @@ about creating it.
   build all read it. There used to be a second copy at `scraper/config.yaml`; it was
   read by nothing, drifted out of sync, and was deleted on 2026-08-30.
 - **`website/` is generated.** Never hand-edit it. Change the template, the CSS in
-  `static/`, or the chart function, and rebuild.
+  `static/`, or the chart function, and rebuild. That includes the year logos: the
+  tracked source is the PNG in `static/logos/`, and the WebP the site serves is
+  written during the build by `analysis/logo_assets.py`. Do not commit WebP files
+  into `static/`, and do not add a git hook that rewrites images in place; a hook
+  that edits tracked files makes a commit differ from what was reviewed.
 - **`data/processed/miccai_all.json` is not rewritten by the build.** Cluster labels
   and presentation tiers are patched in memory at build time. Preserve that pattern for
   anything similar you add; it keeps stage ordering from mattering.
@@ -35,6 +39,12 @@ about creating it.
   its only input is the paper list itself; there is nothing optional to be missing.
   It still degrades on the oral data: without `orals.json` every paper reads as a
   poster. It also adds no chart and loads no Plotly, so keep it that way.
+- **A chart's plotly.js bundle is chosen by the page, not the chart.** `save_chart`
+  swaps in the smallest official bundle that can draw a figure, but a page built from
+  iframes pays for the union of what its frames ask for, so one chart needing the full
+  bundle puts the whole page on it. Choosing per chart made two year pages 57% heavier.
+  Add a new chart type and check the assignment afterwards; see "Plotly bundle
+  selection" in `CLAUDE.md`.
 
 ## Verify, do not assume
 

@@ -170,6 +170,7 @@ subject areas, 323 oral / 54 spotlight / 3,340 poster, and the per-year scales.
 | Nav bar with per-year logo links | `templates/base.html`; `year_meta` from `build_site.py` | Yes | **No; G4** |
 | Footer, build date, meta/OG tags, favicon | `templates/base.html`; `build_date` from `build_site.py: main` | Yes | Yes |
 | Stylesheet | `static/style.css`, copied by `build_site.py: main` (`shutil.copytree`) | Yes | Yes |
+| Year logo images | `static/logos/*.png`, resized and converted to WebP by `logo_assets.optimize` | Yes | Yes |
 | Thousands separators | `build_site.py: format_int` (Jinja2 filter) | Yes | Yes |
 | Shared Plotly theme | `base_layout`, `save_chart`, `_config` | Yes | Yes |
 | Per-year chart colours | `YEAR_PALETTES`, `YEAR_COLORS`, `year_main`, `year_secondary`, `_darken` | Yes | **No; G3** |
@@ -305,19 +306,27 @@ behaviour would see no effect and have no error message to explain why.
 `.github/workflows/deploy.yml` installs with a bare `pip install plotly jinja2 networkx
 numpy pandas pyyaml`. Only `uv.lock` pins anything, and CI does not use it.
 
-Chart output is sensitive to the Plotly version, and the three hand-written HTML templates
-call `plotly.offline.get_plotlyjs_version()` to pick their CDN script, so a Plotly upgrade
-silently changes what the published pages load. Today that is `plotly-3.7.0.min.js`.
-A rebuild six months from now will not necessarily produce the same site.
+Chart output is sensitive to the Plotly version, and every generated chart picks its CDN
+script from `plotly.offline.get_plotlyjs_version()`, so a Plotly upgrade silently changes
+what the published pages load. Today that is 3.7.0. A rebuild six months from now will
+not necessarily produce the same site.
+
+Updated 2026-09-01: an upgrade now also drops the Subresource Integrity attribute from
+the partial bundles, because `_BUNDLE_SRI` in `build_charts.py` pins their hashes per
+plotly.js version and plotly vendors only the full bundle. That is a warning in the build
+log, not an error, and the site still works without it. See "Plotly bundle selection" in
+CLAUDE.md for how to restore it.
 
 **Fix:** pin versions in `requirements.txt` and have CI install from it.
 
 ### I3: The published site depends on three CDNs at view time
 
-Generated pages fetch `cdn.plot.ly/plotly-3.7.0.min.js` (46 references),
-`cdn.jsdelivr.net/npm/d3@7` (5), and Inter from `fonts.googleapis.com` (6). The site does
-not work offline and will degrade if any of the three changes. This is a deliberate
-trade-off - it keeps the repository small, but it belongs in the record.
+Generated pages fetch plotly.js from `cdn.plot.ly` (55 references as of 2026-09-01: 32
+to `plotly-basic-3.7.0.min.js`, 18 to `plotly-3.7.0.min.js` and 5 to
+`plotly-gl2d-3.7.0.min.js`), `cdn.jsdelivr.net/npm/d3@7` (5), and Inter from
+`fonts.googleapis.com`. The site does not work offline and will degrade if any of the
+three changes. This is a deliberate trade-off - it keeps the repository small, but it
+belongs in the record.
 
 ### I4: Two chart functions are intentionally dormant
 

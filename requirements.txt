@@ -39,3 +39,4 @@ networkx>=3.4.2
 
 # Website generation
 jinja2>=3.1.6
+pillow>=10.0.0         # analysis/logo_assets.py: year logos to WebP

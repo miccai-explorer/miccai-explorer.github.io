@@ -50,7 +50,8 @@ miccai-explorer.github.io/
 │                                   (first 3 per year = primaries; rest are fallbacks)
 ├── static/                      ← tracked source for website assets;
 │   ├── style.css                   build_site.py copies static/ → website/assets/
-│   ├── logos/miccai_YYYY.png       (website/ is gitignored, so assets must live here)
+│   ├── logos/miccai_YYYY.png       (website/ is gitignored, so assets must live here).
+│   │                               PNG here, WebP on the site; see "Year logos"
 │   ├── papers.css               ← All Papers page only; style.css stays untouched
 │   └── papers.js                ← All Papers page behaviour (no framework, no Plotly)
 ├── scraper/
@@ -95,6 +96,8 @@ miccai-explorer.github.io/
 │   ├── build_site.py            ← Jinja2 pages → website/index.html + website/year/*.html
 │   ├── papers_index.py          ← paper list (in memory) → website/papers.json;
 │   │                               stdlib only, called from build_site.py
+│   ├── logo_assets.py           ← static/logos/*.png → website/assets/*.webp,
+│   │                               resized; called from build_site.py
 │   ├── extract_orals.py         ← program-book PDFs → data/raw/orals_YYYY.json
 │   ├── match_orals.py           ← join orals to papers by title → data/processed/orals.json
 │   ├── oral_stats.py            ← type join + statistics (Cliff's δ, Wilson, bootstrap)
@@ -102,7 +105,8 @@ miccai-explorer.github.io/
 ├── tests/                       ← python -m pytest tests/ -q
 │   ├── test_oral_stats.py       ← known-answer tests for the statistics
 │   ├── test_orals_data.py       ← golden counts + re-parse of the source PDFs
-│   └── test_papers_index.py     ← golden counts on website/papers.json
+│   ├── test_papers_index.py     ← golden counts on website/papers.json
+│   └── test_logo_assets.py      ← the logo conversion actually ran (see below)
 ├── templates/
 │   ├── base.html                ← shared nav bar + footer
 │   ├── index.html               ← cross-year trends page
@@ -178,8 +182,11 @@ python -m http.server 8000 --directory website
 
 **Adding a future year (e.g., 2026):**
 1. Add a block under `years:` in the root `config.yaml`
-2. Run `python scraper/scrape.py --year 2026`
-3. Run steps 2-5 above
+2. Drop the conference logo into `static/logos/miccai_2026.png` and add a
+   `YEAR_META_RAW` entry in `build_site.py` (city, colors). Any size of PNG will
+   do; the build resizes and converts it. See "Year logos" below.
+3. Run `python scraper/scrape.py --year 2026`
+4. Run steps 2-5 above
 
 ---
 
@@ -1094,7 +1101,8 @@ the types were level in 2023, and orals pulled ahead in 2024 and 2025.
 
 Every accepted paper in one searchable, filterable list. No Plotly and no charts,
 which makes it the lightest page on the site: one HTML file plus a 515 KB
-(gzipped) JSON file, against the 3.5 MB Plotly bundle every chart page pulls.
+(gzipped) JSON file, against the 364 KB to 1432 KB of plotly.js every chart page
+pulls (see "Plotly bundle selection").
 
 Three files, none of which touch anything else:
 
@@ -1253,13 +1261,128 @@ harder to read, not easier: `trends_overview.html` (`_TRENDS_GRID_TEMPLATE`),
 placeholders.
 
 All four are written by **`save_template(template, filename, tokens)`**, the counterpart
-to `save_chart`. `theme_tokens()` supplies the shared placeholders (`__PLOTLYJS__`,
-`__FONT__`, `__BG__`, `__PLOTBG__`, `__TEXT__`, `__MUTED__`, `__RULE__`, `__ACCENT__`)
-and the caller adds its own; a token a template does not contain is simply not found, so
-passing the whole set is free. `theme_tokens` is a function rather than a constant
-because `__PLOTLYJS__` comes from `plotly.offline.get_plotlyjs_version()` and must track
-the installed plotly rather than freeze at import time. Each of the four used to carry
-its own copy of the fill loop plus the same `mkdir`, `write_text` and log line.
+to `save_chart`. `theme_tokens(bundle="basic")` supplies the shared placeholders
+(`__PLOTLYSCRIPT__`, `__FONT__`, `__BG__`, `__PLOTBG__`, `__TEXT__`, `__MUTED__`,
+`__RULE__`, `__ACCENT__`) and the caller adds its own; a token a template does not
+contain is simply not found, so passing the whole set is free. `theme_tokens` is a
+function rather than a constant because `__PLOTLYSCRIPT__` is the whole
+`<script src="https://cdn.plot.ly/...">` tag, built by `plotly_script_tag()` from the
+installed plotly's version rather than frozen at import time. All four templates draw
+bar and scatter traces only, so they take the default `basic` bundle. Each of the
+four used to carry its own copy of the fill loop plus the same `mkdir`,
+`write_text` and log line.
+
+### Plotly bundle selection
+
+Charts do not all load the same plotly.js. `save_chart` rewrites the CDN script
+tag plotly wrote to the smallest official bundle that can draw the figure.
+Measured from `cdn.plot.ly`, gzipped: `plotly-basic` 364 KB (bar, pie, scatter),
+`plotly-cartesian` 462 KB (adds box, contour, heatmap, histogram, image,
+violin), `plotly-gl2d` 519 KB (scattergl, splom, parcoords, scatter), full
+`plotly` 1432 KB (everything, and the only one with sankey).
+
+`_BUNDLE_TRACES` lists what each bundle draws; those lists were read out of the
+downloaded bundles, not off the documentation page, because a trace type a
+bundle lacks draws nothing rather than erroring:
+
+```bash
+curl -sL https://cdn.plot.ly/plotly-basic-3.7.0.min.js \
+  | grep -o 'moduleType:"trace",name:"[a-z0-9]*"' | sort -u
+```
+
+**Bundle choice is a property of the page, not of the chart**, because a page
+built from iframes pays for the union of what its frames request. Choosing per
+chart made `year/2024.html` and `year/2025.html` **57% heavier**: their nine
+other charts moved to basic and gl2d while the rebuttal Sankey stayed on full,
+so those pages fetched 2372 KB where they used to fetch 1467 KB. `page_bundle_floor(bundle)`
+is a context manager holding a module-level floor that every choice inside the
+block is widened to cover; `main()` opens it around each year's charts with
+`"full"` when that year has a Sankey, so such a page comes out where it started
+rather than worse. The floor has to be set before the year's first chart, and
+the Sankey is drawn fifth, which is why the flow computation lives in
+`_rebuttal_flows()` and is called by both `main()` and `chart_rebuttal_sankey`.
+
+Two things not to "simplify":
+
+- **`_FULL_BUNDLE_TAG` matches plotly's tag rather than rebuilding it**, and
+  `save_chart` raises when it fails to match. Plotly's tag carries a Subresource
+  Integrity hash computed from the copy of plotly.js the Python package vendors,
+  so reconstructing it means reimplementing a private plotly function. If a
+  plotly upgrade changes that markup, fix the regex; a silent no-op here undoes
+  the whole thing and the site still works, so nothing else would catch it.
+- **`_BUNDLE_SRI` pins the partial bundles' hashes per plotly.js version**,
+  because plotly vendors only the full bundle and there is nothing local to hash.
+  A version missing from the table logs a warning and writes the tag without an
+  integrity attribute rather than failing, so a plotly upgrade degrades instead
+  of breaking the build. Restore it with
+  `curl -sL <url> | openssl dgst -sha256 -binary | openssl base64 -A`.
+
+After any change here, check the assignment with
+`grep -ho 'cdn\.plot\.ly/plotly[^"]*' website/charts/*.html | sort | uniq -c`;
+today that is 32 basic, 5 gl2d, 18 full, with the five d3 co-authorship files
+loading no plotly at all.
+
+**Map coordinates are rounded to three decimals** in `main()`, in memory, before
+any chart is built, the same idiom as the cluster-label and presentation-type
+patches; `miccai_all.json` is not rewritten. `embed.py` stores the coordinates
+as the float64 repr of a float32, so each is seventeen significant digits, and
+`map_all.html` writes 14,924 of them (3,717 papers, twice, once per colour
+mode). That made it the largest file on the site and it sits above the fold on
+the home page, where lazy loading cannot help. The coordinates span about 10.5
+units, so 0.001 is 0.086 px across a 900 px frame and stays sub-pixel past 10x
+zoom. Nothing but the seven maps reads `umap_x` / `umap_y`.
+
+Together the two changes took the seven chart pages from 10.93 MB to 8.05 MB
+gzipped (-26%); -35 to -37% on the five pages with no Sankey, -1% on 2024 and
+2025. Lighter charting libraries were considered and rejected: of uPlot,
+Chart.js, ApexCharts and Recharts, only uPlot is dramatically smaller, and it
+draws line and scatter charts only. The rest mean redrawing every chart on the
+site, and `plotly.js/lib/core` with manual trace registration would need a
+JavaScript build step this project does not have.
+
+### Year logos
+
+All five year logos sit in the nav, so every desktop page load fetches all of
+them. The tracked source is `static/logos/miccai_YYYY.png`; what the site serves
+is WebP, resized, written during the build by `analysis/logo_assets.py` from the
+step in `build_site.py` that copies `static/` into `website/assets/`. Adding a
+year therefore needs no image step: drop the PNG in at whatever size it comes,
+and rebuild. `python analysis/logo_assets.py` runs the same conversion on its
+own if you want to see the output without a full build.
+
+Measured over the five 2021-2025 logos:
+
+| | total | |
+|---|---|---|
+| as committed, PNG at 576-768 px wide | 223 KB | |
+| WebP at the same pixel size | 92 KB | |
+| resized to 160 px tall, still PNG | 119 KB | |
+| **resized to 160 px tall, WebP** | **61 KB** | what the build writes |
+
+**Most of the saving is the resize, not the format.** The logos are drawn at
+80 px tall on the year pages (`.year-logo-img`) and 28 px in the nav, so
+`MAX_HEIGHT = 160` covers a 2x display; the sources were two to four times
+larger than they can ever be shown. If that CSS ever grows, raise `MAX_HEIGHT`
+with it.
+
+**The setting that matters is `alpha_quality`, not `quality`.** About three
+quarters of each logo is fully transparent and libwebp encodes the alpha channel
+separately: at the default `alpha_quality=100` the five files come to 94 KB, at
+70 they come to 61 KB. Compared at 4x zoom against the nav background there is
+no visible fringing on the thin script lettering, which is the worst case in this
+set, and going lower buys almost nothing (58 KB at 60).
+
+**Converting at build time rather than in a git hook is deliberate.** A hook that
+rewrites tracked files makes a commit differ from what was reviewed, and it would
+put generated artefacts in `static/`, which this repository reserves for source.
+The build already owns everything under `website/`.
+
+Pillow does the conversion, and it is the only optional dependency in the site
+build: if it is not installed, `optimize()` logs a warning, returns an empty
+map, and the PNGs are served exactly as they were before this existed. The
+`.png` to `.webp` rename travels through the return value into
+`year_meta[yr].logo`, which is why the asset copy happens **before** `year_meta`
+is built rather than at the end of `main()` where it used to sit.
 
 ### Co-authorship network renderer
 
@@ -1272,7 +1395,7 @@ chart_settings:
 ```
 
 - **`d3`** (default); individual nodes can be dragged, the background pans, scroll
-  zooms. Loads d3 v7 (~280KB) instead of Plotly (~3.5MB), so these pages are lighter.
+  zooms. Loads d3 v7 (~280KB) rather than adding to the page's plotly.js bundle.
 - **`plotly`**; the older static figure: pan and zoom only, no per-node dragging.
 
 `_coauthor_data()` builds the graph, layout, community colors and node sizes;
@@ -1397,4 +1520,6 @@ Cloudflare is free-form.
 - Score normalization: `(raw - 1) / (scale_max - 1)` → maps any era to [0.0, 1.0].
 - `has_code`: `True` if `code_url` is not None and not the string `"N/A"`.
 - All chart HTML files: generated with `plotly.io.to_html(include_plotlyjs="cdn",
-  full_html=True, config={"responsive": True, "displayModeBar": False})`.
+  full_html=True, config={"responsive": True, "displayModeBar": False})`, after which
+  `save_chart` rewrites the CDN script tag to the smallest bundle that can draw the
+  page (see "Plotly bundle selection").

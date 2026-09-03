@@ -23,6 +23,7 @@ from datetime import date
 from pathlib import Path
 from types import SimpleNamespace
 
+import logo_assets
 import oral_stats
 import papers_index
 import yaml
@@ -463,6 +464,18 @@ def main() -> int:
     repo_url = (site_cfg.get("repo_url") or "").strip()
     blog_url = (site_cfg.get("blog_url") or "").strip()
 
+    # ── static assets (style.css + logos) → website/assets ─────
+    # Done before year_meta is built, because shrinking the logos renames them
+    # from .png to .webp and year_meta carries the filename the templates use.
+    WEBSITE.mkdir(parents=True, exist_ok=True)
+    logo_names: dict[str, str] = {}
+    if STATIC_SRC.exists():
+        shutil.copytree(STATIC_SRC, WEBSITE / "assets", dirs_exist_ok=True)
+        logger.info("  Copied static/ → website/assets/")
+        logo_names = logo_assets.optimize(
+            STATIC_SRC / "logos", WEBSITE / "assets" / "logos"
+        )
+
     year_meta = {}
     for yr in years:
         raw = dict(
@@ -477,6 +490,8 @@ def main() -> int:
                 },
             )
         )
+        # .png source, .webp on the site; unchanged when Pillow is absent.
+        raw["logo"] = logo_names.get(raw["logo"], raw["logo"])
         # Derived accent variants: light tint for badges, lightened for the dark strip
         raw["accent_bg"] = _hex_mix(raw["color"], "#ffffff", 0.88)
         raw["color_on_dark"] = _hex_mix(raw["color"], "#ffffff", 0.55)
@@ -535,12 +550,6 @@ def main() -> int:
         repo_url=repo_url,
         blog_url=blog_url,
     )
-
-    # ── static assets (style.css + logos) → website/assets ─────
-    WEBSITE.mkdir(parents=True, exist_ok=True)
-    if STATIC_SRC.exists():
-        shutil.copytree(STATIC_SRC, WEBSITE / "assets", dirs_exist_ok=True)
-        logger.info("  Copied static/ → website/assets/")
 
     # ── papers.json (data for the All Papers browse page) ───────
     # Built here rather than in build_charts.py so it reuses the papers list

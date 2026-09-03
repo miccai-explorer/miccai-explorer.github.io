@@ -202,8 +202,11 @@ months for exactly that reason.
    the page structure matches an existing era, reuse that parser; MICCAI has changed
    it three times so far, and `CLAUDE.md` documents the differences era by era.
 2. Add the submission count to `num_papers_submitted.yaml`, the logo to
-   `static/logos/`, its colours to `logo_colors.yaml`, and the host city.
-   `REPRODUCIBILITY.md` lists all of these as known manual inputs.
+   `static/logos/` as a PNG of any size, its colours to `logo_colors.yaml`, and
+   the host city. The site build resizes the logo and converts it to WebP, so
+   there is no image step to remember; `python analysis/logo_assets.py` shows
+   what it would write. `REPRODUCIBILITY.md` lists all of these as known manual
+   inputs.
 3. If a program book exists, drop it in `data/manually_downloaded/OralSchedules/` and
    add a block under `oral_schedules:` in the root `config.yaml`.
    `python analysis/extract_orals.py --dump YYYY` prints the parse without writing

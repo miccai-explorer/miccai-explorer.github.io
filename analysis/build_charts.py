@@ -20,6 +20,7 @@ Usage:
 """
 
 import argparse
+import contextlib
 import json
 import logging
 import re
@@ -249,6 +250,135 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>"""
 
 
+# ---------------------------------------------------------------------------
+# plotly.js bundle selection
+# ---------------------------------------------------------------------------
+# The full plotly.js bundle is 4.85 MB (1.47 MB over the wire) and carries 49
+# trace types. This site draws five of them. Every chart is its own document in
+# its own iframe, so a year page parses that bundle once per frame, and 46 of
+# the 55 Plotly charts here are bar and scatter only.
+#
+# plotly.js publishes partial bundles at the same CDN and version. Measured for
+# 3.7.0, compressed as served: basic 373 KB, cartesian 473 KB, gl2d 532 KB,
+# full 1467 KB. save_chart picks the smallest one that covers what the figure
+# actually draws.
+#
+# Trace lists are the registered trace modules in each published bundle, read
+# out of the bundles themselves (grep for moduleType:"trace"), not from the
+# docs. A type missing from this table falls through to the full bundle, so a
+# future chart using a trace nobody listed here renders correctly and merely
+# misses the saving.
+_BUNDLE_TRACES: dict[str, frozenset[str]] = {
+    "basic": frozenset({"bar", "pie", "scatter"}),
+    "cartesian": frozenset({
+        "bar", "box", "contour", "heatmap", "histogram", "histogram2d",
+        "histogram2dcontour", "image", "pie", "scatter", "scatterternary",
+        "violin",
+    }),
+    "gl2d": frozenset({"parcoords", "scatter", "scattergl", "splom"}),
+}
+
+# Smallest first; the first bundle that covers the figure wins.
+_BUNDLE_ORDER = ("basic", "cartesian", "gl2d")
+
+# Subresource integrity hashes for the partial bundles, keyed by plotly.js
+# version. Plotly computes the full bundle's hash from the copy it vendors, but
+# it does not vendor the partial ones, so there is nothing local to hash. These
+# were taken from the published files with:
+#
+#   curl -sL https://cdn.plot.ly/plotly-basic-3.7.0.min.js \
+#     | openssl dgst -sha256 -binary | openssl base64 -A
+#
+# The same command against the full bundle reproduces the hash plotly itself
+# emits, which is how the method was checked. A version missing from this table
+# is not an error: the script tag is written without an integrity attribute and
+# a warning is logged, so a plotly upgrade degrades rather than breaking the
+# build. Add the new hashes and the attribute comes back.
+_BUNDLE_SRI: dict[str, dict[str, str]] = {
+    "3.7.0": {
+        "basic": "sha256-wjsDWRpr2tC9D0egxcUjBaVRmBK3POJUvmXNhBVTycI=",
+        "cartesian": "sha256-fFk7ntoOdKHQczXPicv3pV/8EUkJmAw3Ka+DVFO9sCo=",
+        "gl2d": "sha256-05bA1Z4oRKFn3ErKhGn+FlMGDLEF9NfL1Hs8d4ix51A=",
+    },
+}
+
+
+# The tag plotly writes for include_plotlyjs="cdn". Matched rather than
+# reconstructed, because its integrity attribute is a hash of the copy of
+# plotly.js that the installed plotly package vendors, and reproducing that
+# here would mean reimplementing a private plotly function.
+_FULL_BUNDLE_TAG = re.compile(
+    r'<script charset="utf-8" src="https://cdn\.plot\.ly/plotly-'
+    r'[0-9][^"]*\.min\.js"[^>]*></script>'
+)
+
+
+def _bundle_for(fig: go.Figure) -> str:
+    """Name the smallest plotly.js bundle that can draw every trace in fig."""
+    types = {t.type for t in fig.data if t.type}
+    for bundle in _BUNDLE_ORDER:
+        if types <= _BUNDLE_TRACES[bundle]:
+            return bundle
+    return "full"
+
+
+def _combine_bundles(a: str, b: str) -> str:
+    """The smallest bundle that can draw everything a and b can."""
+    if "full" in (a, b):
+        return "full"
+    need = _BUNDLE_TRACES[a] | _BUNDLE_TRACES[b]
+    for bundle in _BUNDLE_ORDER:
+        if need <= _BUNDLE_TRACES[bundle]:
+            return bundle
+    return "full"
+
+
+# Which bundle to load is a property of the page, not of the chart, because a
+# page pays for the union of what its frames ask for. Splitting is only a win
+# while every frame can share one small bundle: the 2025 year page draws nine
+# charts basic can handle plus one map needing gl2d, which is 905 KB against
+# 1467 KB, but its Sankey exists in no partial bundle, so splitting there means
+# fetching basic AND gl2d AND full, 2372 KB, and the "optimization" makes that
+# page 57% heavier. Measured, not predicted; the Sankey sits sixth of ten, so
+# readers reach it.
+#
+# So a page carrying a chart no partial bundle covers puts all of its charts on
+# one bundle, and that page comes out exactly where it started rather than
+# worse. Set for the duration of a page's charts by page_bundle_floor().
+_PAGE_BUNDLE_FLOOR: str | None = None
+
+
+@contextlib.contextmanager
+def page_bundle_floor(bundle: str | None):
+    """Widen every bundle chosen inside this block to cover `bundle` too."""
+    global _PAGE_BUNDLE_FLOOR
+    previous = _PAGE_BUNDLE_FLOOR
+    _PAGE_BUNDLE_FLOOR = bundle
+    try:
+        yield
+    finally:
+        _PAGE_BUNDLE_FLOOR = previous
+
+
+def plotly_script_tag(bundle: str = "basic") -> str:
+    """The <script> tag loading one plotly.js bundle from the CDN.
+
+    Mirrors the tag plotly writes for include_plotlyjs="cdn", integrity
+    attribute included, so swapping one for the other changes only the URL.
+    """
+    version = get_plotlyjs_version()
+    name = "plotly" if bundle == "full" else f"plotly-{bundle}"
+    url = f"https://cdn.plot.ly/{name}-{version}.min.js"
+    sri = _BUNDLE_SRI.get(version, {}).get(bundle)
+    if sri is None and bundle != "full":
+        logger.warning(
+            f"  No SRI hash for {name}-{version}; writing the tag without one. "
+            f"Add it to _BUNDLE_SRI to restore the integrity attribute."
+        )
+    integrity = f' integrity="{sri}" crossorigin="anonymous"' if sri else ""
+    return f'<script charset="utf-8" src="{url}"{integrity}></script>'
+
+
 def save_chart(
     fig: go.Figure,
     filename: str,
@@ -274,22 +404,44 @@ def save_chart(
         config=_config(interactive),
         div_id="chart-" + filename.removesuffix(".html"),
     )
+    # Downgrade the full bundle to the smallest one that can draw this figure.
+    # Done by rewriting plotly's own tag rather than by passing a URL to
+    # include_plotlyjs, because that route drops the integrity attribute.
+    # A miss here is loud on purpose: silently leaving the 1.47 MB bundle in
+    # place is exactly the bug this function exists to prevent, and it looks
+    # like a working chart.
+    bundle = _bundle_for(fig)
+    if _PAGE_BUNDLE_FLOOR is not None:
+        bundle = _combine_bundles(bundle, _PAGE_BUNDLE_FLOOR)
+    if bundle != "full":
+        html, n = _FULL_BUNDLE_TAG.subn(plotly_script_tag(bundle), html, count=1)
+        if n != 1:
+            raise RuntimeError(
+                f"{filename}: could not find plotly's CDN script tag to "
+                f"replace. Plotly's HTML output has changed; update "
+                f"_FULL_BUNDLE_TAG to match it."
+            )
     if extra_js:
         html = html.replace("</body>", extra_js + "\n</body>")
     (out_dir / filename).write_text(html, encoding="utf-8")
     logger.info(f"  Saved {filename}")
 
 
-def theme_tokens() -> dict:
+def theme_tokens(bundle: str = "basic") -> dict:
     """The design tokens every hand-written chart template needs.
 
-    A function rather than a constant because __PLOTLYJS__ has to track the
+    A function rather than a constant because __PLOTLYSCRIPT__ has to track the
     installed plotly, and freezing it at import time is exactly the kind of
     drift this project keeps getting bitten by. Tokens a given template does
     not contain are simply not found, so passing the whole set costs nothing.
+
+    bundle defaults to "basic" because all three Plotly templates draw bars and
+    lines and nothing else. save_chart reads the bundle off the figure, which a
+    template does not have, so this one is declared by the caller; a template
+    that grows a trace basic cannot draw has to say so here.
     """
     return {
-        "__PLOTLYJS__": get_plotlyjs_version(),
+        "__PLOTLYSCRIPT__": plotly_script_tag(bundle),
         "__FONT__": FONT,
         "__BG__": BG,
         "__PLOTBG__": PLOT_BG,
@@ -772,12 +924,13 @@ FLOW_SAME = "rgba(100,116,139,0.18)"
 FLOW_DOWN = "rgba(220,38,38,0.30)"
 
 
-def chart_rebuttal_sankey(papers_yr: list, year: int) -> bool:
-    """Sankey of reviewer verdicts pre → post rebuttal.
+def _rebuttal_flows(papers_yr: list) -> Counter:
+    """Reviewer verdict transitions pre → post rebuttal, empty where unrecorded.
 
-    Only possible where post-rebuttal verdict labels exist (2024/2025).
-    Reviews without a post-rebuttal response (N/A) are excluded.
-    Returns True if the chart was written.
+    Split out of chart_rebuttal_sankey because main() has to know whether the
+    Sankey will be drawn before it draws that year's first chart: the Sankey is
+    the only chart here needing the full plotly bundle, and that decides which
+    bundle every other chart on the same page gets. See _PAGE_BUNDLE_FLOOR.
     """
     flows: Counter = Counter()
     for p in papers_yr:
@@ -787,7 +940,17 @@ def chart_rebuttal_sankey(papers_yr: list, year: int) -> bool:
             if pre not in VERDICT_RANK or post not in VERDICT_RANK:
                 continue
             flows[(pre, post)] += 1
+    return flows
 
+
+def chart_rebuttal_sankey(papers_yr: list, year: int) -> bool:
+    """Sankey of reviewer verdicts pre → post rebuttal.
+
+    Only possible where post-rebuttal verdict labels exist (2024/2025).
+    Reviews without a post-rebuttal response (N/A) are excluded.
+    Returns True if the chart was written.
+    """
+    flows = _rebuttal_flows(papers_yr)
     if not flows:
         logger.info(
             f"  Skipping rebuttal_{year}.html; no post-rebuttal verdict labels"
@@ -1530,7 +1693,7 @@ def _verdict_side(rank: int) -> str:
 # a subplot grid cannot do.
 _TRENDS_GRID_TEMPLATE = """<!DOCTYPE html><html><head><meta charset="utf-8"/>
 <title>MICCAI trends overview</title>
-<script src="https://cdn.plot.ly/plotly-__PLOTLYJS__.min.js"></script>
+__PLOTLYSCRIPT__
 <style>
 html,body{margin:0;font-family:__FONT__;background:__BG__}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px 16px;padding:10px 12px}
@@ -2239,7 +2402,7 @@ def chart_subject_bump(papers: list) -> None:
 # and embedded as JSON, so switching windows is a redraw, never a recompute.
 _MOVERS_TEMPLATE = """<!DOCTYPE html><html><head><meta charset="utf-8"/>
 <title>Biggest movers by subject area</title>
-<script src="https://cdn.plot.ly/plotly-__PLOTLYJS__.min.js"></script>
+__PLOTLYSCRIPT__
 <style>
 html,body{margin:0;font-family:__FONT__;background:__BG__;color:__TEXT__}
 .bar-ctrls{display:flex;align-items:center;gap:10px;padding:8px 14px 2px;
@@ -2372,6 +2535,24 @@ def main() -> int:
         papers = json.load(f)
     logger.info(f"Loaded {len(papers)} papers")
 
+    # Round the UMAP coordinates, in memory only, exactly like the cluster
+    # labels and presentation types below; miccai_all.json is never rewritten.
+    #
+    # embed.py writes these as float64 repr of a float32, so every one arrives
+    # as 17 significant digits ("5.7215704917907715") and there are two per
+    # paper per trace. map_all.html draws all 3,717 papers twice, once coloured
+    # by year and once by cluster, which is 14,924 of those numbers and made it
+    # the largest file on the site: 1.6 MB, 435 KB gzipped, and the first chart
+    # on the home page, above the fold where lazy loading cannot help.
+    #
+    # The coordinates span about 10.5 units, so 0.001 is 0.086 px across a
+    # 900 px frame and stays sub-pixel past 10x zoom. Nothing else reads
+    # umap_x/umap_y, so this touches the seven maps and nothing else.
+    for p in papers:
+        for k in ("umap_x", "umap_y"):
+            if p.get(k) is not None:
+                p[k] = round(p[k], 3)
+
     cluster_labels: dict[str, str] = {}
     if CL_JSON.exists():
         with open(CL_JSON, encoding="utf-8") as f:
@@ -2420,19 +2601,26 @@ def main() -> int:
         scale_max = cfg.get("review_scale_max", 6)
         coauthor_min = cfg.get("coauthorship_network_min_papers", 2)
 
-        chart_map(papers_yr, year)
-        chart_subjects(papers_yr, year)
-        chart_scores(papers_yr, year, scale_max)
-        chart_controversy(papers_yr, year, scale_max)
-        wrote_sankey = chart_rebuttal_sankey(papers_yr, year)
-        if not wrote_sankey:
-            # Clean up any stale chart from a previous build
-            (OUT_DIR / f"rebuttal_{year}.html").unlink(missing_ok=True)
-        chart_code(papers_yr, year)
-        chart_authors(papers_yr, year)
-        chart_coauthor(papers_yr, year, coauthor_min, network_renderer)
-        chart_buzzwords(papers_yr, year)
-        chart_naming(papers_yr, year)
+        # A year whose reviews carry post-rebuttal verdicts gets a Sankey, and
+        # sankey lives only in the full plotly bundle, so every chart on that
+        # year's page loads the full bundle too. Splitting the page instead
+        # means downloading three bundles rather than one; see
+        # _PAGE_BUNDLE_FLOOR for the measurement.
+        floor = "full" if _rebuttal_flows(papers_yr) else None
+        with page_bundle_floor(floor):
+            chart_map(papers_yr, year)
+            chart_subjects(papers_yr, year)
+            chart_scores(papers_yr, year, scale_max)
+            chart_controversy(papers_yr, year, scale_max)
+            wrote_sankey = chart_rebuttal_sankey(papers_yr, year)
+            if not wrote_sankey:
+                # Clean up any stale chart from a previous build
+                (OUT_DIR / f"rebuttal_{year}.html").unlink(missing_ok=True)
+            chart_code(papers_yr, year)
+            chart_authors(papers_yr, year)
+            chart_coauthor(papers_yr, year, coauthor_min, network_renderer)
+            chart_buzzwords(papers_yr, year)
+            chart_naming(papers_yr, year)
 
     # Cross-year charts (use all papers in data, not just target_years)
     logger.info("--- Cross-year charts ---")
