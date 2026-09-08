@@ -70,6 +70,58 @@ body {
   gap: 4px;
 }
 
+/* Short labels for the 761-1020px tier; hidden at full size. See the comment
+   in templates/base.html for why the tiers sit where they do. */
+.nav-short { display: none; }
+/* Year text beside the logo, shown only inside the hamburger panel. */
+.nav-year-text { display: none; }
+
+/* Hamburger button. Hidden until the script adds .js-nav, so it never appears
+   without something able to act on it. */
+.nav-toggle { display: none; }
+.site-nav.js-nav .nav-toggle {
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  width: 44px;
+  height: 44px;          /* a real tap target; the bars inside are 18px */
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  color: var(--nav-text);
+}
+.site-nav.js-nav .nav-toggle:hover { background: rgba(15,39,68,0.08); }
+.site-nav.js-nav .nav-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+/* Three bars drawn from one element: the middle is the box, the outer two are
+   its pseudo-elements. Turns into an X when the panel is open. */
+.nav-toggle-bars,
+.nav-toggle-bars::before,
+.nav-toggle-bars::after {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+  transition: transform .18s ease, opacity .18s ease;
+}
+.nav-toggle-bars { position: relative; }
+.nav-toggle-bars::before,
+.nav-toggle-bars::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+.nav-toggle-bars::before { top: -6px; }
+.nav-toggle-bars::after  { top: 6px; }
+.site-nav.nav-open .nav-toggle-bars { background: transparent; }
+.site-nav.nav-open .nav-toggle-bars::before { transform: translateY(6px) rotate(45deg); }
+.site-nav.nav-open .nav-toggle-bars::after  { transform: translateY(-6px) rotate(-45deg); }
+
 .nav-overview {
   font-size: 16px;
   color: var(--nav-muted);
@@ -528,20 +580,46 @@ body {
 .tick-yes { color: #16a34a; font-weight: 600; }
 .tick-no  { color: #dc2626; font-weight: 600; }
 
-/* ── Responsive ── */
-@media (max-width: 700px) {
-  .stat-grid        { grid-template-columns: repeat(2, 1fr); }
+/* ── Responsive ──
+   Three tiers, and the two thresholds are measured, not chosen. The nav needs
+   1002px at full size, so 1020px is where it has to change; the compact tier
+   needs 660px, so 760px is where it has to give way to the hamburger. Both
+   numbers were read off the live page, not estimated.
+
+   The single 700px block that used to live here looked like it handled phones
+   and did not: it brought the nav requirement down to 840px, still well over a
+   360px screen, so every page overflowed and Chrome for Android scaled the
+   whole site to 45%. Do not collapse these back into one breakpoint without
+   re-measuring the nav. */
+
+/* Tier 2: compact nav. Short labels, smaller logos. Everything else unchanged,
+   because at these widths only the nav is actually too big. */
+@media (max-width: 1020px) {
+  .nav-full         { display: none; }
+  .nav-short        { display: inline; }
+  .site-nav         { padding: 0 16px; }
+  .nav-links        { gap: 3px; }
+  .nav-brand        { font-size: 16px; }
+  .nav-overview     { font-size: 15px; padding: 4px 7px; }
+  .nav-logo         { height: 22px; }
+  .nav-logo.logo-2022 { height: 16px; }
+  .nav-year-link    { padding: 4px 4px; }
+}
+
+/* Charts sitting two-to-a-row get a 451px box at a 1000px viewport, which is
+   already too narrow for the horizontal bar charts' label margins. Drop to one
+   column here rather than at the phone breakpoint. */
+@media (max-width: 1020px) {
   .grid2            { grid-template-columns: 1fr; }
   .grid-2-1         { grid-template-columns: 1fr; }
+}
+
+/* Tier 3: phone. Nav collapses to a button; layout goes to one column. */
+@media (max-width: 760px) {
+  .stat-grid        { grid-template-columns: repeat(2, 1fr); }
   .year-compare     { grid-template-columns: 1fr; }
   .stat-strip       { grid-template-columns: repeat(2, 1fr); }
-  /* Keep the year links reachable on phones: shrink instead of hiding */
   .site-nav         { padding: 0 12px; }
-  .nav-links        { gap: 2px; }
-  .nav-logo         { height: 20px; }
-  .nav-logo.logo-2022 { height: 15px; }
-  .nav-overview     { font-size: 15px; padding: 4px 6px; }
-  .nav-brand        { font-size: 16px; }
   .year-logo-img    { height: 56px; }
   .year-logo-img.logo-2022 { height: 40px; }
   .year-title       { font-size: 23px; }
@@ -549,6 +627,123 @@ body {
   .paper-list-col   { border-right: none; border-bottom: 0.5px solid var(--border); }
   .paper-list-col:last-child { border-bottom: none; }
   .papers-table th, .papers-table td { padding: 6px 8px; }
+
+  /* The Top Papers tables have five or six columns and cannot fit; let the
+     table scroll inside its card rather than widening the whole document,
+     which is the failure mode this whole block exists to prevent. */
+  .papers-collapse .collapse-body,
+  .card > .papers-table { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+  .site-nav.js-nav .nav-toggle { display: flex; }
+  /* Only .js-nav hides the links, so without the script they stay on screen. */
+  .site-nav.js-nav .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background: var(--nav-bg);
+    border-bottom: 1px solid var(--nav-border);
+    box-shadow: 0 6px 16px rgba(15,23,42,0.10);
+    padding: 6px 0;
+    max-height: calc(100vh - 50px);
+    overflow-y: auto;
+  }
+  .site-nav.js-nav.nav-open .nav-links { display: flex; }
+
+  /* One full-width row per entry. The row, not the logo, is the tap target:
+     a 22px logo would be a 30px target, under both Google's and Apple's
+     guidance, so every row is given 44px of height. */
+  .site-nav.js-nav .nav-links > a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    padding: 6px 16px;
+    border-radius: 0;
+    border-bottom: none;
+    font-size: 16px;
+  }
+  .site-nav.js-nav .nav-links > a.active {
+    background: rgba(15,39,68,0.08);
+    box-shadow: inset 3px 0 0 var(--nav-active);
+  }
+  .site-nav.js-nav .nav-year-text {
+    display: inline;
+    color: var(--nav-muted);
+    font-size: 16px;
+  }
+  .site-nav.js-nav .nav-links > a.active .nav-year-text {
+    color: var(--nav-text);
+    font-weight: 500;
+  }
+  /* In the panel there is room for the full label again. */
+  .site-nav.js-nav .nav-full  { display: inline; }
+  .site-nav.js-nav .nav-short { display: none; }
+  .site-nav.js-nav .nav-logo  { height: 24px; opacity: 1; }
+  .site-nav.js-nav .nav-logo.logo-2022 { height: 17px; }
+
+  /* Fixed-width slot for the logo, so every year's text starts at the same x.
+     The logos have different aspect ratios (measured at 24px tall: 2025 is
+     38px wide, 2021 is 66px), which is invisible in the desktop nav where they
+     sit in a row with no text beside them, but in the panel it staggered the
+     year labels across a 28px spread. The slot is 70px because the widest
+     logo is 66px; it centres rather than stretches, so no logo is distorted. */
+  .site-nav.js-nav .nav-links > a.nav-year-link > .nav-logo,
+  .site-nav.js-nav .nav-links > a.nav-year-link > .nav-logo-pill {
+    flex: 0 0 70px;
+    width: 70px;
+    justify-content: center;
+  }
+  .site-nav.js-nav .nav-links > a.nav-year-link > .nav-logo { object-fit: contain; }
+  .site-nav.js-nav .nav-logo-pill > .nav-logo { width: auto; max-width: 100%; }
+}
+
+/* ── Back to top ──
+   These pages are long: a year page is nine charts plus two 20-row tables, and
+   on a phone that is a lot of scrolling to reach the nav again. The button is
+   translucent so it sits over content without hiding it, and it only appears
+   once there is enough scrolled past to be worth undoing.
+
+   Added by script, so a browser that runs no JavaScript gets no dead control.
+   It is a real <button>, not a link to "#", so it does not push a history entry
+   or leave a stray fragment in the URL. */
+.to-top {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  width: 44px;                    /* the tap-target floor, same as the nav rows */
+  height: 44px;
+  border: 0.5px solid rgba(255,255,255,0.18);
+  border-radius: 50%;
+  background: rgba(15,39,68,0.62);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  font-size: 19px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(15,23,42,0.22);
+  z-index: 120;                   /* over the sticky nav's 100 */
+  /* Hidden state. Kept clickable-free with visibility so it cannot be tabbed
+     to while invisible. */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity .18s ease, transform .18s ease, visibility .18s;
+}
+.to-top.show { opacity: 1; visibility: visible; transform: none; }
+.to-top:hover { background: rgba(15,39,68,0.82); }
+.to-top:focus-visible { outline: 2px solid var(--accent-vivid); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .to-top { transition: none; }
 }
 
 /* ── Collapsible Top Papers tables ── */

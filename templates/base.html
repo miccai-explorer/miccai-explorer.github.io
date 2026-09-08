@@ -31,17 +31,39 @@
 </head>
 <body>
 
+{# The nav has three tiers, and the thresholds are measured rather than chosen:
+   at full size it requires 1002px (brand 140 + two text links 317 + five logos
+   374 + "All Papers" 96 + gaps and padding 76), so below about 1020px it does
+   not fit and the whole document overflows. An overflowing document is what
+   made this site render at 45% width on a phone: Chrome for Android scales the
+   page down to fit, so ONE too-wide element shrank everything.
+
+   >= 1021px  full labels, 28px logos           (needs 1002px)
+   761-1020px short labels, 22px logos          (needs 660px, measured)
+   <= 760px   brand + hamburger, links in panel (needs ~200px)
+
+   The middle tier is why a 900px desktop window does not get a phone menu, and
+   it means a phone in landscape (780px) keeps the year logos. #}
 <nav class="site-nav">
   <a href="{{ base_url }}/" class="nav-brand">MICCAI Explorer</a>
-  <div class="nav-links">
+  {# Revealed by CSS only once the script below adds .js-nav, so a browser that
+     never runs the script keeps the links themselves visible rather than
+     showing a button that cannot open anything. #}
+  <button class="nav-toggle" type="button" id="nav-toggle"
+          aria-expanded="false" aria-controls="nav-links" aria-label="Menu">
+    <span class="nav-toggle-bars" aria-hidden="true"></span>
+  </button>
+  <div class="nav-links" id="nav-links">
     <a href="{{ base_url }}/"
        class="nav-overview{% if active_page == 'index' %} active{% endif %}">
-      Overview &amp; Trends
+      {# Two labels rather than one, so the middle tier is pure CSS with no
+         script and no second copy of the nav in the markup. #}
+      <span class="nav-full">Overview &amp; Trends</span><span class="nav-short">Overview</span>
     </a>
     {% if has_orals_page %}
     <a href="{{ base_url }}/orals.html"
        class="nav-overview{% if active_page == 'orals' %} active{% endif %}">
-      Orals &amp; Spotlights
+      <span class="nav-full">Orals &amp; Spotlights</span><span class="nav-short">Orals</span>
     </a>
     {% endif %}
     {% for yr in years %}
@@ -57,13 +79,16 @@
       <img src="{{ base_url }}/assets/logos/{{ year_meta[yr].logo }}"
            alt="{{ yr }}" class="nav-logo logo-{{ yr }}">
       {% endif %}
+      {# Shown only in the hamburger panel, where each year gets a full row and
+         a bare logo would be a smaller tap target than the row it sits in. #}
+      <span class="nav-year-text">{{ yr }}</span>
     </a>
     {% endfor %}
     {# No {% if %} guard here, unlike the Orals entry above: this page has no
        optional input that can be missing, so it is always built. #}
     <a href="{{ base_url }}/papers.html"
        class="nav-overview{% if active_page == 'papers' %} active{% endif %}">
-      All Papers
+      <span class="nav-full">All Papers</span><span class="nav-short">Papers</span>
     </a>
   </div>
 </nav>
@@ -75,13 +100,16 @@
 <footer class="site-footer">
   {# About and the repository are linked here rather than in the nav bar because
      the nav is a single fixed-height row that does not wrap, and it already
-     carries seven entries; an eighth overflows a narrow screen. The footer is
-     also the only navigation left below 700px, where .nav-links is hidden
-     entirely. The repository link is skipped when site_settings.repo_url is
-     unset, so a fork that has not set its own does not link back to this one. #}
+     carries seven entries; an eighth overflows a narrow screen. Below 760px
+     the nav entries move into the hamburger panel, so the footer is no longer
+     the ONLY navigation on a phone as it was before 2026-09-03, but it is
+     still the only place About is reachable at any width. The repository link
+     is skipped when site_settings.repo_url is unset, so a fork that has not
+     set its own does not link back to this one. #}
   <p class="footer-links">
     MICCAI Explorer by <a href="https://kabhishe.com" target="_blank">Kumar Abhishek</a>
-    <span class="footer-sep">&middot;</span>
+  </p>
+  <p>
     <a href="{{ base_url }}/about.html">About</a>
     {% if repo_url %}<span class="footer-sep">&middot;</span>
     {# GitHub's own mark, inlined rather than pulled from a CDN so the footer
@@ -102,10 +130,125 @@
   </p>
   <p>MICCAI papers and reviews © respective authors.<span class="footer-sep">&middot;</span>
     Data sourced from <a href="https://papers.miccai.org" target="_blank">papers.miccai.org</a>.
-    <span class="footer-sep">&middot;</span>
+  </p>
+  <p>
     Last updated {{ build_date }}.
   </p>
 </footer>
+
+<!-- Mobile navigation.
+     Progressive enhancement, the same pattern as the collapsible tables below:
+     the .js-nav class is what makes the CSS hide the link row and show the
+     button, so if this script never runs the links stay visible instead of
+     becoming unreachable behind a button that cannot open. A navigation that
+     needs JavaScript in order to exist is a navigation that can vanish. -->
+<script>
+(function () {
+  var nav = document.querySelector(".site-nav");
+  var btn = document.getElementById("nav-toggle");
+  var links = document.getElementById("nav-links");
+  if (!nav || !btn || !links) return;
+  nav.classList.add("js-nav");
+
+  function setOpen(open) {
+    nav.classList.toggle("nav-open", open);
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+  }
+  btn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    setOpen(!nav.classList.contains("nav-open"));
+  });
+  // Tapping the page, or following a link, closes the panel. Without the first
+  // of these the panel stays over the content with no obvious way back.
+  document.addEventListener("click", function (e) {
+    if (nav.classList.contains("nav-open") && !nav.contains(e.target)) setOpen(false);
+  });
+  links.addEventListener("click", function (e) {
+    if (e.target.closest("a")) setOpen(false);
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") setOpen(false);
+  });
+  // Leaving the phone tier with the panel open would otherwise leave .nav-open
+  // set, which does nothing visible but leaves aria-expanded lying.
+  window.addEventListener("resize", function () {
+    if (window.innerWidth > 760) setOpen(false);
+  });
+})();
+</script>
+
+<!-- Chart frames report their own height.
+     A chart page reflows at narrow widths (trends_overview.html goes from a 3x3
+     grid to 2 columns under 820px and then to 1 column, needing 1187px against
+     the 660px the build recorded), and the build cannot know that: the reflow
+     depends on rendered text. So the chart page measures itself and posts the
+     number here.
+
+     The heights in chart_heights.json are NOT replaced by this. They remain the
+     server-rendered starting height and the no-JS fallback; this only corrects
+     them. Computing a second, mobile set in Python was the alternative, and
+     CLAUDE.md already records that hardcoded heights went stale every time the
+     type scale changed, which is why they became computed in the first place. -->
+<script>
+(function () {
+  window.addEventListener("message", function (e) {
+    var d = e.data;
+    if (!d || d.kind !== "miccai-chart-height" || typeof d.height !== "number") return;
+    // Trust the message only if it came from a frame on this page, addressed by
+    // its own contentWindow. e.origin is not enough on its own here: every
+    // chart is same-origin, so an origin check would admit any same-origin
+    // frame, and matching the source window is both stricter and simpler.
+    var frames = document.querySelectorAll("iframe.chart-frame");
+    for (var i = 0; i < frames.length; i++) {
+      if (frames[i].contentWindow === e.source) {
+        var h = Math.max(120, Math.min(4000, Math.round(d.height)));
+        frames[i].style.height = h + "px";
+        return;
+      }
+    }
+  });
+})();
+</script>
+
+<!-- Back to top.
+     Built here rather than in the markup so a browser that runs no JavaScript
+     never sees a button that cannot do anything. Styles: static/style.css. -->
+<script>
+(function () {
+  var btn = document.createElement("button");
+  btn.className = "to-top";
+  btn.type = "button";
+  btn.setAttribute("aria-label", "Back to top");
+  btn.innerHTML = "<span aria-hidden='true'>↑</span>";
+  document.body.appendChild(btn);
+
+  // Roughly one and a half screens: far enough that scrolling back is a chore,
+  // near enough that the button is there when you want it.
+  var SHOW_AFTER = 700;
+  var ticking = false;
+  function update() {
+    ticking = false;
+    var y = window.pageYOffset || document.documentElement.scrollTop;
+    btn.classList.toggle("show", y > SHOW_AFTER);
+  }
+  window.addEventListener("scroll", function () {
+    // Coalesce to one update per frame; this fires on every scroll event on a
+    // page carrying up to nine chart iframes.
+    if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
+  }, {passive: true});
+  update();
+
+  btn.addEventListener("click", function () {
+    var reduce = window.matchMedia &&
+                 window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({top: 0, behavior: reduce ? "auto" : "smooth"});
+    // Send focus somewhere sensible rather than leaving it on a button that is
+    // about to fade out; the brand link is the first thing at the top.
+    var brand = document.querySelector(".nav-brand");
+    if (brand) brand.focus({preventScroll: true});
+  });
+})();
+</script>
 
 <!-- Collapsible Top Papers tables -->
 <script>

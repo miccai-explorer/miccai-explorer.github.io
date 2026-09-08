@@ -49,9 +49,15 @@
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: 6px;
-  max-width: 260px;
+  /* min() rather than a bare pixel value: at 360px a 380px control is wider
+     than the screen, which is how this page overflowed on a phone. The cap is
+     still 260/380 wherever there is room for it. */
+  max-width: min(260px, 100%);
 }
-.papers-filter-wide select { max-width: 380px; }
+.papers-filter-wide select { max-width: min(380px, 100%); }
+/* Without this the flex item refuses to shrink below its content width. */
+.papers-filter { min-width: 0; }
+.papers-filter-wide { flex: 1 1 240px; min-width: 0; }
 
 .papers-check {
   display: flex;
@@ -168,8 +174,12 @@
 }
 .papers-pagination .ellipsis { color: var(--text-faint); padding: 0 4px; }
 
-@media (max-width: 720px) {
+@media (max-width: 760px) {
   .papers-browse .subject-col { display: none; }
+  /* The table still needs more than 360px once the subject column is gone.
+     .card sets overflow:hidden, so without a scroll container here the last
+     columns are silently cut off instead of reachable. */
+  .papers-table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .papers-resultbar { justify-content: flex-start; }
   .paper-detail { grid-template-columns: 1fr; gap: 2px 0; }
   .paper-detail dt { margin-top: 8px; }

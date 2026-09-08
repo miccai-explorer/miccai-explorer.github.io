@@ -106,7 +106,21 @@ miccai-explorer.github.io/
 │   ├── test_oral_stats.py       ← known-answer tests for the statistics
 │   ├── test_orals_data.py       ← golden counts + re-parse of the source PDFs
 │   ├── test_papers_index.py     ← golden counts on website/papers.json
-│   └── test_logo_assets.py      ← the logo conversion actually ran (see below)
+│   ├── test_logo_assets.py      ← the logo conversion actually ran (see below)
+│   └── check_responsive.py      ← layout checks in a real browser, 9 pages x 4
+│                                   widths. Drives the installed Chrome; adds no
+│                                   dependency, and skips itself where there is
+│                                   none. Every other test starts from the data,
+│                                   so none of them could see the site rendering
+│                                   at 45% width. Eight checks: OVERFLOW,
+│                                   CROPPED, SQUEEZED, CLIPPED, COLLIDING, and
+│                                   HOLLOW / VOID / UNTITLED, which were added
+│                                   2026-09-04 after the first five all passed on
+│                                   three visibly broken charts. Each check was
+│                                   verified by re-breaking its own bug and
+│                                   watching it fire; do that for any new one,
+│                                   because a check that never fails looks
+│                                   exactly like a check that passes
 ├── templates/
 │   ├── base.html                ← shared nav bar + footer
 │   ├── index.html               ← cross-year trends page
@@ -173,6 +187,12 @@ python analysis/build_site.py
 
 # 6. Tests (statistics + oral extraction golden counts)
 python -m pytest tests/ -q
+
+# 6b. Layout checks in a real browser. Separate from the command above on
+#     purpose: it needs a built website/ and an installed Chrome, and takes
+#     minutes rather than seconds. The check_ prefix is what keeps it out of
+#     the bare pytest run; see the docstring before renaming it.
+python tests/check_responsive.py
 
 # To preview locally: serve website/ itself, because BASE_URL is empty and every
 # generated href is root-relative, so the directory served has to be the site root.
@@ -911,9 +931,18 @@ strictly additive and its absence cannot break a build.
 `height: 50px` flex row with `white-space: nowrap` on every entry and no
 wrapping rule, so an eighth entry pushes it wider than a narrow screen and the
 year logos are the first thing squeezed. The footer carries the byline,
-`About`, and `GitHub` on every page instead, which also covers mobile, where
-`.nav-links` is `display: none` below 700px and the footer is the only
-navigation left. The repository and blog URLs come from `site_settings` in the
+`About`, and `GitHub` on every page instead.
+
+This paragraph used to end by saying that `.nav-links` is `display: none`
+below 700px, which left the footer as the only navigation on a phone. **That
+was never true of the CSS.** DESIGN.md specified it, with a "TODO: add
+hamburger menu later" beside it, and the stylesheet instead shrank the fonts
+and logos; this file then documented the spec rather than the code. The
+difference mattered: the shrunk nav still required 840px, so every page
+overflowed a 360px phone, and Chrome for Android scales an overflowing page
+down to fit, which is why the whole site rendered at 45% width. Fixed
+2026-09-03; the nav now has three measured tiers and the hamburger exists.
+See DESIGN.md "Responsive". The repository and blog URLs come from `site_settings` in the
 root `config.yaml` (`repo_url` and `blog_url`); an empty value writes
 no link, so a fork that has not set its own does not link back to this one, the
 same reasoning as the analytics id beside them.

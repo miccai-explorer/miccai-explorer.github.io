@@ -100,6 +100,10 @@
 
   <div class="card">
     <p id="papers-status" class="papers-status">Loading {{ total_papers | format_int }} papers...</p>
+    {# Scroll container for narrow screens. .card sets overflow:hidden, so
+       without this the table's right-hand columns are clipped on a phone
+       rather than reachable. Inert above 760px, where the table fits. #}
+    <div class="papers-table-scroll">
     <table class="papers-table papers-browse">
       <thead>
         <tr>
@@ -112,6 +116,7 @@
       </thead>
       <tbody id="papers-tbody"></tbody>
     </table>
+    </div>
     <nav id="pagination" class="papers-pagination" aria-label="Pages"></nav>
   </div>
 

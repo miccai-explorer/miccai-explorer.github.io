@@ -739,7 +739,27 @@ html,body{margin:0;font-family:__FONT__;background:__BG__;color:__TEXT__}
 .bar-ctrls select{font:inherit;padding:3px 8px;border:1px solid #cbd5e1;
                   border-radius:6px;background:#fff;color:__TEXT__}
 .bar-ctrls .note{color:__MUTED__}
-#ar{width:100%;height:calc(100vh - 42px)}
+/* The plot fills whatever the control row leaves, using flex rather than
+   calc(100vh - 42px). That 42px was the control row's height at desktop
+   widths; when the controls wrap to two lines on a phone the row is 58px and
+   the content became 100vh + 16px, i.e. taller than the frame. Since the
+   frame now sizes itself from the content it reports, that was a loop: every
+   height message made the page 16px taller again. Flex cannot overflow. */
+html,body{height:100%}
+body{display:flex;flex-direction:column}
+.bar-ctrls{flex:0 0 auto;flex-wrap:wrap}
+#ar{width:100%;flex:1 1 auto;min-height:0}\n/* On a phone these charts have more category rows than a viewport-height plot
+   can give 26px each, so the y labels overprint each other. Let the page grow
+   past the frame and report its real height to the parent instead. A fixed
+   pixel min-height, never a vh value: the content height must not depend on
+   the frame height, or the height message and the frame resize each other in a
+   loop, which is exactly what calc(100vh - 42px) used to do here. */
+@media(max-width:760px){
+  html,body{height:auto}
+  body{display:block}
+  #ar{height:auto;min-height:900px}
+}
+
 </style></head><body>
 <div class="bar-ctrls">
   <label>Year <select id="yr"></select></label>

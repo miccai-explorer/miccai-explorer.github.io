@@ -650,8 +650,9 @@ from a CDN, sized in `em` and filled with `currentColor`, so it tracks the link
 text and takes the year accent on year pages. About and the repository are in
 the footer rather than the nav because
 the nav is one fixed-height row that does not wrap and already holds seven
-entries, and because `.nav-links` is hidden below 700px, which leaves the
-footer as the only navigation on a phone. The source link is skipped entirely
+entries. Below 760px the nav entries move into the hamburger panel, so the
+footer is no longer the only navigation on a phone, but it stays the only
+place About is reachable at any width. The source link is skipped entirely
 when `site_settings.repo_url` is unset.
 
 ```css
@@ -694,16 +695,183 @@ Example usage:
 
 ## Responsive
 
-The site is primarily desktop-focused (researchers use large monitors). Mobile is
-secondary but should not break. All grids collapse to single column below 700px.
-Charts remain iframes; on mobile they are scrollable within the container.
+The site is desktop-first (researchers use large monitors), but it must be
+*correct* at every width, not merely unbroken in principle. It was not: until
+2026-09-03 every page overflowed below about 1000px, and on a phone Chrome for
+Android scaled the whole site down to 45% to make the overflow fit. The
+section above this one used to specify `.nav-links { display: none }` with a
+"TODO: add hamburger menu later" beside it. The TODO is done; the numbers
+below are measured, not chosen, and should be re-measured rather than rounded.
 
-Add to `style.css`:
-```css
-@media (max-width: 700px) {
-  .stat-grid  { grid-template-columns: repeat(2, 1fr); }
-  .grid2      { grid-template-columns: 1fr; }
-  .stat-strip { grid-template-columns: repeat(2, 1fr); }
-  .nav-links  { display: none; }  /* TODO: add hamburger menu later */
-}
-```
+### The rule that matters
+
+**Nothing may be wider than the viewport unless it sits in a container that
+scrolls on purpose.** One element that breaks this does not misplace itself,
+it rescales the entire page: the nav was 668px against a 360px viewport, and
+that alone is what made the body render at 45% width with a blank half screen.
+
+### Breakpoints
+
+Two thresholds, both derived from what the nav actually requires:
+
+| Width | Nav | Layout | Nav requires |
+|---|---|---|---|
+| >= 1021px | Full labels, 28px logos | Two-column grids | 1002px |
+| 761-1020px | "Overview", "Orals", "Papers"; 22px logos | Grids to one column | 660px |
+| <= 760px | Brand + hamburger; entries in a panel | Stat grids to 2 then 1 | ~200px |
+
+The nav requirement at full size is brand 140 + "Overview & Trends" 163 +
+"Orals & Spotlights" 154 + five logos 374 + "All Papers" 96 + gaps and padding
+76 = 1002. Adding an eighth nav entry means re-measuring this table.
+
+Two-column chart grids collapse at 1020px rather than at the phone
+breakpoint, because a `.grid2` cell is only 451px at a 1000px viewport, which
+is already too narrow for the horizontal bar charts' label margins.
+
+### Tap targets
+
+Every nav entry fills the full 50px nav height, and panel rows are at least
+44px. A 22px logo with 4px padding would be a 30px target, under both Google's
+and Apple's guidance.
+
+### Charts
+
+Plotly margins are in pixels, so a chart laid out for a 1050px frame has no
+room left in a 294px one. Charts are **not** rebuilt per breakpoint. Each
+chart page carries a shared script (`RESPONSIVE_JS` in `build_charts.py`,
+injected by both `save_chart` and `save_template`) that reads its own frame
+width at runtime and:
+
+- scales the figure's margins by how much narrower the frame is, keeping the
+  plotting region at least 55% of the frame;
+- moves a vertical legend below the plot under 760px, where there is no room
+  for it beside;
+- hides the modebar under 760px, since its targets are unhittable by finger
+  and it overlaps the charts' own controls;
+- reports the page's real height to the parent, which sizes the iframe.
+
+- shortens category tick labels, and hands the margin back to `automargin`;
+- thins, shortens or re-steps colliding numeric ticks, per cause;
+- drops an axis title that cannot fit at a legible size;
+- re-lays a subplot grid into fewer columns and grows the frame to suit.
+
+That last point is why `chart_heights.json` is a starting height rather than
+the truth: a chart page can reflow in ways the build cannot predict.
+
+### Two rules the runtime script must keep
+
+Both were broken once, and each broke several charts at a time.
+
+**1. Anything that reads the layout and then writes it must read a snapshot.**
+The script runs four to six times per page as Plotly settles. `gridInfo()` read
+the subplot grid live: pass one re-laid a 3x4 grid into one column and wrote the
+domains, pass two read those back, concluded the figure had one column, and
+skipped the grid block and the height it claims, at which point the height set
+by pass one was actively cleared. `subject_lines` drew twelve 25px panels in a
+660px box under a 2136px frame. The snapshots are `_orig`, `_gridSnap`,
+`_annSnap` and `_titleMap`; the same trap already had its own note on `dtick`
+and on hidden annotations, which is exactly why the rule is stated here once.
+
+**2. Anything positioned above or below a plot in paper units must be placed in
+pixels once the figure's height changes.** Paper units are fractions of the
+*plot* height, and the plot height is whatever the margins leave. Growing a
+margin to make room therefore shrinks the plot and moves the thing back by most
+of what was gained, so it never converges. Three cases, all real:
+
+| What | Built as | Became | Fix |
+|---|---|---|---|
+| Sankey headline | `y = 1.15` | 35px above the frame's top edge | `yshift`, anchored at `y = 1` |
+| `scores_*` legend | `y = 1.35` (91px) | 369px once the panels stack | rescale by old plot height / new |
+| map legend, moved below | `y = -0.12` | a 104px channel under the map | compute `y` from a 22px target |
+
+Annotations have `yshift` and legends do not, which is the only reason the two
+are handled differently.
+
+### A subplot heading is not a value label
+
+They are indistinguishable in the layout: both are paper-referenced annotations
+sharing a y. The rule that hides a row of three or more value labels too wide to
+fit (an overprinted smear says less than nothing, and every value is still in
+the hover) matched `subject_lines`' twelve panel headings, three per row in its
+3-column build, and took nine panel names off the chart. Headings are matched to
+their panel once, from the snapshot, and are **never hidden**: they shrink, then
+wrap, to their own panel's width. A heading is also exempt from the top-margin
+reservation, since for every panel but the first "above the plot" is the middle
+of the figure.
+
+### Desktop must be the figure as built
+
+Above the breakpoint the script's job is to change nothing. It has to keep
+running, because a window can be dragged across the breakpoint and everything
+the narrow path sets must be put back, but every restore takes its value from
+the snapshot rather than from the current layout, which holds this script's own
+last output. `regrid` used to run even on an unchanged grid, deriving its gaps
+from its own constants instead of the figure's `horizontal_spacing` and
+`vertical_spacing`; all twelve of `subject_lines`' domains were wrong at 1280px.
+An unchanged grid now restores the build's domains verbatim, and that is worth
+checking after any change here: the rendered domains should equal the ones in
+the figure JSON.
+
+### Tick labels: shorten them, do not fight the margin
+
+Plotly gives two ways to size the space a category axis gets, and on a narrow
+frame **both fail, in opposite directions**:
+
+| Setting | What Plotly does | Result |
+|---|---|---|
+| `automargin: true` | Grows the margin to fit the labels | Bars squeezed to nothing. Measured: `margin.l` set to 66, Plotly used **206** of a 344px frame |
+| `automargin: false` | Leaves the margin alone and clips | Labels cut off. `subject_movers` sliced "Semi-/Weakly-/Self-supervised Learning" in half |
+
+So the margin is not the variable to control. **Shorten the label**, then let
+`automargin` size the margin around it. The full name stays in the hover, which
+is the bargain `_trunc_ticks` already makes on the desktop layout.
+
+Estimating the margin from an average character width was tried and is wrong by
+19 to 33px: the budget has to be satisfied by the *widest* label, and an average
+is not the widest.
+
+### Colliding ticks have three causes and three fixes
+
+Do not reach for one blanket answer. Clearing `tickvals` was tried and broke
+four charts, because several place their ticks deliberately (CLAUDE.md records
+the authors chart's "multiples of 5 plus the max"; the orals charts label bar
+group centres), and Plotly then auto-ticked a `-0.5 … 4.5` range into
+`0.01, 0.02, -0.49`.
+
+| Cause | Fix |
+|---|---|
+| Year labels too wide (`2021` vs `2022`) | Shorten to `’21`. Never thin: dropping years from a five-year comparison loses the point of the chart |
+| Deliberate `tickvals` | Keep every k-th |
+| Explicit `dtick` (one tick per score point) | Widen the step, so ticks stay on whole values |
+| Automatic ticks | `nticks` |
+
+**Read `dtick` from the user layout, never from `_fullLayout`.** Plotly stores
+its own computed step there; restoring that as an explicit setting asked for a
+tick every 0.02 across a five-unit range.
+
+### The Sankey is the one exception to "fit the screen"
+
+Its information is horizontal by construction: two labelled columns and the
+flows between them. Below 520px it renders at 520px inside its own
+`overflow-x` container and scrolls. The check exempts anything inside such a
+container, so this is a declared exception rather than a hole in the rule.
+
+Its scroll decision reads the **frame** width, not the plot's own width.
+Keying it off the plot oscillated: widening the plot to 520 made the next pass
+conclude no scrolling was needed and reset it, 24 times over.
+
+**A chart page must never size itself from the viewport height.**
+`subject_movers` and `orals_areas` used `height: calc(100vh - 42px)` against a
+control row that wraps to 58px on a phone, so the content was always 16px
+taller than the frame; once frames size themselves from reported content, that
+is an unbounded growth loop. Use flex (`body{display:flex;flex-direction:
+column}` with `flex:1` on the plot) so the content cannot exceed the frame.
+
+### Verification
+
+`tests/check_responsive.py` loads every page at 360, 390, 768 and 1000px and
+fails on any element wider than the viewport outside a scroll container, any
+chart iframe whose content exceeds its frame, or any plot whose region is
+under 45% of its frame. Run it after touching this file, `style.css`, or any
+chart layout. Chrome DevTools device mode reproduces the page-scaling
+behaviour; it does not reproduce touch scrolling inside an iframe.
