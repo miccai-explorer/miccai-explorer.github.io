@@ -151,9 +151,12 @@ miccai-explorer.github.io/
 │                                   visibly broken charts, and TOGGLED, added
 │                                   2026-09-08 after all eight passed on a map
 │                                   that redrew itself at a different scale when
-│                                   the reader used its own controls. TOGGLED is
-│                                   the only one that touches the page; the rest
-│                                   measure one static load. Each check was
+│                                   the reader used its own controls. FOLDED,
+│                                   added 2026-09-16, is the tenth: a caption
+│                                   folded to more text than it was meant to
+│                                   show renders as ordinary prose. TOGGLED and
+│                                   FOLDED are the two that touch the page; the
+│                                   rest measure one static load. Each check was
 │                                   verified by re-breaking its own bug and
 │                                   watching it fire; do that for any new one,
 │                                   because a check that never fails looks
@@ -1576,6 +1579,27 @@ Per-year stats fields (`year_stats[yr]`): `n_papers`, `n_authors`, `pct_code`,
 is the share of *all submissions* (~8-13%), read from `num_papers_submitted.yaml`. The
 rebuttal Sankey caption uses `pct_early_subs` so it agrees with the "Early Accepted"
 panel on the overview page.
+
+`templates/base.html` also carries the script that folds long chart captions.
+A `.card-sub` that renders past three lines is folded to its first sentence
+with a `More` control; consecutive `.card-sub` paragraphs count as one caption,
+so the four-paragraph taxonomy note on the Overview page gets one control. The
+threshold is **measured at runtime at the reader's own width**, not set by a
+media query, so the same caption stays open on a laptop and folds on a phone
+and there is no breakpoint that can drift out of step with the prose. Measured
+at 360px, this took `orals.html` from 10,835px to 9,240px and `index.html` from
+9,686px to 8,652px.
+
+Two things here are load-bearing. The lede is re-measured on
+`document.fonts.ready`, because the first paint uses a fallback face that wraps
+differently from Inter and folds captions that fit. And the clamp fallback
+measures the lede **with any previous pass's clamp removed**, because a clamped
+lede is three lines by construction, so measuring it clamped reads as "this
+fits" and deletes the clamp that produced the measurement; that shipped a
+seven-line folded lede past every other layout check. Captions carrying a "do
+not misread the chart below" warning (the taxonomy note, the early-accept
+confounder) state it in the **first** sentence, because that is the sentence a
+folded caption shows. `FOLDED` in `check_responsive.py` is the check.
 
 `templates/base.html` ends with a small script that makes any card containing a
 `table.papers-table` collapsible: it wraps the card body, turns the card header into a

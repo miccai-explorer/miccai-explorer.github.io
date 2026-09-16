@@ -301,6 +301,218 @@
 })();
 </script>
 
+<!-- Folding chart captions.
+     A caption explains the chart under it, but on a phone it can also be what
+     stands between the reader and that chart: measured at 360px on the built
+     site, orals.html spent 2,685px, about 3.6 screens, on caption text, and
+     the longest single caption was 383px.
+
+     What folds is decided here rather than in a media query, and is measured
+     at the reader's own width: a caption folds only if it really does run past
+     CAP_MAX_LINES lines right now. The same caption is therefore left open on
+     a wide screen and folded on a narrow one, and there is no breakpoint in
+     the stylesheet that can drift out of step with the text. Re-measured on
+     resize, so rotating a phone does not leave a nine-line caption unfolded.
+
+     The fold cuts at the end of the first sentence, not at a fixed number of
+     characters: a clamp cuts mid-word, and "Cliff's delta captures how much
+     more often papers from one group outsc..." tells a reader nothing and
+     forces the tap. A first sentence is almost always the summary already.
+     The few captions whose first sentence is itself too long to serve as a
+     lede fall back to a three-line clamp.
+
+     Progressive enhancement, like the nav above: the markup in the templates
+     is untouched and carries the whole caption, so a reader without
+     JavaScript, and any crawler that does not run it, sees today's page. -->
+<script>
+(function () {
+  var CAP_MAX_LINES = 3;    // a caption taller than this folds
+  var CAP_LEDE_LINES = 4;   // a lede taller than this is clamped instead
+  var CAP_SLACK = 0.5;      // half a line, so "just over" does not fold
+
+  // First sentence boundary. The punctuation and the space are consumed and
+  // the next sentence's opening character is only looked ahead at, because
+  // lookbehind is not available in every browser this has to work in. The
+  // uppercase lookahead is what keeps "2.6 percentage points" and "1-6);"
+  // from reading as sentence ends.
+  var BOUNDARY = /[.?!]["'’”)]?(\s+)(?=[A-Z(“"])/;
+
+  function lineHeightOf(el) {
+    var cs = window.getComputedStyle(el);
+    var lh = parseFloat(cs.lineHeight);
+    if (!isFinite(lh) || lh <= 0) lh = parseFloat(cs.fontSize) * 1.5;
+    return lh;
+  }
+
+  // Move everything after the first sentence of p into a .cap-rest span.
+  // A Range is used rather than hand-walking the nodes so a boundary that
+  // lands inside a <strong> or an <a> splits that element correctly.
+  function splitLede(p) {
+    if (!p.firstChild) return false;
+    // Matched against the paragraph's whole text, not node by node: a lede
+    // that ends on a tag boundary ("...labelling change first.</strong> MICCAI
+    // has...") puts the sentence, the space and the next word in three
+    // separate text nodes, and a per-node search finds nothing in any of them.
+    var walker = document.createTreeWalker(p, NodeFilter.SHOW_TEXT, null, false);
+    var nodes = [], text = "", node;
+    while ((node = walker.nextNode())) {
+      nodes.push({ node: node, start: text.length });
+      text += node.nodeValue;
+    }
+    var m = text ? BOUNDARY.exec(text) : null;
+    if (!m) return false;
+    var at = m.index + m[0].length, hit = null;
+    for (var q = 0; q < nodes.length; q++) {
+      var len = nodes[q].node.nodeValue.length;
+      if (at >= nodes[q].start && at <= nodes[q].start + len) {
+        hit = nodes[q].node;
+        at = at - nodes[q].start;
+        break;
+      }
+    }
+    if (!hit) return false;
+    var range = document.createRange();
+    range.setStart(hit, at);
+    range.setEndAfter(p.lastChild);
+    if (range.collapsed) return false;
+    var span = document.createElement("span");
+    span.className = "cap-rest";
+    span.appendChild(range.extractContents());
+    p.appendChild(span);
+    return true;
+  }
+
+  var seq = 0;
+
+  function build(group) {
+    var first = group[0];
+    var wrap = document.createElement("div");
+    wrap.className = "cap-fold";
+    wrap.id = "cap-fold-" + (++seq);
+    first.parentNode.insertBefore(wrap, first);
+    for (var i = 0; i < group.length; i++) wrap.appendChild(group[i]);
+
+    first.classList.add("cap-lede");
+    var split = splitLede(first);
+    for (var j = 1; j < group.length; j++) group[j].classList.add("cap-rest-block");
+    // Nothing was hidden: one paragraph, and no sentence break to fold at.
+    if (!split && group.length === 1) wrap.classList.add("cap-clamp");
+
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "cap-toggle";
+    btn.setAttribute("aria-controls", wrap.id);
+    var label = document.createElement("span");
+    label.className = "cap-toggle-label";
+    var chev = document.createElement("span");
+    chev.className = "cap-toggle-chevron";
+    chev.setAttribute("aria-hidden", "true");
+    chev.textContent = "▾";
+    btn.appendChild(label);
+    btn.appendChild(chev);
+    wrap.appendChild(btn);
+
+    var unit = { wrap: wrap, lede: first, btn: btn, label: label, opened: false };
+
+    function setOpen(open) {
+      wrap.classList.toggle("cap-open", open);
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+      label.textContent = open ? "Less" : "More";
+    }
+    unit.setOpen = setOpen;
+    setOpen(false);
+
+    btn.addEventListener("click", function () {
+      unit.opened = !wrap.classList.contains("cap-open");
+      setOpen(unit.opened);
+    });
+    // Tapping the folded text opens it too, which is a far bigger target than
+    // the word "More". Links inside a caption keep working, and a click that
+    // ends a text selection is a reader highlighting, not a reader tapping.
+    wrap.addEventListener("click", function (e) {
+      if (wrap.classList.contains("cap-open")) return;
+      if (wrap.classList.contains("cap-inert")) return;
+      if (e.target.closest && e.target.closest("a, button")) return;
+      var sel = window.getSelection();
+      if (sel && !sel.isCollapsed && wrap.contains(sel.anchorNode)) return;
+      unit.opened = true;
+      setOpen(true);
+    });
+    return unit;
+  }
+
+  // Decide, at this width, whether the caption needs folding at all. Measured
+  // with everything shown, which is what .cap-inert does.
+  function fit(unit) {
+    var wrap = unit.wrap;
+    var lh = lineHeightOf(unit.lede);
+    wrap.classList.add("cap-inert");
+    var full = wrap.getBoundingClientRect().height;
+    wrap.classList.remove("cap-inert");
+
+    if (full <= lh * (CAP_MAX_LINES + CAP_SLACK)) {
+      wrap.classList.add("cap-inert");
+      unit.setOpen(false);
+      return;
+    }
+    // Too tall to leave open. If the lede alone still overruns, there was no
+    // usable sentence break near the top, so clamp it instead.
+    unit.setOpen(unit.opened);
+    if (!wrap.classList.contains("cap-open")) {
+      // Measure the lede with any previous pass's clamp taken off first. A
+      // clamped lede is three lines tall by construction, so measuring it
+      // still clamped reads as "this fits" and removes the very clamp that
+      // produced the measurement. Left in, the second pass silently undid the
+      // first and a seven-line first sentence shipped as the folded state.
+      wrap.classList.remove("cap-clamp");
+      var lede = unit.lede.getBoundingClientRect().height;
+      if (lede > lh * (CAP_LEDE_LINES + CAP_SLACK) || wrap.dataset.capNoSplit === "1") {
+        wrap.classList.add("cap-clamp");
+      }
+    }
+  }
+
+  var units = [];
+  var subs = document.querySelectorAll("p.card-sub");
+  for (var i = 0; i < subs.length; i++) {
+    var p = subs[i];
+    if (p.parentNode && p.parentNode.classList.contains("cap-fold")) continue;
+    // Consecutive .card-sub paragraphs are one caption, so the four-paragraph
+    // taxonomy note on the overview page gets one control, not four.
+    var group = [p];
+    var n = p.nextElementSibling;
+    while (n && n.tagName === "P" && n.classList.contains("card-sub")) {
+      group.push(n);
+      n = n.nextElementSibling;
+    }
+    i += group.length - 1;
+    var unit = build(group);
+    if (group.length === 1 && !unit.wrap.querySelector(".cap-rest")) {
+      unit.wrap.dataset.capNoSplit = "1";
+    }
+    units.push(unit);
+  }
+
+  function fitAll() { for (var k = 0; k < units.length; k++) fit(units[k]); }
+  fitAll();
+
+  // Measure again once Inter has actually arrived. The first pass runs against
+  // whatever fallback face the browser is painting, and the two do not wrap the
+  // same: measured at 360px, the semantic map's caption is four lines in the
+  // fallback and three in Inter, so without this it folds a caption that fits
+  // and the reader is asked to tap for text that was never hidden.
+  if (document.fonts && document.fonts.ready && document.fonts.ready.then) {
+    document.fonts.ready.then(fitAll);
+  }
+
+  var timer = null;
+  window.addEventListener("resize", function () {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(fitAll, 150);
+  });
+})();
+</script>
+
 <!-- Collapsible Top Papers tables -->
 <script>
 (function () {

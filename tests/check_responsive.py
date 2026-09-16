@@ -89,6 +89,18 @@ fail.** Every one of 6, 7 and 8 was confirmed that way.
                nothing else here could see `subject_lines` lose nine of its
                twelve panel names to a rule meant for overprinted value labels.
 
+10. FOLDED    a folded caption must show its summary and must open. Captions
+               fold at runtime against their own measured height, and both
+               halves of that can fail silently: a caption can fold to more
+               text than it was meant to show, or a control can sit there
+               promising text that is not actually hidden. The bug this was
+               written for is the first: the second measuring pass, added so
+               the fold re-decides once the web font lands, measured a lede
+               that the first pass had already clamped, read three lines as
+               "this fits", and removed the clamp that produced the
+               measurement. A seven-line first sentence shipped as the folded
+               state and every other check here passed on it.
+
 9. TOGGLED     a chart's own controls must not resize its plotting area. This
                is the only check that touches the page: everything above
                measures one static load, so a figure that is right when it
@@ -193,6 +205,12 @@ VOID_TOLERANCE_PX = 70
 # controls. Not zero: a legend one row taller in one mode is a pixel or two of
 # rounding through the margins. The failure this exists for was 303px.
 TOGGLE_TOLERANCE_PX = 8
+# A folded caption shows its first sentence. CAP_LEDE_LINES mirrors the
+# constant of the same name in templates/base.html, which is where the fold is
+# decided; this file only checks the result. The tolerance is over half a line,
+# because a lede is measured in whole lines and half of one is rounding.
+CAP_LEDE_LINES = 4
+CAP_LINE_TOL = 0.6
 
 
 HARNESS = """<!doctype html>
@@ -211,6 +229,8 @@ const VOID_TOL = __VOID_TOL__;
 const TOGGLE_TOL = __TOGGLE_TOL__;
 const CROP_TOL = __CROP_TOL__;
 const COLLIDE_TOL = __COLLIDE_TOL__;
+const CAP_LEDE_LINES = __CAP_LEDE_LINES__;
+const CAP_LINE_TOL = __CAP_LINE_TOL__;
 
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
@@ -233,7 +253,7 @@ async function measure(page, width) {
                doc: D.documentElement.scrollWidth,
                overflow: [], cropped: [], squeezed: [], clipped: [],
                colliding: [], hollow: [], untitled: [], voids: [],
-               toggled: [], notes: []};
+               toggled: [], folds: [], notes: []};
 
   // 1. OVERFLOW
   // An element wider than the viewport is only a bug if the reader cannot get
@@ -543,6 +563,57 @@ async function measure(page, width) {
       }
     }
   }
+
+  // 10. FOLDED
+  // A caption that runs long folds to its first sentence with a control to
+  // open it. Both halves can fail without looking wrong: a fold that shows
+  // more than it was meant to still renders as ordinary prose, and a control
+  // over a caption with nothing hidden still renders as an ordinary control.
+  //
+  // Touches the page, like TOGGLED, but puts every caption back the way it
+  // found it, so it does not have to run last.
+  for (const wrap of D.querySelectorAll('.cap-fold')) {
+    const lede = wrap.querySelector('.cap-lede');
+    const btn = wrap.querySelector('.cap-toggle');
+    const text = ((lede && lede.textContent) || '').trim().slice(0, 40);
+    if (!lede || !btn) {
+      res.folds.push({what: 'malformed', text: text});
+      continue;
+    }
+    const shown = W.getComputedStyle(btn).display !== 'none';
+    // .cap-inert means the whole caption fits at this width, so there is
+    // nothing to open and the control must be gone rather than inert.
+    if (wrap.classList.contains('cap-inert')) {
+      if (shown) res.folds.push({what: 'control on a caption with nothing hidden',
+                                 text: text});
+      continue;
+    }
+    if (!shown) {
+      res.folds.push({what: 'folded with no control to open it', text: text});
+      continue;
+    }
+    const lh = parseFloat(W.getComputedStyle(lede).lineHeight) || 22;
+    const lines = lede.getBoundingClientRect().height / lh;
+    if (lines > CAP_LEDE_LINES + CAP_LINE_TOL) {
+      res.folds.push({what: 'folded lede is ' + lines.toFixed(1) + ' lines, over '
+                            + CAP_LEDE_LINES, text: text});
+    }
+    const before = wrap.getBoundingClientRect().height;
+    btn.click();
+    await sleep(80);
+    const after = wrap.getBoundingClientRect().height;
+    if (after <= before + 2) {
+      res.folds.push({what: 'opens to no extra text', text: text});
+    }
+    if (btn.getAttribute('aria-expanded') !== 'true') {
+      res.folds.push({what: 'open but aria-expanded is not true', text: text});
+    }
+    btn.click();
+    await sleep(80);
+    if (Math.abs(wrap.getBoundingClientRect().height - before) > 2) {
+      res.folds.push({what: 'does not fold back when closed', text: text});
+    }
+  }
   return res;
 }
 
@@ -619,6 +690,8 @@ def run(pages=DEFAULT_PAGES, widths=DEFAULT_WIDTHS, timeout=600) -> list[dict]:
         .replace("__HOLLOW_TOL__", repr(HOLLOW_TOLERANCE_PX))
         .replace("__VOID_TOL__", repr(VOID_TOLERANCE_PX))
         .replace("__TOGGLE_TOL__", repr(TOGGLE_TOLERANCE_PX))
+        .replace("__CAP_LEDE_LINES__", repr(CAP_LEDE_LINES))
+        .replace("__CAP_LINE_TOL__", repr(CAP_LINE_TOL))
     )
 
     port = _free_port()
@@ -713,6 +786,10 @@ def report(results: list[dict]) -> int:
                 f"TOGGLED   {t['chart']} draws a "
                 f"{t['a']['w']}x{t['a']['h']}px plot under {t['a']['mode']!r} "
                 f"and {t['b']['w']}x{t['b']['h']}px under {t['b']['mode']!r}"
+            )
+        for fo in r.get("folds", []):
+            problems.append(
+                f"FOLDED    caption {fo['text']!r}: {fo['what']}"
             )
         if problems:
             fails += len(problems)

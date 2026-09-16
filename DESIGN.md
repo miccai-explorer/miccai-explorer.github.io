@@ -345,6 +345,33 @@ Every chart lives inside a `.card`:
 }
 ```
 
+### Folding captions
+
+A caption that runs past three lines folds to its first sentence, with a `More`
+control in `--accent` and an ellipsis after the lede. The decision is made at
+runtime in `templates/base.html`, against the caption's measured height at the
+reader's current width; there is no breakpoint for it here, and there must not
+be one. A caption that fits a wide screen stays open there and folds on a
+phone, and editing the prose cannot put this file out of step with it.
+
+Measured at 360px before the fold existed, `orals.html` spent 2,685px, about
+3.6 phone screens, on caption text alone. Do not raise `CAP_MAX_LINES` without
+re-measuring; three lines is what made the first chart on each page reachable.
+
+```css
+.cap-toggle { color: var(--accent); font-size: 15px; font-weight: 600; }
+```
+
+The whole folded caption is a click target, not just the word `More`, so the
+44px rule below is met by the caption rather than by the control. The control
+itself is a real `<button>` with `aria-expanded`; the surrounding click is a
+pointer convenience and ignores links inside the caption.
+
+The cut is a sentence boundary and not a line clamp because a clamp cuts
+mid-word, which tells a reader nothing and makes the tap compulsory, where a
+first sentence is usually the summary already. The clamp is kept only as a
+fallback for a caption with no usable sentence break.
+
 ---
 
 ## Badges (chart toggles)

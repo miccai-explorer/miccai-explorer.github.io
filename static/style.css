@@ -763,6 +763,87 @@ body {
 .card.collapsed .collapse-body { display: none; }
 
 
+/* ── Folding chart captions ──
+   A caption that runs past a few lines costs more vertical space on a phone
+   than the reader has to spare. Measured at 360px on the built site:
+   orals.html spent 2,685px, about 3.6 phone screens, on caption text alone,
+   and index.html 1,542px. The longest single caption was 383px, more than
+   half a viewport standing between the reader and the chart it describes.
+
+   What folds is decided at runtime, not here, and is measured at the reader's
+   own width: the script in base.html folds a caption only when it actually
+   renders past CAP_MAX_LINES. A caption that fits a wide screen therefore
+   stays fully open there and folds on a narrow one, with no breakpoint in
+   this file that could drift out of step with the text.
+
+   Nothing below applies until the script adds .cap-fold, exactly like the
+   .js-nav rule above, so a reader without JavaScript gets today's page with
+   every caption open. */
+
+.cap-fold { position: relative; }
+
+/* The lede is the caption's first sentence; .cap-rest is the remainder of that
+   first paragraph, and .cap-rest-block any further paragraphs in the group. */
+.cap-fold:not(.cap-open):not(.cap-inert) .cap-rest       { display: none; }
+.cap-fold:not(.cap-open):not(.cap-inert) .cap-rest-block { display: none; }
+
+/* Fallback for the few captions whose first sentence is itself too tall to
+   serve as a lede: clamp rather than cut at a boundary that is not there. */
+.cap-fold.cap-clamp:not(.cap-open):not(.cap-inert) .cap-lede {
+  display: -webkit-box;
+  -webkit-line-clamp: var(--cap-lines, 3);
+  line-clamp: var(--cap-lines, 3);
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* .cap-inert is set when the whole caption fits at this width: everything is
+   visible and there is nothing to toggle, so the control goes away rather
+   than sitting there claiming there is more to read. */
+.cap-fold.cap-inert .cap-toggle { display: none; }
+
+.cap-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+  padding: 6px 0;          /* with the 15px line box this clears 44px of row */
+  min-height: 32px;
+  background: none;
+  border: none;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent);
+  cursor: pointer;
+}
+.cap-toggle:hover { text-decoration: underline; }
+.cap-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.cap-toggle-chevron {
+  font-size: 13px;
+  line-height: 1;
+  transition: transform .18s ease;
+}
+.cap-fold.cap-open .cap-toggle-chevron { transform: rotate(180deg); }
+
+/* An ellipsis after the lede, so a folded caption reads as continuing rather
+   than as a caption that simply stops. Only on the sentence-boundary fold;
+   the clamp draws its own. */
+.cap-fold:not(.cap-open):not(.cap-inert):not(.cap-clamp) .cap-lede::after {
+  content: " \2026";
+  color: var(--text-faint);
+}
+
+/* Pointer users can tap the folded text itself, not just the control. The
+   script keeps this off once open so the prose stays selectable, and clicks
+   on a link inside a caption are never swallowed. */
+.cap-fold:not(.cap-open):not(.cap-inert) { cursor: pointer; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cap-toggle-chevron { transition: none; }
+}
+
+
 /* ── Pending cards (partial years) ──
    A year published before its reviews exist says what is missing rather than
    leaving a gap. Dashed and unfilled so it reads as "not yet" instead of
