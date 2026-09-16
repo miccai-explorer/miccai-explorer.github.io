@@ -115,8 +115,16 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements-ci.txt
 
+      # MICCAI_STRICT_SRI turns a missing Subresource Integrity hash from a
+      # warning into a failed build. Locally the warning is right, so that a
+      # plotly upgrade does not block a preview; here it is not, because a
+      # build that publishes chart files with no integrity attribute is
+      # exactly what shipped unnoticed for the whole of release 1.1 to 1.4.
+      # If this step fails, add the hashes to _BUNDLE_SRI in build_charts.py.
       - name: Build charts
         run: python analysis/build_charts.py
+        env:
+          MICCAI_STRICT_SRI: "1"
 
       # MICCAI_GA_ID is the Google Analytics measurement id. Set it as a
       # repository variable (Settings -> Secrets and variables -> Actions ->

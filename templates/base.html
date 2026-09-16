@@ -3,18 +3,69 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}MICCAI Explorer{% endblock %}</title>
-  <meta name="description" content="Interactive explorer for MICCAI papers 2021-2025: semantic maps, peer-review score analysis, rebuttal impact, co-authorship networks, and research trends.">
-  <meta property="og:title" content="MICCAI Explorer">
-  <meta property="og:description" content="Interactive analysis of MICCAI papers and peer reviews, 2021-2025.">
+  {# Every value below comes from the `page` record built in analysis/seo.py,
+     which is the same record that becomes this page's entry in sitemap.xml.
+     One source, so a page's canonical URL and its sitemap <loc> cannot
+     disagree, and a page cannot be rendered without a sitemap entry: `page`
+     is undefined here if build_site.py forgot to pass one, and Jinja raises
+     rather than writing an empty canonical, which would be worse than none.
+
+     `|e` is explicit because this environment runs with autoescape off, so a
+     description containing a quote would otherwise end the attribute early.
+
+     There is deliberately no <meta name="keywords">. Google dropped it as a
+     signal in 2009 and Bing treats a stuffed one as spam; the words that do
+     get read are in the title, the description, the headings, and the
+     JSON-LD keywords array at the foot of this block. #}
+  <title>{{ page.title|e }}</title>
+  <link rel="canonical" href="{{ site_url }}{{ page.path }}">
+  <meta name="description" content="{{ page.description|e }}">
+  <meta name="author" content="{{ site_author|e }}">
+
+  {# Open Graph: read by Facebook, LinkedIn, Slack, WhatsApp, Bluesky, and
+     Mastodon. og:title drops the "| MICCAI Explorer" suffix because the card
+     prints og:site_name on its own line already. #}
+  <meta property="og:site_name" content="MICCAI Explorer">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="{{ site_url }}/">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:url" content="{{ site_url }}{{ page.path }}">
+  <meta property="og:title" content="{{ page.social_title|e }}">
+  <meta property="og:description" content="{{ page.description|e }}">
+  {# Absolute, not root-relative: a link preview is fetched by a server that
+     has no page to resolve a relative path against, so a relative og:image is
+     simply dropped and the card renders as a gray box. The dimensions are
+     declared so the card reserves the right space before the image arrives.
+     Source: static/og-card.png (tracked); see analysis/make_og_card.py. #}
+  <meta property="og:image" content="{{ site_url }}/assets/og-card.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt"
+        content="MICCAI Explorer: five years of MICCAI papers and their peer reviews.">
+
+  {# X/Twitter reads its own namespace and falls back to Open Graph for
+     anything it does not find, so only the card type and the image alt are
+     genuinely needed here. #}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ page.social_title|e }}">
+  <meta name="twitter:description" content="{{ page.description|e }}">
+  <meta name="twitter:image" content="{{ site_url }}/assets/og-card.png">
+  <meta name="twitter:image:alt"
+        content="MICCAI Explorer: five years of MICCAI papers and their peer reviews.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔬</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ base_url }}/assets/style.css">
   {% block head %}{% endblock %}
+
+  {# Structured data: WebSite, Person (the attribution, machine-readable rather
+     than only printed in the footer), and Dataset. Dataset is the one that
+     earns its place: it is what Google Dataset Search indexes, and a
+     researcher looking for MICCAI peer-review data is far likelier to run that
+     search than to search for this site by name. Built in analysis/seo.py,
+     where the keyword list and the field choices are explained. #}
+  <script type="application/ld+json">{{ site_jsonld }}</script>
   {# Google Analytics 4. Written only when site_settings.google_analytics_id is
      set in the root config.yaml, so a local preview and a fresh clone carry no
      tracking tag at all. Loaded last in <head> and async, so it never delays
@@ -116,7 +167,7 @@
        needs no network request and cannot break if that host goes away. It is
        aria-hidden because the link text already says GitHub; announcing the
        icon too would read the word twice. #}
-    <a href="{{ repo_url }}"><svg class="gh-mark" viewBox="0 0 16 16"
+    <a href="{{ repo_url }}" target="_blank"><svg class="gh-mark" viewBox="0 0 16 16"
          aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0
          3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
          0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01

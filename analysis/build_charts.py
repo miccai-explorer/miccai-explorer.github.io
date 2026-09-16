@@ -23,6 +23,7 @@ import argparse
 import contextlib
 import json
 import logging
+import os
 import re
 import sys
 from collections import Counter, defaultdict
@@ -59,8 +60,13 @@ def load_chart_settings() -> dict:
     network_renderer: "d3" (default) or "plotly"
       d3     - interactive: nodes can be dragged, background pans, scroll zooms.
       plotly - legacy static figure: pan + zoom only, no per-node dragging.
+
+        index_chart_pages: should the standalone chart files be indexable?
+      False (default) writes <meta name="robots" content="noindex, follow">
+      into every file in website/charts/; True writes nothing. See
+      _inject_noindex for what that trades away.
     """
-    defaults = {"network_renderer": "d3"}
+    defaults = {"network_renderer": "d3", "index_chart_pages": False}
     with open(CONFIG, encoding="utf-8") as f:
         cfg = yaml.safe_load(f) or {}
     settings = {**defaults, **(cfg.get("chart_settings") or {})}
@@ -70,6 +76,7 @@ def load_chart_settings() -> dict:
             f"{settings['network_renderer']!r}; falling back to 'd3'"
         )
         settings["network_renderer"] = "d3"
+    settings["index_chart_pages"] = bool(settings.get("index_chart_pages"))
     return settings
 
 
@@ -1618,17 +1625,42 @@ _BUNDLE_ORDER = ("basic", "cartesian", "gl2d")
 #     | openssl dgst -sha256 -binary | openssl base64 -A
 #
 # The same command against the full bundle reproduces the hash plotly itself
-# emits, which is how the method was checked. A version missing from this table
-# is not an error: the script tag is written without an integrity attribute and
-# a warning is logged, so a plotly upgrade degrades rather than breaking the
-# build. Add the new hashes and the attribute comes back.
+# emits, which is how the method was checked.
+#
+# KEEP EVERY VERSION THAT ANY ENVIRONMENT STILL BUILDS WITH, not just the
+# newest. A missing version is not an error; the tag is written without an
+# integrity attribute and a warning is logged, so a plotly upgrade degrades
+# rather than breaking the build. That is deliberate, and it is also exactly
+# how this table came to be useless in production for its whole first release:
+# it held 3.7.0 only, because that is what the maintainer's conda environment
+# vendors, while requirements-ci.txt pins plotly==6.8.0, which vendors 3.6.0.
+# So every deployed partial-bundle chart went out with NO integrity attribute
+# while the 18 full-bundle ones kept plotly's own. Nobody saw it: the warning
+# scrolls past in a CI log and the site works perfectly without SRI.
+#
+# plotly.py and plotly.js use different version numbers. Check which .js a
+# given .py vendors before adding a row:
+#   python -c "import plotly.offline as o; print(o.get_plotlyjs_version())"
 _BUNDLE_SRI: dict[str, dict[str, str]] = {
+    # plotly.py 6.9.0
     "3.7.0": {
         "basic": "sha256-wjsDWRpr2tC9D0egxcUjBaVRmBK3POJUvmXNhBVTycI=",
         "cartesian": "sha256-fFk7ntoOdKHQczXPicv3pV/8EUkJmAw3Ka+DVFO9sCo=",
         "gl2d": "sha256-05bA1Z4oRKFn3ErKhGn+FlMGDLEF9NfL1Hs8d4ix51A=",
     },
+    # plotly.py 6.8.0, which is what requirements-ci.txt pins and therefore
+    # what every deployed build actually uses.
+    "3.6.0": {
+        "basic": "sha256-NpWWllo/ZLChQYYw/VO1Z7saRhCUagZLNljYGjRkrQU=",
+        "cartesian": "sha256-NuaoZd6IMOLLVytnhxdqsotZdnJJNmPhBDq48i2BktE=",
+        "gl2d": "sha256-PmxKaIHprVFltnH9DhVA4CrDY5S22y8kb2SFv0B3/A4=",
+    },
 }
+
+# Versions that were asked for and missing, filled in by plotly_script_tag().
+# main() reads it at the end: locally it prints a summary, and under
+# MICCAI_STRICT_SRI it refuses to finish. See _report_missing_sri().
+_MISSING_SRI: set[str] = set()
 
 
 # The tag plotly writes for include_plotlyjs="cdn". Matched rather than
@@ -1639,6 +1671,38 @@ _FULL_BUNDLE_TAG = re.compile(
     r'<script charset="utf-8" src="https://cdn\.plot\.ly/plotly-'
     r'[0-9][^"]*\.min\.js"[^>]*></script>'
 )
+
+
+def _report_missing_sri() -> int:
+    """Report any bundle written without an integrity attribute.
+
+    Returns 1 when the build should be treated as failed, else 0.
+
+    Locally this only prints: a plotly upgrade should degrade rather than stop
+    someone previewing the site, which is the behaviour _BUNDLE_SRI was
+    designed around. But "degrades quietly" is how the deployed site ran its
+    entire first release with no SRI on 39 of its 63 chart files, so the deploy
+    workflow sets MICCAI_STRICT_SRI=1 and that turns the warning into a
+    refusal. The two needs are different and the environment variable is what
+    separates them.
+    """
+    if not _MISSING_SRI:
+        return 0
+    versions = ", ".join(sorted(_MISSING_SRI))
+    if os.environ.get("MICCAI_STRICT_SRI"):
+        logger.error(
+            f"Refusing to finish: no SRI hashes for plotly.js {versions}, so "
+            f"the partial-bundle charts would publish with no integrity "
+            f"attribute. Add the hashes to _BUNDLE_SRI in this file:\n"
+            f"  curl -sL https://cdn.plot.ly/plotly-basic-{versions}.min.js \\\n"
+            f"    | openssl dgst -sha256 -binary | openssl base64 -A"
+        )
+        return 1
+    logger.warning(
+        f"  Charts written WITHOUT integrity attributes (plotly.js "
+        f"{versions}). Fine for a local preview; a deploy would refuse."
+    )
+    return 0
 
 
 def _bundle_for(fig: go.Figure) -> str:
@@ -1699,12 +1763,64 @@ def plotly_script_tag(bundle: str = "basic") -> str:
     url = f"https://cdn.plot.ly/{name}-{version}.min.js"
     sri = _BUNDLE_SRI.get(version, {}).get(bundle)
     if sri is None and bundle != "full":
+        _MISSING_SRI.add(version)
         logger.warning(
             f"  No SRI hash for {name}-{version}; writing the tag without one. "
             f"Add it to _BUNDLE_SRI to restore the integrity attribute."
         )
     integrity = f' integrity="{sri}" crossorigin="anonymous"' if sri else ""
     return f'<script charset="utf-8" src="{url}"{integrity}></script>'
+
+
+# Whether the standalone chart files may be indexed. Set from config.yaml ->
+# chart_settings.index_chart_pages by main(); module-level for the same reason
+# _PAGE_BUNDLE_FLOOR is, namely that save_chart is called from ~60 places and
+# threading a flag through all of them would be noise.
+_INDEX_CHART_PAGES = False
+
+_NOINDEX = '<meta name="robots" content="noindex, follow">'
+
+
+def _inject_noindex(html: str, filename: str) -> str:
+    """Mark a chart file as not-a-page, unless config says otherwise.
+
+    These files are iframe fragments. Measured on the built output, one
+    contains ZERO characters of static text: the entire figure lives in a JSON
+    blob inside a <script>, so a crawler sees a bare <div> unless it executes
+    the page and lets plotly draw, and what it gets then is axis tick labels
+    and a chart title. There is no heading, no prose, no navigation, and no
+    link back into the site.
+
+    So indexing them offers a searcher a landing page with a chart and no way
+    to find out what it is of, while competing for the same queries as the
+    parent page that has the heading, the caption, and the explanation. The
+    site already has the right mechanism for linking to one plot: every chart
+    card sits under a stable section anchor on its parent page (#sec-reviews,
+    #sec-map, and so on), which is a deep link a reader arrives at in context.
+
+    "noindex, follow" rather than plain "noindex": the crawler is still asked
+    to follow the links inside, which is how the click-through URLs on the map
+    points stay discoverable.
+
+    Set chart_settings.index_chart_pages: true in config.yaml to drop the tag
+    and let them be indexed anyway. robots.txt allows them either way, which it
+    must: they are the content of every analysis page, and a renderer blocked
+    from fetching them sees those pages as almost empty. See analysis/seo.py.
+
+    Raises on a file with no <head>, rather than returning it unchanged, for
+    the same reason save_chart raises on a missed bundle rewrite: a chart with
+    no tag renders perfectly, so nothing downstream would ever report it.
+    """
+    if _INDEX_CHART_PAGES or _NOINDEX in html:
+        return html
+    i = html.find("<head>")
+    if i < 0:
+        raise RuntimeError(
+            f"{filename}: no <head> to put the noindex tag in. Every chart "
+            f"page needs one; add the tag."
+        )
+    i += len("<head>")
+    return html[:i] + _NOINDEX + html[i:]
 
 
 def save_chart(
@@ -1752,6 +1868,7 @@ def save_chart(
     # RESPONSIVE_JS is added here rather than passed by each caller, so that a
     # new chart cannot be written without it. See the comment on RESPONSIVE_JS.
     html = html.replace("</body>", RESPONSIVE_JS + (extra_js or "") + "\n</body>")
+    html = _inject_noindex(html, filename)
     (out_dir / filename).write_text(html, encoding="utf-8")
     logger.info(f"  Saved {filename}")
 
@@ -1809,6 +1926,7 @@ def save_template(
             f"script before. Every chart page needs it; add the tag."
         )
     html = html.replace("</body>", RESPONSIVE_JS + "\n</body>")
+    html = _inject_noindex(html, filename)
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / filename).write_text(html, encoding="utf-8")
     logger.info(f"  Saved {filename}{note}")
@@ -2541,9 +2659,30 @@ def chart_authors(papers_yr: list, year: int) -> None:
     save_chart(fig, f"authors_{year}.html")
 
 
+# The d3 tag below is pinned to an exact version and carries a Subresource
+# Integrity hash, for the same two reasons plotly is pinned in requirements and
+# SRI-stamped in _BUNDLE_SRI. It used to read "d3@7", a floating range: jsDelivr
+# resolves that to whatever the latest 7.x is at the moment each READER loads
+# the page, so the co-authorship charts could change behaviour with no commit
+# from us, and REPRODUCIBILITY.md's byte-identical guarantee stopped at the
+# edge of this file. The integrity attribute then makes the CDN unable to serve
+# different bytes than the ones measured here.
+#
+# To move the pin: fetch the new file, recompute the hash, and change both.
+#   curl -sL https://cdn.jsdelivr.net/npm/d3@<ver>/dist/d3.min.js \
+#     | openssl dgst -sha384 -binary | openssl base64 -A
+#
+# This loads all of d3 (280 KB, 92 KB gzipped) for seven functions: d3.select,
+# d3.drag, d3.zoom, d3.zoomTransform, d3.scaleLinear, d3.extent, d3.min. The
+# layout itself is computed in Python by networkx, so none of d3-force is used.
+# The five d3 modules it actually needs come to 20 KB gzipped against 92 KB,
+# but their UMD builds declare external dependencies, so a correct swap is
+# about fourteen script tags or a bundler step; this project has neither.
 D3_NETWORK_TEMPLATE = """<!DOCTYPE html><html><head><meta charset="utf-8"/>
 <title>__TITLE__</title>
-<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"
+ integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i"
+ crossorigin="anonymous"></script>
 <style>
   html,body{margin:0;height:100%;font-family:__FONT__;background:#fff}
   /* display:block matters: an inline <svg> sits on a text baseline, so the
@@ -3970,6 +4109,14 @@ def main() -> int:
 
     year_cfg = load_year_config()
     chart_settings = load_chart_settings()
+    # Set before the first chart is written, since save_chart reads it.
+    global _INDEX_CHART_PAGES
+    _INDEX_CHART_PAGES = chart_settings["index_chart_pages"]
+    logger.info(
+        "  Chart files: indexable"
+        if _INDEX_CHART_PAGES
+        else "  Chart files: noindex (chart_settings.index_chart_pages)"
+    )
     network_renderer = chart_settings["network_renderer"]
     logger.info(f"Co-authorship network renderer: {network_renderer}")
 
@@ -4042,7 +4189,7 @@ def main() -> int:
     logger.info(f"  Saved {HEIGHTS_JSON.name} ({len(CHART_HEIGHTS)} charts)")
 
     logger.info(f"All charts saved to {OUT_DIR}/")
-    return 0
+    return _report_missing_sri()
 
 
 if __name__ == "__main__":

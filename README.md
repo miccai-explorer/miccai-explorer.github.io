@@ -1,5 +1,12 @@
 # MICCAI Explorer
 
+### → **[miccai-explorer.github.io](https://miccai-explorer.github.io/)**
+
+![MICCAI Explorer](static/og-card.png)
+
+Five years of MICCAI papers and their published peer reviews, in one interactive site.
+No install, no account, nothing to download.
+
 [![Ruff](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fastral-sh%2Fruff%2Fmain%2Fassets%2Fbadge%2Fv2.json)](https://github.com/astral-sh/ruff)
 [![uv](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fastral-sh%2Fuv%2Fmain%2Fassets%2Fbadge%2Fv0.json)](https://github.com/astral-sh/uv)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](pyproject.toml)
@@ -15,8 +22,6 @@
 
 An interactive explorer for five years of MICCAI papers (2021 to 2025), built on the
 conference's own open-access proceedings **and its published peer reviews**.
-
-**Live site:** https://miccai-explorer.github.io/
 
 MICCAI is one of the few major conferences that publishes the full review record for
 every accepted paper: reviewer scores, written reviews, rebuttals, and meta-reviews.

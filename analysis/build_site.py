@@ -8,6 +8,8 @@ Writes : website/index.html
          website/papers.html + website/papers.json  (All Papers browse page)
          website/about.html
          website/year/YYYY.html  (for each year in data)
+         website/sitemap.xml + website/robots.txt + website/llms.txt
+           (see analysis/seo.py)
 
 Usage:
     python analysis/build_site.py
@@ -26,6 +28,7 @@ from types import SimpleNamespace
 import logo_assets
 import oral_stats
 import papers_index
+import seo
 import yaml
 from jinja2 import Environment, FileSystemLoader
 
@@ -50,7 +53,21 @@ STATIC_SRC = Path("static")  # tracked source for style.css + logos
 # is silent and total: every stylesheet, chart iframe, and nav link 404s, and
 # the site renders as unstyled HTML with no charts.
 BASE_URL = ""
+# The absolute origin this site is served from. Used for the canonical URL in
+# every page head, for the <loc> entries in sitemap.xml, and for the Sitemap
+# line in robots.txt; all three have to be absolute, which is the one place
+# BASE_URL's root-relative paths are not enough.
+#
+# site_settings.site_url in the root config.yaml overrides this, and a fork
+# should set it. A canonical URL is a statement to a search engine that THIS
+# page is a copy of the one at that address: a fork that published with the
+# value below would be telling Google that every one of its own pages is a
+# duplicate of this site's, which is the one SEO mistake that cannot be
+# recovered by editing the page later.
 SITE_URL = "https://miccai-explorer.github.io"
+AUTHOR_NAME = "Kumar Abhishek"
+AUTHOR_URL = "https://kabhishe.com"
+LICENSE_URL = "https://opensource.org/licenses/MIT"
 
 # Per-year accent colors from each year's conference logo primaries
 # (kept in sync with YEAR_PALETTES in build_charts.py; source: logo_colors.yaml)
@@ -523,6 +540,14 @@ def main() -> int:
     repo_url = (site_cfg.get("repo_url") or "").strip()
     blog_url = (site_cfg.get("blog_url") or "").strip()
 
+    # Site identity for the canonical URLs, the sitemap and the structured
+    # data. Config wins over the constants; see the note beside SITE_URL for
+    # why a fork must set site_url rather than inherit it.
+    site_url = (site_cfg.get("site_url") or SITE_URL).strip().rstrip("/")
+    author_name = (site_cfg.get("author_name") or AUTHOR_NAME).strip()
+    author_url = (site_cfg.get("author_url") or AUTHOR_URL).strip()
+    license_url = (site_cfg.get("license_url") or LICENSE_URL).strip()
+
     # ── static assets (style.css + logos) → website/assets ─────
     # Done before year_meta is built, because shrinking the logos renames them
     # from .png to .webp and year_meta carries the filename the templates use.
@@ -583,6 +608,20 @@ def main() -> int:
     total_with_code = sum(1 for p in papers if p.get("has_code"))
     n_clusters = len(set(p["cluster_id"] for p in papers))
 
+    # Counted here rather than written into seo.py as literals, so a search
+    # snippet promising "11,359 peer reviews" is recomputed on every build and
+    # cannot end up describing last year's data. n_talks stays out when there
+    # is no oral data, which is the same condition that hides the Orals page.
+    seo_totals = {
+        "n_papers": len(papers),
+        "n_reviews": sum(len(p.get("reviews") or []) for p in papers),
+        "n_authors": len(all_authors),
+    }
+    if orals_summary:
+        seo_totals["n_talks"] = orals_summary.get(
+            "total_oral", 0
+        ) + orals_summary.get("total_spotlight", 0)
+
     active_model_file = Path("data/processed/active_model.txt")
     active_proj_file = Path("data/processed/active_proj.txt")
     embed_model = (
@@ -604,7 +643,7 @@ def main() -> int:
 
     common_ctx = dict(
         base_url=BASE_URL,
-        site_url=SITE_URL,
+        site_url=site_url,
         build_date=date.today().isoformat(),
         years=years,
         # years with full data. `years` also carries the partial 2026, which
@@ -617,6 +656,35 @@ def main() -> int:
         analytics_id=analytics_id,
         repo_url=repo_url,
         blog_url=blog_url,
+        site_author=author_name,
+        site_author_url=author_url,
+    )
+
+    # ── search-engine metadata ──────────────────────────────────
+    # One table drives three things: the canonical URL and description in each
+    # page head, the URLs in sitemap.xml, and the Sitemap line in robots.txt.
+    # Built here, before any page is rendered, so a page cannot be written
+    # without an entry; tests/test_seo.py checks the reverse, that no entry
+    # exists without a page.
+    seo_pages = seo.collect_pages(
+        build_date=common_ctx["build_date"],
+        data_years=data_years,
+        partial_years=partial_years,
+        year_meta=year_meta,
+        year_stats=year_stats,
+        totals=seo_totals,
+        has_orals_page=bool(orals_summary),
+    )
+    seo_by_path = {pg.path: pg for pg in seo_pages}
+    common_ctx["site_jsonld"] = seo.site_jsonld(
+        site_url=site_url,
+        author_name=author_name,
+        author_url=author_url,
+        repo_url=repo_url,
+        data_years=data_years,
+        totals=seo_totals,
+        build_date=common_ctx["build_date"],
+        license_url=license_url,
     )
 
     # ── papers.json (data for the All Papers browse page) ───────
@@ -635,6 +703,7 @@ def main() -> int:
     tmpl = env.get_template("index.html")
     html = tmpl.render(
         **common_ctx,
+        page=seo_by_path["/"],
         active_page="index",
         active_year=None,
         total_papers=len(papers),
@@ -655,6 +724,7 @@ def main() -> int:
         tmpl = env.get_template("orals.html")
         html = tmpl.render(
             **common_ctx,
+            page=seo_by_path["/orals.html"],
             active_page="orals",
             active_year=None,
             orals=orals_summary,
@@ -676,6 +746,7 @@ def main() -> int:
     tmpl = env.get_template("papers.html")
     html = tmpl.render(
         **common_ctx,
+        page=seo_by_path["/papers.html"],
         active_page="papers",
         active_year=None,
         total_papers=len(papers),
@@ -690,6 +761,7 @@ def main() -> int:
     tmpl = env.get_template("about.html")
     html = tmpl.render(
         **common_ctx,
+        page=seo_by_path["/about.html"],
         active_page="about",
         active_year=None,
     )
@@ -709,6 +781,7 @@ def main() -> int:
         cfg = year_cfg.get(yr, {})
         html = tmpl.render(
             **common_ctx,
+            page=seo_by_path[f"/year/{yr}.html"],
             active_page=None,
             active_year=yr,
             year=yr,
@@ -735,6 +808,7 @@ def main() -> int:
     if facts_2026:
         html = env.get_template("year_2026.html").render(
             **common_ctx,
+            page=seo_by_path["/year/2026.html"],
             active_page=None,
             active_year=2026,
             year=2026,
@@ -748,6 +822,24 @@ def main() -> int:
     elif page_2026.exists():
         page_2026.unlink()
         logger.info("  Removed stale website/year/2026.html")
+
+    # ── sitemap.xml + robots.txt ────────────────────────────────
+    # Last, so they describe what this run actually wrote. Both land in
+    # website/, which is the directory deploy.yml publishes; a robots.txt in
+    # the repository root would be served by nothing.
+    seo.build_sitemap(seo_pages, site_url, WEBSITE / "sitemap.xml")
+    seo.build_robots(site_url, WEBSITE / "robots.txt")
+    seo.build_llms_txt(
+        seo_pages,
+        site_url=site_url,
+        author_name=author_name,
+        repo_url=repo_url,
+        blog_url=blog_url,
+        data_years=data_years,
+        totals=seo_totals,
+        build_date=common_ctx["build_date"],
+        out=WEBSITE / "llms.txt",
+    )
 
     logger.info("Site build complete.")
     return 0

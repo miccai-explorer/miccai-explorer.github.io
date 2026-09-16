@@ -32,8 +32,49 @@ site_settings:
   repo_url: "https://github.com/miccai-explorer/miccai-explorer.github.io"
   blog_url: "https://pixels-and-predictions.pages.dev/posts/miccai_explorer/"
 
+  # The absolute origin this site is served from, with no trailing slash.
+  #
+  # A fork MUST change this. It is written into <link rel="canonical"> on every
+  # page, into every <loc> in sitemap.xml, and into the Sitemap line of
+  # robots.txt. A canonical URL is a statement to a search engine that the page
+  # it sits on is a copy of the page at that address, so a fork that published
+  # with the value below would be telling Google that every one of its own
+  # pages is a duplicate of this site's, and asking for its own to be dropped
+  # from the index. Unlike a wrong link in a footer, that is not repaired by
+  # fixing it later; the pages have to be recrawled and reassessed first.
+  site_url: "https://miccai-explorer.github.io"
+
+  # Attribution. Written into <meta name="author">, into the schema.org Person
+  # in the JSON-LD on every page, and as the creator of the Dataset entry that
+  # Google Dataset Search reads. The footer byline is separate, in
+  # templates/base.html.
+  author_name: "Kumar Abhishek"
+  author_url: "https://kabhishe.com"
+
+  # The license the ANALYSIS is published under, as a URL, for the JSON-LD.
+  # The papers and reviews themselves stay the copyright of their authors,
+  # which is what the footer says and what this does not claim to cover.
+  license_url: "https://opensource.org/licenses/MIT"
+
 # Global chart settings (not per-year). Read by analysis/build_charts.py.
 chart_settings:
+  # Should the standalone files in website/charts/ be indexable by search
+  # engines? They are iframe fragments: a plot with no heading, no prose, no
+  # navigation, and (measured on the built output) zero characters of static
+  # text, since the whole figure is a JSON blob inside a <script>. Indexed,
+  # they compete for the same queries as the parent page that has the caption
+  # and the explanation, and a reader who lands on one has no way back.
+  #
+  # Leave this false and each file gets <meta name="robots" content="noindex,
+  # follow">. To link to a single plot, use the section anchor on its parent
+  # page instead (#sec-map, #sec-reviews, #sec-network, and so on), which
+  # lands the reader on the chart WITH its explanation.
+  #
+  # robots.txt allows /charts/ either way, and must: they are the content of
+  # every analysis page, so a crawler blocked from fetching them would see
+  # those pages as nearly empty.
+  index_chart_pages: false
+
   # Co-authorship network renderer:
   #   d3     - interactive: drag individual nodes, drag background to pan, scroll to zoom.
   #            Loads d3 v7 from CDN instead of Plotly on those pages (~280KB vs ~3.5MB).
