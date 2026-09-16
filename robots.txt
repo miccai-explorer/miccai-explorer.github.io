@@ -1,0 +1,68 @@
+# https://www.robotstxt.org/robotstxt.html
+# Everything here is public, derived from the MICCAI open-access
+# proceedings, and meant to be found. Nothing is disallowed.
+#
+# Chart files under /charts/ are crawlable on purpose: they are the
+# iframe content of the analysis pages, so blocking them would make
+# those pages look empty to a renderer. They carry a noindex tag of
+# their own so they do not turn up as standalone results, and a
+# crawler has to be allowed to fetch a file in order to see that tag.
+
+User-agent: *
+Allow: /
+
+# The AI crawlers, named explicitly. The wildcard above already
+# permits all of them, so these blocks change nothing; they are here
+# because blocking this list has become a common default, and silence
+# would leave a reader guessing whether that was the intent. It is
+# not. See /llms.txt for a map written for these readers.
+
+# Anthropic, training and retrieval
+User-agent: ClaudeBot
+Allow: /
+
+# Anthropic, fetches a page a user asked about
+User-agent: Claude-User
+Allow: /
+
+# Anthropic, search index
+User-agent: Claude-SearchBot
+Allow: /
+
+# OpenAI, training
+User-agent: GPTBot
+Allow: /
+
+# OpenAI, search index
+User-agent: OAI-SearchBot
+Allow: /
+
+# OpenAI, fetches a page a user asked about
+User-agent: ChatGPT-User
+Allow: /
+
+# Perplexity, search index
+User-agent: PerplexityBot
+Allow: /
+
+# Google, Gemini training and grounding
+User-agent: Google-Extended
+Allow: /
+
+# Apple, training
+User-agent: Applebot-Extended
+Allow: /
+
+# Common Crawl, which many models are trained from
+User-agent: CCBot
+Allow: /
+
+# Meta, training
+User-agent: Meta-ExternalAgent
+Allow: /
+
+# ByteDance, training
+User-agent: Bytespider
+Allow: /
+
+Sitemap: https://miccai-explorer.github.io/sitemap.xml

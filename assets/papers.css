@@ -1,0 +1,186 @@
+/* Styling for the All Papers browse page only, linked from papers.html.
+   static/style.css is deliberately untouched: this page adds components that
+   exist nowhere else (search field, filter row, pagination, expandable row),
+   and keeping them here means it cannot affect any existing page.
+   The table itself reuses .papers-table from style.css, including the
+   presentation-type badges, so the two read as one scheme.
+
+   This page uses the default teal accent rather than a per-year theme,
+   because it spans all five years at once. */
+
+.papers-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 18px 20px;
+}
+
+.papers-search {
+  width: 100%;
+  padding: 10px 14px;
+  font: inherit;
+  font-size: 16px;
+  color: var(--text);
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+.papers-search:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-bg);
+}
+
+.papers-filters { display: flex; flex-wrap: wrap; gap: 16px 18px; align-items: flex-end; }
+
+.papers-filter { display: flex; flex-direction: column; gap: 4px; }
+.papers-filter > span {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+.papers-filter select {
+  font: inherit;
+  font-size: 15px;
+  padding: 7px 10px;
+  color: var(--text);
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  /* min() rather than a bare pixel value: at 360px a 380px control is wider
+     than the screen, which is how this page overflowed on a phone. The cap is
+     still 260/380 wherever there is room for it. */
+  max-width: min(260px, 100%);
+}
+.papers-filter-wide select { max-width: min(380px, 100%); }
+/* Without this the flex item refuses to shrink below its content width. */
+.papers-filter { min-width: 0; }
+.papers-filter-wide { flex: 1 1 240px; min-width: 0; }
+
+.papers-check {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+  color: var(--text);
+  padding-bottom: 7px;
+}
+
+.papers-resultbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin: 14px 2px 8px;
+}
+.papers-resultbar-right {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+}
+.papers-export { display: flex; flex-wrap: wrap; gap: 8px; align-items: flex-end; }
+
+/* Why the two score options are greyed out when years are mixed. */
+.papers-hint {
+  margin: 0 2px 10px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-muted);
+  max-width: 68ch;
+}
+.papers-hint[hidden] { display: none; }
+.papers-count { font-size: 15px; color: var(--text-muted); padding-bottom: 8px; }
+
+.papers-button {
+  font: inherit;
+  font-size: 15px;
+  padding: 7px 14px;
+  color: var(--text);
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+}
+.papers-button:hover { border-color: var(--accent); color: var(--accent); }
+
+.papers-status { padding: 24px 14px; color: var(--text-muted); font-size: 15px; }
+.papers-status[hidden] { display: none; }
+
+/* Rows are clickable, but the title inside stays a normal link. */
+.papers-browse tbody tr.paper-row { cursor: pointer; }
+.papers-browse .year-col { font-variant-numeric: tabular-nums; width: 60px; }
+.papers-browse .score-col { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.papers-browse .paper-detail .score-pct { color: var(--text-faint); }
+.papers-browse .pres-poster { color: var(--text-muted); }
+
+.papers-browse .detail-row > td {
+  background: var(--page-bg);
+  padding: 14px 18px;
+}
+.papers-browse .detail-row[hidden] { display: none; }
+
+.paper-detail { display: grid; grid-template-columns: max-content 1fr; gap: 6px 18px; }
+.paper-detail dt {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+.paper-detail dd { margin: 0; font-size: 15px; color: var(--text); }
+
+.link-chip {
+  display: inline-block;
+  margin: 0 6px 4px 0;
+  padding: 3px 10px;
+  font-size: 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--accent);
+  text-decoration: none;
+  background: var(--card-bg);
+}
+.link-chip:hover { border-color: var(--accent); background: var(--accent-bg); }
+
+.papers-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 8px 6px;
+}
+.papers-pagination button {
+  font: inherit;
+  font-size: 15px;
+  min-width: 38px;
+  padding: 6px 10px;
+  color: var(--text);
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+}
+.papers-pagination button[disabled] { color: var(--text-faint); cursor: default; }
+.papers-pagination button.current {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  font-weight: 600;
+}
+.papers-pagination .ellipsis { color: var(--text-faint); padding: 0 4px; }
+
+@media (max-width: 760px) {
+  .papers-browse .subject-col { display: none; }
+  /* The table still needs more than 360px once the subject column is gone.
+     .card sets overflow:hidden, so without a scroll container here the last
+     columns are silently cut off instead of reachable. */
+  .papers-table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .papers-resultbar { justify-content: flex-start; }
+  .paper-detail { grid-template-columns: 1fr; gap: 2px 0; }
+  .paper-detail dt { margin-top: 8px; }
+}
