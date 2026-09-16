@@ -20,6 +20,18 @@
 # "additional_avoid_if_possible" are further colours present in the logo that
 # read poorly as chart accents (too dark, too pale, or too close to a primary).
 
+2026:
+  primary:
+    - "#293587"
+    - "#00adf0"
+    - "#2596be"
+  additional_avoid_if_possible:
+    - "#959cc7"
+    - "#80d4f0"
+    - "#949dc7"
+    - "#1471b8"
+
+
 2025:
   primary:
     - "#d2242b"

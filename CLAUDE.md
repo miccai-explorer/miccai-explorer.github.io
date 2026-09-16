@@ -84,13 +84,20 @@ miccai-explorer.github.io/
 │   │   ├── embeddings_{model}.npz       ← one per model (embeddings, cluster_ids, paper_ids)
 │   │   ├── proj_{model}_{proj}.npy      ← 2D coords per model×projection (~25 KB each)
 │   │   ├── cluster_labels.json          ← copy of cluster_labels_{active}.json; used by build scripts
-│   │   ├── cluster_labels_{model}.json  ← one per model; human-edited names (20 clusters each)
+│   │   ├── cluster_labels_{model}.json  ← one per model; human-edited names (20 clusters
+│   │   │                                   each) PLUS a fingerprint of the clustering they
+│   │   │                                   describe. Read "Cluster names" below before
+│   │   │                                   touching these; all twenty were silently wrong
+│   │   │                                   on the live site until 2026-09-08
 │   │   ├── active_model.txt             ← active model slug, e.g. "specter2"
 │   │   └── active_proj.txt              ← active projection slug, e.g. "umap-tight"
 │   └── raw/checkpoints/         ← NOT committed (in .gitignore); scraper resume state
 ├── analysis/
 │   ├── normalize.py             ← merge raw JSONs → miccai_all.json
 │   ├── embed.py                 ← multi-model; --model required; saves embeddings_{model}.npz
+│   ├── cluster_labels.py        ← load/verify cluster names; binds them to their partition
+│   ├── describe_clusters.py     ← per-cluster top terms + nearest titles, so the 20 names
+│   │                               can be derived rather than recalled; also --check/--stamp
 │   ├── use_model.py             ← switch active model without re-running embeddings
 │   ├── build_charts.py          ← all Plotly chart HTML files → website/charts/
 │   ├── build_site.py            ← Jinja2 pages → website/index.html + website/year/*.html
@@ -105,6 +112,10 @@ miccai-explorer.github.io/
 ├── tests/                       ← python -m pytest tests/ -q
 │   ├── test_oral_stats.py       ← known-answer tests for the statistics
 │   ├── test_orals_data.py       ← golden counts + re-parse of the source PDFs
+│   ├── test_cluster_labels.py   ← the map legend names the clusters it draws. Three of
+│   │                               the ten re-break the 2026-09-08 bug (rotate every
+│   │                               cluster id, move one paper, unstamped file) and assert
+│   │                               the loader refuses each
 │   ├── test_papers_index.py     ← golden counts on website/papers.json
 │   ├── test_logo_assets.py      ← the logo conversion actually ran (see below)
 │   └── check_responsive.py      ← layout checks in a real browser, 9 pages x 4
@@ -112,11 +123,16 @@ miccai-explorer.github.io/
 │                                   dependency, and skips itself where there is
 │                                   none. Every other test starts from the data,
 │                                   so none of them could see the site rendering
-│                                   at 45% width. Eight checks: OVERFLOW,
-│                                   CROPPED, SQUEEZED, CLIPPED, COLLIDING, and
-│                                   HOLLOW / VOID / UNTITLED, which were added
-│                                   2026-09-04 after the first five all passed on
-│                                   three visibly broken charts. Each check was
+│                                   at 45% width. Nine checks: OVERFLOW,
+│                                   CROPPED, SQUEEZED, CLIPPED, COLLIDING,
+│                                   HOLLOW / VOID / UNTITLED, added 2026-09-04
+│                                   after the first five all passed on three
+│                                   visibly broken charts, and TOGGLED, added
+│                                   2026-09-08 after all eight passed on a map
+│                                   that redrew itself at a different scale when
+│                                   the reader used its own controls. TOGGLED is
+│                                   the only one that touches the page; the rest
+│                                   measure one static load. Each check was
 │                                   verified by re-breaking its own bug and
 │                                   watching it fire; do that for any new one,
 │                                   because a check that never fails looks
@@ -163,7 +179,10 @@ python analysis/normalize.py
 
 # 3. Build embeddings, UMAP, KMeans (SPECTER2 is the active/recommended model)
 python analysis/embed.py --model specter2
-# Edit data/processed/cluster_labels_specter2.json with human-readable names, then run:
+# Read the clusters, name them, then bind the names to the partition they describe:
+python analysis/describe_clusters.py specter2          # top terms + nearest titles per cluster
+#   ...edit data/processed/cluster_labels_specter2.json with human-readable names...
+python analysis/describe_clusters.py --stamp specter2  # record which clustering they name
 python analysis/use_model.py specter2   # patches miccai_all.json + copies cluster_labels.json
 
 # 3b. (Optional) Switch to a different pre-computed model without re-running embed.py:
@@ -724,7 +743,7 @@ Models and projections are fully decoupled; switching either never overwrites ot
 data/processed/
   embeddings_{model}.npz           # embeddings, cluster_ids, paper_ids (no coords)
   proj_{model}_{proj}.npy          # 2D coords only, N×2 float32 (~25 KB each)
-  cluster_labels_{model}.json      # 20-entry dict {"0": "label", ...}; human-edited
+  cluster_labels_{model}.json      # human-edited names + the clustering they describe
   cluster_labels.json              # copy of cluster_labels_{active_model}.json
   active_model.txt                 # e.g. "specter2"
   active_proj.txt                  # e.g. "umap-tight"
@@ -734,6 +753,53 @@ data/processed/
 cluster labels in-memory; no need to touch `miccai_all.json` after editing cluster names).
 `build_site.py` reads `active_model.txt` + `active_proj.txt` and passes `embed_model` /
 `embed_proj` variables to Jinja2 templates.
+
+### Cluster names, and why they carry a fingerprint
+
+**KMeans cluster ids are positions in an arbitrary numbering, not meanings.** Two runs
+over the same papers can find the same twenty groups and hand them out in a different
+order. The names are written by a human reading the clusters, so recomputing a clustering
+renames every one of them without changing a character of the file.
+
+That is not hypothetical. It is what shipped: the specter2 embeddings were recomputed
+after its names were written, and **all twenty names sat on the wrong clusters on the
+live site** until 2026-09-08. "Deformable Image Registration" labelled the pathology
+cluster; the 123 registration papers were labelled "Whole Slide Image Classification".
+Nothing caught it, because everything else was right - the counts, colours, coordinates,
+hovers and click-through were all correct, and a wrong name renders exactly like a right
+one. Renumbering could not have repaired it either: three of the clusters
+had no old name, and three of the old names described no cluster.
+
+Each label file therefore records the partition it describes:
+
+```jsonc
+{"model": "specter2",
+ "clustering": "0b1abc5aad...",     // sha256 over sorted paper_id -> cluster_id
+ "labels": {"0": "Deformable Image Registration", ...}}
+```
+
+`analysis/cluster_labels.py` owns that format. `embed.py`, `use_model.py` and
+`build_charts.py` each call `cl.verify()` before using a name and **raise, never warn**.
+A warning would be worth nothing here: the build would still succeed and the site would
+still render, so the only thing reporting the error would be a reader checking titles
+under twenty legend entries, which is exactly what did not happen for months.
+
+The fingerprint proves the names belong to this partition. It cannot tell a good name
+from a bad one; only reading the clusters does that, which is what
+`analysis/describe_clusters.py` is for:
+
+```bash
+python analysis/describe_clusters.py            # active model: top terms + nearest titles
+python analysis/describe_clusters.py bge-large  # a specific model
+python analysis/describe_clusters.py --check    # are the names bound to the clustering?
+python analysis/describe_clusters.py --stamp    # bind them, AFTER reading the report
+```
+
+`--stamp` is an assertion that you checked, not a formality; every later build trusts it.
+Titles are weighted 3x over abstracts in the term ranking (a title states the topic, an
+abstract wanders into method and dataset), and the representative titles are the twelve
+nearest the centroid rather than a random sample, because a random draw from a 344-paper
+cluster shows its edges as often as its middle.
 
 ### Switching models and projections
 
@@ -788,8 +854,10 @@ Encode in batches of 32. Save `embeddings_{model}.npz` with keys:
 Save each projection separately as `proj_{model}_{proj}.npy`.
 
 **Clustering**: `KMeans(n_clusters=20, n_init=10, random_state=42)` on raw embeddings
-(not 2D projection coords). After running, edit `cluster_labels_{model}.json` with
-human-readable names, then run `use_model.py {model} {proj}` and rebuild charts/site.
+(not 2D projection coords). After running, name the clusters from
+`describe_clusters.py {model}` output, edit `cluster_labels_{model}.json`, stamp it with
+`describe_clusters.py --stamp {model}`, then run `use_model.py {model} {proj}` and rebuild
+charts/site. Skipping the stamp is not an option: every reader raises without it.
 
 ### PyTorch CUDA note
 
@@ -956,7 +1024,7 @@ Page order (top to bottom): semantic map → cross-year stat strip → Years at 
 
 | Filename | Type | Content | Status |
 |----------|------|---------|--------|
-| `map_all.html` | Scattergl | All papers, year-color toggle + cluster toggle. `margin` sets `autoexpand=False` with a fixed `r=300` so the plot does not change width when switching between the 5-entry Year legend and the 20-entry Cluster legend | ✓ |
+| `map_all.html` | Scattergl | All papers, year-color toggle + cluster toggle. `margin` sets `autoexpand=False` with a fixed `r=300` so the plot does not change width when switching between the 5-entry Year legend and the 20-entry Cluster legend. Below 760px the legend moves underneath and the same problem turns ninety degrees, so `RESPONSIVE_JS` pins the plot **height** there instead and lets the frame carry the legend; without it the map drew 923px tall by year against 620px by cluster in the same frame. This is the only chart with runtime controls, and `TOGGLED` in `check_responsive.py` is the check for it | ✓ |
 | `trends_overview.html` | 3×3 grid of 9 Plotly divs | Submissions, Papers Accepted, Acceptance Rate, Early Accepted (% of submissions; denominator is `num_papers_submitted.yaml`), Unique Authors, Papers with Code, Avg Review Score, Avg Review Length, Does the Rebuttal Help?. Bars per year in `YEAR_COLORS` + gray connector line along bar tops. **Not a `make_subplots` figure**; it is hand-written HTML (`_TRENDS_GRID_TEMPLATE`) because each panel needs its own y-range headroom and margin, and the CSS grid reflows to 2 columns under 820px | ✓ |
 | `subject_lines.html` | line subplots | Top 12 subject areas over time, share of each year's papers. y-axes are independent per panel. Only areas present in **every** year are eligible (`presence[a] == len(years)`); see the note below | ✓ |
 | `subject_movers.html` | diverging bar + controls | 8 fastest-growing and 8 fastest-shrinking areas. **Hand-written HTML** (`_MOVERS_TEMPLATE`) with From/To year dropdowns; every `from < to` window is precomputed in Python and embedded as JSON, so switching windows redraws via `Plotly.react` and never recomputes | ✓ |

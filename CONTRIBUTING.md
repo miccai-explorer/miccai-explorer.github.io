@@ -96,11 +96,30 @@ python analysis/embed.py --model specter2
 
 This writes embeddings, four different 2D projections, and KMeans cluster assignments.
 It then writes a **placeholder** `cluster_labels_specter2.json`, because naming twenty
-topic clusters is a judgement call a human has to make. Edit that file, then activate:
+topic clusters is a judgement call a human has to make.
+
+To name them, read what is actually in each cluster:
 
 ```bash
+python analysis/describe_clusters.py specter2
+```
+
+That prints each cluster's most distinctive terms and the twelve titles nearest its
+centroid. Write the names into `cluster_labels_specter2.json`, then bind them to the
+clustering they describe and activate the model:
+
+```bash
+python analysis/describe_clusters.py --stamp specter2
 python analysis/use_model.py specter2 umap-tight
 ```
+
+**The stamp is not optional and it is not a formality.** KMeans cluster ids are an
+arbitrary numbering, so recomputing a clustering moves every name onto a different group
+while the file keeps looking perfectly reasonable. That is what happened before
+2026-09-08: all twenty names were wrong on the published site, and no build step, test or
+chart could tell, because a wrong name renders exactly like a right one. The stamp records
+which partition you read, and `use_model.py`, `embed.py` and `build_charts.py` all refuse
+to run without a match.
 
 Switching between already-computed models or projections takes about five seconds and
 needs no GPU.

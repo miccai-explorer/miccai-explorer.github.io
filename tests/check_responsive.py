@@ -28,7 +28,9 @@ passed while `map_all.html` was drawing a plot area two pixels wide.
 Every check below is a failure that was actually found, not a rule invented in
 advance. Checks 1 to 5 come from 2026-09-03; 6 to 8 were added on
 2026-09-04, after all five of the others passed on three charts that were
-visibly broken on a phone.
+visibly broken on a phone; 9 on 2026-09-08, after all eight passed on a map
+that redrew itself at a different scale when the reader touched its own
+controls.
 
 A check that never fires is indistinguishable from a check that passes, and
 this file has now shipped two of those: VOID found nothing at all until its
@@ -87,6 +89,14 @@ fail.** Every one of 6, 7 and 8 was confirmed that way.
                nothing else here could see `subject_lines` lose nine of its
                twelve panel names to a rule meant for overprinted value labels.
 
+9. TOGGLED     a chart's own controls must not resize its plotting area. This
+               is the only check that touches the page: everything above
+               measures one static load, so a figure that is right when it
+               arrives and wrong after a tap passes all eight. `map_all` drew
+               its 3,717 points 923px tall coloured by year and 620px tall
+               coloured by cluster, in the same frame, because the legend
+               underneath took what it needed out of the plot.
+
 WHY NOT PLAYWRIGHT
 ------------------
 It would be less code. But this project keeps a deliberately small dependency
@@ -143,6 +153,7 @@ DEFAULT_PAGES = (
     "orals.html",
     "papers.html",
     "about.html",
+    "year/2026.html",
     "year/2025.html",
     "year/2024.html",
     "year/2023.html",
@@ -178,6 +189,10 @@ HOLLOW_TOLERANCE_PX = 60
 # which is around 90px but is mostly filled by the upper panel's axis title and
 # the lower panel's heading, leaving well under 70px actually empty.
 VOID_TOLERANCE_PX = 70
+# How far a plotting area may move when the reader works a chart's own
+# controls. Not zero: a legend one row taller in one mode is a pixel or two of
+# rounding through the margins. The failure this exists for was 303px.
+TOGGLE_TOLERANCE_PX = 8
 
 
 HARNESS = """<!doctype html>
@@ -193,6 +208,7 @@ const MIN_AXIS_RATIO = __MIN_AXIS_RATIO__;
 const MIN_DIV_WIDTH = __MIN_DIV_WIDTH__;
 const HOLLOW_TOL = __HOLLOW_TOL__;
 const VOID_TOL = __VOID_TOL__;
+const TOGGLE_TOL = __TOGGLE_TOL__;
 const CROP_TOL = __CROP_TOL__;
 const COLLIDE_TOL = __COLLIDE_TOL__;
 
@@ -216,7 +232,8 @@ async function measure(page, width) {
   const res = {page: page, width: width, vw: vw,
                doc: D.documentElement.scrollWidth,
                overflow: [], cropped: [], squeezed: [], clipped: [],
-               colliding: [], hollow: [], untitled: [], voids: [], notes: []};
+               colliding: [], hollow: [], untitled: [], voids: [],
+               toggled: [], notes: []};
 
   // 1. OVERFLOW
   // An element wider than the viewport is only a bug if the reader cannot get
@@ -485,6 +502,47 @@ async function measure(page, width) {
       }
     }
   }
+
+  // 9. TOGGLED
+  // A chart's own controls must not change the size of its plotting area.
+  //
+  // Everything above measures one static load, so a figure that is correct
+  // when it arrives and wrong after a tap reads as perfect. The semantic map
+  // holds both colour modes as 25 traces and shows 5 or 20 of them; on a phone
+  // the legend sits under the plot, and Plotly gives the bottom margin exactly
+  // what the legend it drew needs. Five short year names took 93px and twenty
+  // wrapped cluster names took 423px out of the same frame, so the difference
+  // went into the plot and the map was drawn 923px tall in one mode and 620px
+  // in the other. Nothing overlapped, overflowed, or was cut off in either.
+  //
+  // Runs last because it leaves the page on whichever mode it clicked last.
+  for (const fr of D.querySelectorAll('iframe.chart-frame')) {
+    const d2 = fr.contentDocument;
+    if (!d2) continue;
+    const gd = d2.querySelector('.js-plotly-plot');
+    if (!gd || !gd._fullLayout) continue;
+    const btns = d2.querySelectorAll('.updatemenu-button');
+    if (btns.length < 2) continue;
+    const name = (fr.getAttribute('src') || '').split('/').pop();
+    const seen = [];
+    for (const b of btns) {
+      b.dispatchEvent(new MouseEvent('click', {bubbles: true, cancelable: true,
+                                               view: fr.contentWindow}));
+      await sleep(2500);       // the responsive script settles in passes
+      const sz = gd._fullLayout._size;
+      if (!sz) continue;
+      seen.push({mode: (b.textContent || '').trim(),
+                 w: Math.round(sz.w), h: Math.round(sz.h)});
+    }
+    for (let i = 1; i < seen.length; i++) {
+      const dw = Math.abs(seen[0].w - seen[i].w);
+      const dh = Math.abs(seen[0].h - seen[i].h);
+      if (dw > TOGGLE_TOL || dh > TOGGLE_TOL) {
+        res.toggled.push({chart: name, a: seen[0], b: seen[i],
+                          dw: dw, dh: dh});
+      }
+    }
+  }
   return res;
 }
 
@@ -560,6 +618,7 @@ def run(pages=DEFAULT_PAGES, widths=DEFAULT_WIDTHS, timeout=600) -> list[dict]:
         .replace("__COLLIDE_TOL__", repr(COLLIDE_TOLERANCE_PX))
         .replace("__HOLLOW_TOL__", repr(HOLLOW_TOLERANCE_PX))
         .replace("__VOID_TOL__", repr(VOID_TOLERANCE_PX))
+        .replace("__TOGGLE_TOL__", repr(TOGGLE_TOLERANCE_PX))
     )
 
     port = _free_port()
@@ -574,7 +633,9 @@ def run(pages=DEFAULT_PAGES, widths=DEFAULT_WIDTHS, timeout=600) -> list[dict]:
         # Virtual time lets the in-page sleeps resolve without costing real
         # seconds, while still pausing for genuine network fetches (plotly.js
         # comes from a CDN).
-        budget = 20_000 + 4_000 * len(pages) * len(widths)
+        # 4s to settle each page, plus the TOGGLED check's clicks, which
+        # spend virtual time like any other wait.
+        budget = 20_000 + 10_000 * len(pages) * len(widths)
         proc = subprocess.run(
             [
                 browser,
@@ -646,6 +707,12 @@ def report(results: list[dict]) -> int:
             problems.append(
                 f"UNTITLED  {u['chart']} labels {u['have']} of its "
                 f"{u['panels']} panels"
+            )
+        for t in r.get("toggled", []):
+            problems.append(
+                f"TOGGLED   {t['chart']} draws a "
+                f"{t['a']['w']}x{t['a']['h']}px plot under {t['a']['mode']!r} "
+                f"and {t['b']['w']}x{t['b']['h']}px under {t['b']['mode']!r}"
             )
         if problems:
             fails += len(problems)

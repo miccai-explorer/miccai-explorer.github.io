@@ -70,7 +70,10 @@ claiming a parsing behaviour or a data property:
 
 - Running `analysis/embed.py` when the embeddings already exist; it needs a GPU and
   takes minutes.
-- Overwriting `data/processed/cluster_labels*.json`. Those names are hand-written.
+- Overwriting `data/processed/cluster_labels*.json`. Those names are hand-written, and
+  each file's `clustering` fingerprint says which partition they describe. Never stamp a
+  file (`describe_clusters.py --stamp`) without reading the clusters first: the stamp
+  asserts the names were checked, and every build trusts it.
 - Changing `BASE_URL`, the deployment workflow, or anything about how the site is
   published.
 - Any `git commit`, `git push`, or branch operation. The maintainer does all of these.

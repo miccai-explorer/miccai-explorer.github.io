@@ -762,3 +762,27 @@ body {
 .card.collapsed .collapse-count::after { content: " · click to expand"; color: var(--text-faint); font-weight: 400; }
 .card.collapsed .collapse-body { display: none; }
 
+
+/* ── Pending cards (partial years) ──
+   A year published before its reviews exist says what is missing rather than
+   leaving a gap. Dashed and unfilled so it reads as "not yet" instead of
+   "broken", and visibly not a chart card. */
+.pending-card {
+  background: transparent;
+  border: 1px dashed var(--border);
+  box-shadow: none;
+  padding: 16px 18px;
+}
+.pending-title {
+  margin: 0 0 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+.pending-text {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text-muted);
+  max-width: 72ch;
+}

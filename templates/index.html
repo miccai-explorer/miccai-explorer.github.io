@@ -6,12 +6,12 @@
 
   <!-- Semantic map leads the page: it is the one view unique to this site. -->
   <h2 class="section-heading" id="sec-map">
-    Semantic Map: {{ total_papers | format_int }} Papers, {{ years | min }}-{{ years | max }}
+    Semantic Map: {{ total_papers | format_int }} Papers, {{ data_years | min }}-{{ data_years | max }}
   </h2>
   <div class="card">
     <div class="card-head">
       <div class="card-head-left">
-        <p class="card-title">Every MICCAI paper, {{ years | min }}-{{ years | max }}, placed by topic</p>
+        <p class="card-title">Every MICCAI paper, {{ data_years | min }}-{{ data_years | max }}, placed by topic</p>
         <p class="card-sub">
           {{ embed_model }} model's embeddings → UMAP, clustered into {{ n_clusters }}
           research topics. Toggle year or cluster coloring. Click any point to open the paper.
@@ -29,7 +29,7 @@
     <div class="stat-card">
       <div class="stat-card-label">Total Papers</div>
       <div class="stat-card-value">{{ total_papers | format_int }}</div>
-      <div class="stat-card-note muted">{{ years | join(" + ") }}</div>
+      <div class="stat-card-note muted">{{ data_years | join(" + ") }}</div>
     </div>
     <div class="stat-card">
       <div class="stat-card-label">Total Authors</div>
@@ -53,7 +53,7 @@
   <div class="card">
     <div class="card-head">
       <div class="card-head-left">
-        <p class="card-title">Key metrics across all {{ years | length }} years</p>
+        <p class="card-title">Key metrics across all {{ data_years | length }} years</p>
         <p class="card-sub">
           Early Accepted is the share of all submissions, not of accepted papers.
           Avg Review Score is plotted as percentage of that year's scale so it stays comparable
@@ -120,8 +120,8 @@
         <p class="card-sub">8 fastest-growing and 8 fastest-shrinking areas (percentage
           points of the year's papers; areas with ≥ 30 papers total). Use the
           <strong>From</strong> / <strong>To</strong> dropdowns to change the window.
-          <!-- It opens on {{ years | min }} → {{ (years | max) - 1 }} rather than the full
-          span, because a window ending in {{ years | max }} mostly ranks the
+          <!-- It opens on {{ data_years | min }} → {{ (data_years | max) - 1 }} rather than the full
+          span, because a window ending in {{ data_years | max }} mostly ranks the
           relabelling described in the note above. -->
         </p>
       </div>
@@ -146,7 +146,9 @@
         </div>
         <p style="font-size:13px; color:var(--text-muted); margin:0;">
           {{ s.n_papers | format_int }} papers · {{ s.n_authors | format_int }} authors ·
-          {{ s.pct_code }}% with code
+          {# A partial year has no review or code data yet; everything else on
+             this page is unchanged. #}
+          {% if yr in partial_years %}waiting for reviews' release{% else %}{{ s.pct_code }}% with code{% endif %}
         </p>
         <p style="font-size:12px; color: {{ m.color }}; margin:8px 0 0;">View full analysis →</p>
       </div>

@@ -8,12 +8,12 @@
 {% block content %}
 <div class="page-body">
 
-  <h2 class="section-heading">All Papers, {{ years | min }}-{{ years | max }}</h2>
+  <h2 class="section-heading">All Papers, {{ data_years | min }}-{{ data_years | max }}</h2>
 
   <div class="card">
     <div class="card-head">
       <div class="card-head-left">
-        <p class="card-title">Every accepted MICCAI paper, {{ years | min }} to {{ years | max }}</p>
+        <p class="card-title">Every accepted MICCAI paper, {{ data_years | min }} to {{ data_years | max }}</p>
         <p class="card-sub">
           {{ total_papers | format_int }} papers with their mean reviewer score and
           presentation type. Click a title to open the paper on papers.miccai.org,
@@ -39,7 +39,7 @@
         <span>Year</span>
         <select id="filter-year">
           <option value="">All years</option>
-          {% for yr in years %}<option value="{{ yr }}">{{ yr }}</option>{% endfor %}
+          {% for yr in data_years %}<option value="{{ yr }}">{{ yr }}</option>{% endfor %}
         </select>
       </label>
 
@@ -125,7 +125,7 @@
       <p class="card-sub">
         This page needs JavaScript to search and filter. Without it, the per-year
         pages are fully static and list the top papers of each year:
-        {% for yr in years %}<a href="{{ base_url }}/year/{{ yr }}.html">{{ yr }}</a>{% if not loop.last %}, {% endif %}{% endfor %}.
+        {% for yr in data_years %}<a href="{{ base_url }}/year/{{ yr }}.html">{{ yr }}</a>{% if not loop.last %}, {% endif %}{% endfor %}.
       </p>
     </div>
   </noscript>

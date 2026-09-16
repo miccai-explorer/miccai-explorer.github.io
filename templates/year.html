@@ -104,7 +104,7 @@
       <div class="card-head">
         <div class="card-head-left">
           <p class="card-title">Top 20 Authors</p>
-          <p class="card-sub">By paper count</p>
+          <p class="card-sub">By paper count. Authors are matched by name.</p>
         </div>
       </div>
       <iframe src="{{ base_url }}/charts/authors_{{ year }}.html"
@@ -188,7 +188,7 @@
     <div class="card-head">
       <div class="card-head-left">
         <p class="card-title">Authors with ≥ {{ coauthor_min }} papers at MICCAI {{ year }}</p>
-        <p class="card-sub">Node size = paper count. Edge = shared authorship. Color = detected collaboration community; disconnected groups are laid out separately so they don't overlap the main cluster. Drag a node to reposition it, drag the background to pan, scroll to zoom.</p>
+        <p class="card-sub">Node size = paper count. Edge = shared authorship. Color = detected collaboration community; disconnected groups are laid out separately so they don't overlap the main cluster. Drag a node to reposition it, drag the background to pan, scroll to zoom. Authors are matched by name.</p>
       </div>
     </div>
     <iframe src="{{ base_url }}/charts/coauthor_{{ year }}.html"

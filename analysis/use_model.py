@@ -16,6 +16,7 @@ import shutil
 import sys
 from pathlib import Path
 
+import cluster_labels as cl
 import numpy as np
 
 ALL_JSON = Path("data/processed/miccai_all.json")
@@ -107,8 +108,16 @@ def main() -> int:
         )
         return 1
 
-    with open(cl_path, encoding="utf-8") as f:
-        labels = json.load(f)
+    # Names are only meaningful for the partition they were read off. KMeans
+    # renumbers freely between runs, so activating a model whose labels
+    # predate its current clustering silently relabels the whole map; refuse
+    # instead. See analysis/cluster_labels.py.
+    try:
+        labels = cl.verify(cl_path, cl.fingerprint(paper_ids, cluster_ids))
+    except cl.ClusteringMismatch as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 1
+
     with open(ALL_JSON, encoding="utf-8") as f:
         papers = json.load(f)
 

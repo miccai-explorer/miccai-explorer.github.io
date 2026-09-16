@@ -758,9 +758,9 @@ width at runtime and:
 That last point is why `chart_heights.json` is a starting height rather than
 the truth: a chart page can reflow in ways the build cannot predict.
 
-### Two rules the runtime script must keep
+### Three rules the runtime script must keep
 
-Both were broken once, and each broke several charts at a time.
+Each was broken once, and the first two broke several charts at a time.
 
 **1. Anything that reads the layout and then writes it must read a snapshot.**
 The script runs four to six times per page as Plotly settles. `gridInfo()` read
@@ -786,6 +786,22 @@ of what was gained, so it never converges. Three cases, all real:
 
 Annotations have `yshift` and legends do not, which is the only reason the two
 are handled differently.
+
+**3. A figure the reader can change must not let the change resize the plot.**
+The semantic map holds both of its colour modes at once and shows five traces
+or twenty. Plotly gives the bottom margin exactly what the legend it drew
+needs, so on a phone, where the legend sits underneath, five short year names
+took 93px and twenty wrapped cluster names took 423px out of the same 1104px
+frame: the map was drawn 923px tall in one mode and 620px in the other, the
+same points half as tall again. The desktop figure has pinned its *right*
+margin against this since the day it was written (`autoexpand=False`, `r=300`);
+below the breakpoint the same problem simply turns ninety degrees. Pin the plot
+and let the frame carry the difference, so the legend gets its own room instead
+of taking it from the map.
+
+The check for this is `TOGGLED`, and it is the only one in
+`tests/check_responsive.py` that touches the page. Everything else measures a
+single static load, which is why all eight of the others passed on it.
 
 ### A subplot heading is not a value label
 

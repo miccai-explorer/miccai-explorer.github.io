@@ -42,6 +42,7 @@ Usage:
 """
 
 import argparse
+import bisect
 import json
 import logging
 import re
@@ -138,7 +139,32 @@ def _is_italic(fontname: str) -> bool:
     return "italic" in f or f.endswith("it")
 
 
-def extract_lines(pdf_path: Path, n_columns: int) -> list:
+def _column_bounds(mids: list, n_columns: int, page_width: float) -> list:
+    """Split positions at the widest empty bands between word midpoints.
+
+    2026 sets three columns whose gutters are not at even thirds. On page 8 the
+    right gutter runs x=493.5 to x=527.7, while an even third would split at
+    x=528.0, one point past its right edge; that files the leftmost word of
+    column 3 under column 2 and splices two unrelated titles together. Finding
+    the gaps locates the real gutters on all nine session pages.
+
+    The 8% margin keeps a wide page header or footer from being read as a
+    gutter.
+    """
+    if n_columns == 1:
+        return []
+    s = sorted(mids)
+    margin = page_width * 0.08
+    gaps = [
+        (s[i + 1] - s[i], (s[i] + s[i + 1]) / 2) for i in range(len(s) - 1)
+    ]
+    gaps = [g for g in gaps if margin < g[1] < page_width - margin]
+    return sorted(x for _, x in sorted(gaps, reverse=True)[: n_columns - 1])
+
+
+def extract_lines(
+    pdf_path: Path, n_columns: int, split: str = "midpoint"
+) -> list:
     """PDF → ordered list of Line, columns emitted left to right within each page."""
     out: list = []
     with pdfplumber.open(pdf_path) as pdf:
@@ -146,14 +172,21 @@ def extract_lines(pdf_path: Path, n_columns: int) -> list:
             words = page.extract_words(extra_attrs=["fontname", "size"])
             if not words:
                 continue
-            mid = page.width / 2
+            # "midpoint" is what 2021 through 2025 have always used and must
+            # keep using: bisect_right over a single boundary at the page
+            # midpoint reproduces the old expression exactly, boundary case
+            # included. Only 2026 passes split="gaps"; see _column_bounds.
+            if split == "gaps":
+                bounds = _column_bounds(
+                    [(w["x0"] + w["x1"]) / 2 for w in words],
+                    n_columns,
+                    page.width,
+                )
+            else:
+                bounds = [] if n_columns == 1 else [page.width / 2]
             cols: list = [[] for _ in range(n_columns)]
             for w in words:
-                ci = (
-                    0
-                    if n_columns == 1
-                    else (0 if (w["x0"] + w["x1"]) / 2 < mid else 1)
-                )
+                ci = bisect.bisect_right(bounds, (w["x0"] + w["x1"]) / 2)
                 cols[ci].append(w)
 
             for ci, col_words in enumerate(cols):

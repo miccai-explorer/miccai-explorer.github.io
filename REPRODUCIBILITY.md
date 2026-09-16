@@ -58,7 +58,7 @@ against all three.
 | Embeddings | `embeddings_{model}.npz` | `analysis/embed.py` (5-model registry) | Yes | Yes | `specter2` active. Needs GPU + `adapters`. |
 | 2-D projections | `proj_{model}_{proj}.npy` | `analysis/embed.py` (4-projection registry) | Yes | Yes | `random_state=42` throughout. |
 | KMeans clusters | `cluster_ids` in the `.npz` | `analysis/embed.py` | Yes | Yes | `n_clusters=20, n_init=10, random_state=42`. |
-| **Cluster names** | `cluster_labels_{model}.json` | **none** | Yes | **No** | See gap **G1**. |
+| Cluster names | `cluster_labels_{model}.json` | `analysis/describe_clusters.py` (reads the clusters); named by a human | Yes | Yes | Bound to their partition by fingerprint; every reader verifies. Was gap **G1**, closed 2026-09-08. |
 | Activate model/proj | patched `miccai_all.json`, `active_model.txt`, `active_proj.txt`, `cluster_labels.json` | `analysis/use_model.py: main` | Yes | Yes | |
 | **Oral schedule PDFs** | `data/manually_downloaded/OralSchedules/YYYY.pdf` | **none** | Yes | **No** | See gap **G7**. Collected by hand; not published as structured data. |
 | Parse oral program | `data/raw/orals_YYYY.json` | `analysis/extract_orals.py: extract` | Yes | Yes | Deterministic; parameters in `config.yaml → oral_schedules`. Asserts session contiguity and expected session count. |
@@ -185,24 +185,32 @@ subject areas, 323 oral / 54 spotlight / 3,340 poster, and the per-year scales.
 These are the only reproducibility gaps on the site. Each is committed as data, so **L1
 is unaffected**; each blocks L2 or L3.
 
-### G1: Cluster names · blocks L2 · **highest impact**
+### G1: Cluster names · **closed 2026-09-08** · was highest impact
 
-`data/processed/cluster_labels_specter2.json` holds the 20 human-readable topic names
-("Whole Slide Image Classification", "Deformable Image Registration", …). These names
-appear in the legend and hover of the semantic map on **every page**, and are counted by
-the "Research Clusters" stat card.
+`data/processed/cluster_labels_{model}.json` holds the 20 human-readable topic names.
+They appear in the legend and hover of the semantic map on **every page**, and are
+counted by the "Research Clusters" stat card.
 
-`analysis/embed.py` writes only placeholders (`{"0": "Cluster 0", …}`, line ~386) and
-logs nothing but cluster sizes; no top terms, no representative titles. The published
-names were assigned by a human reading the clusters. Anyone re-running `embed.py` gets
-`Cluster 0 … Cluster 19` and no code-based way to recover the names. Because KMeans is
-seeded (`random_state=42`) the *partition* is reproducible, so the existing names stay
-valid as long as the model, projection, paper set and seed are unchanged, but that is a
-property of the seed, not something the repo enforces or checks.
+This gap said the names "stay valid as long as the model, projection, paper set and seed
+are unchanged, but that is a property of the seed, not something the repo enforces or
+checks." That turned out to be not a risk but a live defect: the specter2 clustering had
+been recomputed at some point after its names were written, and because KMeans hands the
+same groups out in a different order between runs, **all twenty names were on the wrong
+clusters on the published site.** Nothing failed, because the file made no claim about
+which partition it described.
 
-**To close:** add a step to `embed.py` that prints, per cluster, the top TF-IDF terms and
-the N titles nearest the centroid. That turns naming into a mechanical 10-minute job
-instead of an act of recall.
+Closed in two halves:
+
+- **Deriving the names is now mechanical.** `analysis/describe_clusters.py` prints, per
+  cluster, the top TF-IDF terms and the 12 titles nearest the centroid. Re-running
+  `embed.py` no longer loses the ability to recover names, so L2 is no longer blocked.
+- **The names now say what they describe.** `analysis/cluster_labels.py` stores a
+  SHA-256 fingerprint of the `paper_id -> cluster_id` assignment alongside them, and
+  `embed.py`, `use_model.py` and `build_charts.py` each verify it and raise on a
+  mismatch. `tests/test_cluster_labels.py` re-breaks the bug three ways.
+
+Naming still requires a human, and no fingerprint can tell a good name from a bad one.
+What is enforced is that the names belong to the clustering being drawn.
 
 ### G2: Submission counts · blocks L3
 
@@ -453,7 +461,7 @@ editing `build_charts.py`, which that work was explicitly scoped away from.
 
 | Priority | Item | Why |
 |---|---|---|
-| 1 | **G1**; cluster-name helper in `embed.py` | The only gap that blocks re-running the pipeline on the data you already have. |
+| 1 | ~~**G1**; cluster-name helper~~ | **Done 2026-09-08.** `analysis/describe_clusters.py`, plus a fingerprint binding names to their partition. |
 | 2 | **I1**; delete `scraper/config.yaml`, fix CLAUDE.md | Actively misleading; a one-line change. |
 | 3 | **I2**; pin dependencies, have CI use them | Protects every chart on the site from silent drift. |
 | 4 | **G3**; read `logo_colors.yaml`, retire the three hardcoded dicts | Removes a three-way sync hazard. |

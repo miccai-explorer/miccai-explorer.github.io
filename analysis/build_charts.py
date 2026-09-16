@@ -28,6 +28,7 @@ import sys
 from collections import Counter, defaultdict
 from pathlib import Path
 
+import cluster_labels as cl
 import networkx as nx
 import numpy as np
 import plotly.graph_objects as go
@@ -133,6 +134,7 @@ YEAR_PALETTES = {
     2023: {"main": "#559e39", "secondary": "#e81e25"},
     2024: {"main": "#2d835d", "secondary": "#ce5258"},
     2025: {"main": "#2b50a3", "secondary": "#d2242b"},
+    2026: {"main": "#293587", "secondary": "#00adf0"},
 }
 
 
@@ -671,6 +673,10 @@ RESPONSIVE_JS = """
       up["legend.itemwidth"] = (ol.itemwidth !== undefined ? ol.itemwidth : 30);
     }
     var legHEst = 0;
+    // The plot height held fixed against the legend, 0 when nothing is
+    // pinning it. Set in the legend block below and read by the legend.y
+    // placement at the bottom, which needs the same number.
+    var pinnedP = 0;
     if (narrow && hasLegend && vertical) {
       legendBelow = true;
       r = Math.round(Math.min(r, w * 0.06));
@@ -687,21 +693,88 @@ RESPONSIVE_JS = """
       // estimated from the trace names, not measured from the rendered legend,
       // because measuring what we are about to resize is how the earlier
       // oscillations started. The frame follows via the height message.
+      //
+      // Only the traces that are in the legend AS DRAWN. gd.data holds both of
+      // the map\'s colour modes at once, 25 traces of which 20 are hidden, and
+      // counting all of them reserved room for a legend two and a half times
+      // the size of the one on screen. See the pin below for why that surplus
+      // does not simply sit empty.
       var legNames = [];
       for (var ln = 0; ln < (gd.data || []).length; ln++) {
         var trn = gd.data[ln];
-        if (trn && trn.showlegend !== false && trn.name) legNames.push(String(trn.name));
+        if (trn && trn.showlegend !== false && trn.visible !== false && trn.name)
+          legNames.push(String(trn.name));
       }
+      var legRows = 1;
       if (legNames.length > 3) {
-        var rowW = 0, legRows = 1;
+        var rowW = 0;
         for (var lq = 0; lq < legNames.length; lq++) {
           var entW = legNames[lq].length * legFont * 0.52 + 34;
           if (rowW + entW > w - 16) { legRows++; rowW = entW; } else rowW += entW;
         }
-        if (!gd._origH) gd._origH = gd.getBoundingClientRect().height;
-        var legH = legRows * (legFont + 13) + 40;
-        legHEst = legH;
-        if (legRows > 1) claimH(Math.round(gd._origH + legH));
+        legHEst = legRows * (legFont + 13) + 40;
+      }
+      if (!gd._origH) gd._origH = gd.getBoundingClientRect().height;
+
+      // ---- pin the plot when the reader can change the legend ----
+      // The desktop figure already pins its RIGHT margin (autoexpand=false,
+      // r=300 in chart_map_all) so that toggling Year against Cluster cannot
+      // change the plot\'s width. Below the phone breakpoint this script moves
+      // the legend underneath the plot, which turns that same problem through
+      // ninety degrees, and nothing was pinning height.
+      //
+      // Plotly gives the bottom margin exactly what the legend it drew needs.
+      // Five year names take one row and 93px; twenty cluster names take
+      // twenty rows and 423px. The frame is the same either way, so the 330px
+      // difference goes straight into the plot: measured at 360px, the map was
+      // 923px tall coloured by year against 620px coloured by cluster, the
+      // same points stretched half as tall again. Toggling redrew the map at a
+      // different scale, which is exactly what the desktop fix exists to stop.
+      //
+      // So hold the plot to the height the build gave it and let the FRAME
+      // carry the difference: the legend gets its own room underneath instead
+      // of taking it out of the map, and both modes draw the same map. The
+      // pin costs the plot no height it was designed to have; it only stops it
+      // borrowing what the legend is not using.
+      //
+      // Confined to figures that have controls, because a figure whose legend
+      // cannot change has nothing to be inconsistent with, and pinning one
+      // would resize charts this fix has no business touching. map_all.html is
+      // the only chart on the site with both.
+      if ((gd._fullLayout.updatemenus || []).length) {
+        // The rendered legend, not the character estimate, once there is a
+        // horizontal one to measure. This is not the measurement the comment
+        // above warns against: a horizontal legend\'s height follows from the
+        // frame WIDTH and the names in it, and this pass changes neither, so
+        // reading it back cannot feed the resize it causes. Before the first
+        // pass moves the legend, what is on screen is still the build\'s
+        // vertical one, whose height means nothing here; that returns 0 and
+        // the estimate stands in for one pass.
+        var legPx = 0;
+        if (gd._fullLayout.legend && gd._fullLayout.legend.orientation === "h") {
+          var legEl = gd.querySelector(".legend");
+          if (legEl) {
+            try { legPx = Math.ceil(legEl.getBoundingClientRect().height); }
+            catch (e) { legPx = 0; }
+          }
+        }
+        var reserve = legPx || legHEst;
+        if (reserve > 0) {
+          // 22px between the plot and its key, the same gap the legend.y block
+          // below asks for.
+          pinnedP = Math.max(120, o.h0 - o.m.t - o.m.b);
+          b = b + reserve + 22;
+          claimH(Math.round(pinnedP + t + b));
+        }
+      }
+      // The claim for a legend that is not pinned: keep the frame the build
+      // asked for and add the legend under it. This is the alternative to the
+      // pin, not a floor for it; taking the larger of the two would hand the
+      // difference straight back to the plot, which is the behaviour being
+      // fixed. Measured at 360px with both live: the map came out 68px taller
+      // in cluster mode than in year mode, a third of the way back.
+      if (!pinnedP && legRows > 1 && legHEst > 0) {
+        claimH(Math.round(gd._origH + legHEst));
       }
     }
 
@@ -735,6 +808,15 @@ RESPONSIVE_JS = """
           // 51.0 on a data-referenced label as "above the plot".
           yPaper: (fa0.yref === "paper"),
           font: (a0 && a0.font && a0.font.size) || 13,
+          // How the build anchored it, so the wide path can put it back the
+          // way it was. Restoring a flat "auto" instead is what put every
+          // subplot heading INSIDE the top of its own panel: make_subplots
+          // anchors a panel title "bottom" at the panel's top edge, and "auto"
+          // on a paper-referenced annotation centres it on that edge, so half
+          // the text lands on the plot. Read from the user layout only; the
+          // computed copy resolves "auto" to a side and would pin it there.
+          yanchor: (a0 && a0.yanchor) || "auto",
+          yshift: (a0 && a0.yshift) || 0,
           // Lines it ALREADY has. code_* labels its average line as
           // "Year avg<br>51.0%", which is two lines tall however short the
           // text is, and the top margin has to cover that whether or not this
@@ -970,9 +1052,12 @@ RESPONSIVE_JS = """
     up["margin.t"] = t; up["margin.b"] = b;
 
     // autoexpand=False is set on the semantic map so the plot does not change
-    // width when the legend switches between 5 and 20 entries. That reasoning
-    // holds beside the plot and not underneath it, so let Plotly expand again
-    // once the legend has moved below.
+    // width when the legend switches between 5 and 20 entries. Once the legend
+    // is underneath, height is the dimension it can change, so Plotly is
+    // allowed to expand again and the plot height is pinned instead (see the
+    // legend block above). This used to say the reasoning did not apply below
+    // the plot, and it does: with nothing pinning height, the same toggle drew
+    // the same points half as tall again.
     if (narrow && gd._fullLayout.margin &&
         gd._fullLayout.margin.autoexpand === false && hasLegend && vertical) {
       up["margin.autoexpand"] = true;
@@ -1010,8 +1095,8 @@ RESPONSIVE_JS = """
         // wrapped and shrunken narrow text rather than what the build wrote.
         up["annotations[" + q2 + "].text"] = a2.raw;
         up["annotations[" + q2 + "].y"] = a2.y;
-        up["annotations[" + q2 + "].yanchor"] = "auto";
-        up["annotations[" + q2 + "].yshift"] = 0;
+        up["annotations[" + q2 + "].yanchor"] = a2.yanchor;
+        up["annotations[" + q2 + "].yshift"] = a2.yshift;
         // A headline too wide for its plot is worth shrinking at any width,
         // not only on a phone. The scrolling Sankey renders at 520px and is
         // "wide" by every other measure, and its headline still did not fit.
@@ -1317,7 +1402,10 @@ RESPONSIVE_JS = """
     // map and its own key. Ask for a fixed 22px instead.
     if (narrow && legendBelow) {
       var hNow = wantH || o.h0 || gd.getBoundingClientRect().height || 400;
-      var pBelow = Math.max(80, hNow - o.m.t - o.m.b - legHEst);
+      // When the plot height is pinned, that IS the number this needs; the
+      // estimate below is only for the frames whose plot height is whatever
+      // the margins leave.
+      var pBelow = pinnedP || Math.max(80, hNow - o.m.t - o.m.b - legHEst);
       up["legend.y"] = -(22 / pBelow);
     }
 
@@ -1387,7 +1475,15 @@ RESPONSIVE_JS = """
       // relayout. So our own redraw is consumed here and goes no further.
       if (gd._respSelf) { gd._respSelf = false; return; }
       gd._respKey = null;       // a real redraw discarded what we last applied
-      setTimeout(function () { apply(gd); }, 0);
+      setTimeout(function () {
+        apply(gd);
+        // A redraw the reader caused can change the height this script asks
+        // for: switching the map to cluster colours turns a one-row legend
+        // into a twenty-row one. Without this the div resizes and the frame
+        // around it does not, so the chart is cut off by its own card until
+        // something else happens to send a message.
+        reportHeight();
+      }, 0);
     });
   }
 
@@ -1399,6 +1495,27 @@ RESPONSIVE_JS = """
       document.documentElement.scrollHeight,
       document.body ? document.body.scrollHeight : 0
     );
+
+    // scrollHeight can grow a frame and can never shrink one. The document is
+    // a single plot filling the frame it was given, so it measures at least
+    // that frame\'s height no matter how small the plot inside it has become:
+    // switching the map back to year colours took the plot from 1081px to
+    // 671px and the card stayed 1081px, with 400px of white under the legend.
+    // Where this script set the height itself there is a better answer than
+    // the document\'s, so use the plot\'s own box. Only for a document that is
+    // one plot and nothing else; the hand-written templates (the trends grid,
+    // the movers and areas controls) have real page content around theirs, and
+    // for those the document is still the authority.
+    var only = document.querySelectorAll(".js-plotly-plot");
+    if (only.length === 1 && only[0]._respH) {
+      try {
+        var r0 = only[0].getBoundingClientRect();
+        var mb = parseFloat(getComputedStyle(document.body).marginBottom) || 0;
+        var need = Math.ceil(r0.top + (window.pageYOffset || 0) + r0.height + mb);
+        if (need > 0 && need < h) h = need;
+      } catch (e) {}
+    }
+
     // Only speak when it changed. Plotly charts fill 100% of the frame, so
     // their reported height always equals whatever the parent already set;
     // without this they would post on every resize forever.
@@ -1412,7 +1529,16 @@ RESPONSIVE_JS = """
     // message can only ever make a frame taller, so a bug of this shape is
     // unbounded, and the failure (a chart card growing without limit as you
     // watch) is far worse than a chart that is 30px short.
-    if (h > lastSent && lastSent > 0 && ++grew > 3) return;
+    // Counted only while the height keeps going one way. Toggling the map
+    // between its two colour modes alternates tall and short legitimately and
+    // forever, and a counter that never resets would stop honouring the tall
+    // one on the fourth switch, cutting the cluster legend off. A runaway is
+    // growth that never comes back down, so coming back down clears it.
+    if (h > lastSent) {
+      if (lastSent > 0 && ++grew > 3) return;
+    } else {
+      grew = 0;
+    }
 
     lastSent = h;
     try {
@@ -2825,6 +2951,12 @@ def chart_naming(papers_yr: list, year: int) -> None:
     fw_labels = [x[0].capitalize() for x in reversed(top_first)]
     fw_values = [x[1] for x in reversed(top_first)]
 
+    # The right panel's category labels are drawn in the gap between the two
+    # panels, where automargin cannot help: it grows the figure margin, and
+    # this axis is interior. The gap has to be wide enough for the longest
+    # label by itself. First words run to 17 characters ("Self-supervised",
+    # "Interpretable"), and at the default spacing those labels crossed into
+    # the histogram and plotly dropped every other one to fit.
     fig = make_subplots(
         rows=1,
         cols=2,
@@ -2832,7 +2964,8 @@ def chart_naming(papers_yr: list, year: int) -> None:
             "Title Length (word count)",
             "Most Common First Words",
         ),
-        column_widths=[0.38, 0.62],
+        column_widths=[0.34, 0.66],
+        horizontal_spacing=0.17,
     )
 
     # Word count histogram + KDE
@@ -2868,6 +3001,16 @@ def chart_naming(papers_yr: list, year: int) -> None:
     )
     fig.update_xaxes(gridcolor=RULE)
     fig.update_yaxes(gridcolor=RULE)
+    # tickmode="array" so every first word keeps its label. Left to itself
+    # plotly thins a 15-category axis to about eight, which reads as a shorter
+    # list rather than as a rendering compromise.
+    fig.update_yaxes(
+        tickmode="array",
+        tickvals=fw_labels,
+        ticktext=fw_labels,
+        row=1,
+        col=2,
+    )
     save_chart(fig, f"naming_{year}.html")
 
 
@@ -3794,8 +3937,12 @@ def main() -> int:
 
     cluster_labels: dict[str, str] = {}
     if CL_JSON.exists():
-        with open(CL_JSON, encoding="utf-8") as f:
-            cluster_labels = json.load(f)
+        # Prove the names belong to the clustering these papers carry before
+        # writing them onto the map. KMeans numbering is arbitrary and the
+        # names are hand-written, so a stale file relabels all twenty clusters
+        # while every count, colour and coordinate stays correct - the failure
+        # is invisible in the output. See analysis/cluster_labels.py.
+        cluster_labels = cl.verify(CL_JSON, cl.fingerprint_of_papers(papers))
         # Patch cluster_label on every paper so all chart functions see the current names
         for p in papers:
             cid = p.get("cluster_id")
@@ -3880,6 +4027,12 @@ def main() -> int:
     import build_oral_charts
 
     build_oral_charts.build_all(papers, year_cfg)
+
+    # 2026 charts (no-op without data/raw/miccai_2026_program.json). Must run
+    # before CHART_HEIGHTS is written below so its frame heights are recorded.
+    import build_2026_charts
+
+    build_2026_charts.build_all(sys.modules[__name__], network_renderer)
 
     # Hand the computed frame heights to build_site.py. Written even when
     # empty so a partial --years run cannot leave a stale file behind.

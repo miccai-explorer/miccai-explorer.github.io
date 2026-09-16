@@ -55,6 +55,13 @@ SITE_URL = "https://miccai-explorer.github.io"
 # Per-year accent colors from each year's conference logo primaries
 # (kept in sync with YEAR_PALETTES in build_charts.py; source: logo_colors.yaml)
 YEAR_META_RAW = {
+    2026: {
+        "logo": "miccai_2026.png",
+        "city": "Strasbourg, France",
+        "has_white_bg": False,
+        "color": "#293587",
+        "color2": "#00adf0",
+    },
     2025: {
         "logo": "miccai_2025.png",
         "city": "Daejeon, Korea",
@@ -152,6 +159,51 @@ def load_submissions() -> dict:
         return {}
     with open(SUBS_YAML, encoding="utf-8") as f:
         return yaml.safe_load(f) or {}
+
+
+FACTS_2026 = Path("data/miccai_2026_facts.yaml")
+PROGRAM_2026 = Path("data/raw/miccai_2026_program.json")
+
+
+def load_2026() -> tuple:
+    """(facts, papers) for the partial 2026 year, or (None, None).
+
+    2026 is published from the program booklet alone, months before its reviews
+    exist. It stays out of miccai_all.json so it cannot reach any cross-year
+    chart: a title-only embedding puts a third of papers in the wrong cluster,
+    and the subject-area filter would empty Trending Topics.
+    """
+    if not (FACTS_2026.exists() and PROGRAM_2026.exists()):
+        return None, None
+    with open(FACTS_2026, encoding="utf-8") as f:
+        facts = yaml.safe_load(f)
+    with open(PROGRAM_2026, encoding="utf-8") as f:
+        return facts, json.load(f)
+
+
+def compute_2026_stats(facts: dict, papers: list, meta: dict) -> SimpleNamespace:
+    """The partial year's stat strip. No placeholder tiles: With Code and Avg
+    Review Score would both be dead, and a strip half full of "pending" reads
+    as a broken page rather than an honest one, so Acceptance Rate and Talks
+    take those two slots."""
+    authors: set = set()
+    for p in papers:
+        authors.update(p.get("authors", []))
+    n = facts["n_accepted"]
+    return _ns(
+        {
+            "n_papers": n,
+            "n_authors": len(authors),
+            "n_submitted": facts["n_submitted"],
+            "pct_accept": round(n / facts["n_submitted"] * 100, 1),
+            "n_orals": facts["n_orals"],
+            "n_spotlights": facts["n_spotlights"],
+            "n_talks": facts["n_orals"] + facts["n_spotlights"],
+            "pct_early_subs": facts["pct_early_subs"],
+            "pct_early_subs_approx": facts.get("pct_early_subs_approx", False),
+            "city": meta.get("city", ""),
+        }
+    )
 
 
 def compute_year_stats(
@@ -421,8 +473,15 @@ def main() -> int:
         papers = json.load(f)
     logger.info(f"Loaded {len(papers)} papers")
 
-    years = sorted(set(p["year"] for p in papers), reverse=True)
-    logger.info(f"Years: {years}")
+    # data_years are the years with real data and drive every existing loop.
+    # 2026 has no reviews, abstracts or subject areas so it is deliberately not
+    # in miccai_all.json; it joins only `years`, which base.html's nav and
+    # index.html's year grid iterate.
+    data_years = sorted(set(p["year"] for p in papers), reverse=True)
+    facts_2026, papers_2026 = load_2026()
+    partial_years = [2026] if facts_2026 else []
+    years = partial_years + data_years
+    logger.info(f"Years: {data_years}  partial: {partial_years}")
 
     # Presentation types, patched in memory (never written back to
     # miccai_all.json) - the same pattern build_charts.py uses. Without
@@ -502,7 +561,11 @@ def main() -> int:
     year_title_lists: dict[int, SimpleNamespace] = {}
     year_top_papers: dict[int, tuple] = {}
     year_has_sankey: dict[int, bool] = {}
-    for yr in years:
+    if facts_2026:
+        year_stats[2026] = compute_2026_stats(
+            facts_2026, papers_2026, YEAR_META_RAW.get(2026, {})
+        )
+    for yr in data_years:
         papers_yr = [p for p in papers if p["year"] == yr]
         year_stats[yr] = compute_year_stats(
             papers_yr, YEAR_META_RAW.get(yr, {}), submissions.get(yr)
@@ -544,6 +607,11 @@ def main() -> int:
         site_url=SITE_URL,
         build_date=date.today().isoformat(),
         years=years,
+        # years with full data. `years` also carries the partial 2026, which
+        # belongs in the nav and the year grid but not in any claim about
+        # what the cross-year charts and papers.json actually cover.
+        data_years=data_years,
+        partial_years=partial_years,
         year_meta=year_meta,
         has_orals_page=bool(orals_summary),
         analytics_id=analytics_id,
@@ -635,7 +703,7 @@ def main() -> int:
     year_dir.mkdir(parents=True, exist_ok=True)
     tmpl = env.get_template("year.html")
 
-    for yr in years:
+    for yr in data_years:
         papers_yr = [p for p in papers if p["year"] == yr]
         top_overall, top_rebuttal, rebuttal_mode = year_top_papers[yr]
         cfg = year_cfg.get(yr, {})
@@ -661,6 +729,25 @@ def main() -> int:
         )
         (year_dir / f"{yr}.html").write_text(html, encoding="utf-8")
         logger.info(f"  Saved website/year/{yr}.html")
+
+    # ── year/2026.html (partial year, its own template) ─────────
+    page_2026 = year_dir / "2026.html"
+    if facts_2026:
+        html = env.get_template("year_2026.html").render(
+            **common_ctx,
+            active_page=None,
+            active_year=2026,
+            year=2026,
+            meta=year_meta[2026],
+            stats=year_stats[2026],
+            heights=row_heights(chart_heights, 2026),
+            coauthor_min=facts_2026["coauthor_min"],
+        )
+        page_2026.write_text(html, encoding="utf-8")
+        logger.info("  Saved website/year/2026.html")
+    elif page_2026.exists():
+        page_2026.unlink()
+        logger.info("  Removed stale website/year/2026.html")
 
     logger.info("Site build complete.")
     return 0

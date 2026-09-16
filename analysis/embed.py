@@ -44,6 +44,7 @@ import sys
 from collections import Counter
 from pathlib import Path
 
+import cluster_labels as cl
 import numpy as np
 import torch
 
@@ -282,8 +283,11 @@ def activate(model_slug: str, proj_slug: str) -> None:
             f"python analysis/embed.py --model {model_slug} --proj {proj_slug} --no-recompute"
         )
 
-    with open(cl_path, encoding="utf-8") as f:
-        labels = json.load(f)
+    # Refuse to activate names that were written for another partition.
+    # KMeans numbering is arbitrary, so a relabelled run reuses all twenty
+    # names on the wrong clusters and nothing downstream can notice.
+    labels = cl.verify(cl_path, cl.fingerprint(paper_ids, cluster_ids))
+
     with open(ALL_JSON, encoding="utf-8") as f:
         papers = json.load(f)
 
@@ -382,15 +386,39 @@ def main() -> int:
         )
         logger.info(f"Saved {emb_path}")
 
+        # A fresh KMeans run renumbers the clusters, so any names already on
+        # disk now sit on the wrong groups. Say so here, at the moment it
+        # becomes true, rather than leaving the stale file to be found later
+        # by whoever reads the map legend. The file is not rewritten: those
+        # names are hand-written and are usually still the right twenty names
+        # in the wrong order, which is worth keeping while renaming.
+        fp = cl.fingerprint(paper_ids, cluster_ids)
         if not cl_path.exists():
-            placeholder = {
-                str(i): f"Cluster {i}" for i in range(args.n_clusters)
-            }
-            with open(cl_path, "w", encoding="utf-8") as f:
-                json.dump(placeholder, f, indent=2)
-            logger.info(
-                f"Created placeholder {cl_path}; edit cluster names before building charts"
+            cl.write(
+                cl_path,
+                {str(i): f"Cluster {i}" for i in range(args.n_clusters)},
+                fp,
+                args.model,
             )
+            logger.info(
+                f"Created placeholder {cl_path}; name the clusters before "
+                f"building charts (python analysis/describe_clusters.py "
+                f"{args.model})"
+            )
+        else:
+            _, stamped, _ = cl.read(cl_path)
+            if stamped != fp:
+                logger.warning(
+                    f"{cl_path} was written for a different clustering. Every "
+                    f"name in it is now on the wrong cluster, and the build "
+                    f"will refuse to use it. Re-read the clusters and rename:"
+                )
+                logger.warning(
+                    f"    python analysis/describe_clusters.py {args.model}"
+                )
+                logger.warning(
+                    f"    python analysis/describe_clusters.py --stamp {args.model}"
+                )
 
     # 2. Projections
     for proj_slug in projs_to_run:

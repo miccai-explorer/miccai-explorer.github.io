@@ -1,11 +1,11 @@
 # MICCAI Explorer
 
-[![build](https://github.com/miccai-explorer/miccai-explorer.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/miccai-explorer/miccai-explorer.github.io/actions/workflows/deploy.yml)
-[![tests](https://img.shields.io/endpoint?url=https%3A%2F%2Fmiccai-explorer.github.io%2Fbadges%2Ftests.json)](https://github.com/miccai-explorer/miccai-explorer.github.io/actions/workflows/deploy.yml)
 [![Ruff](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fastral-sh%2Fruff%2Fmain%2Fassets%2Fbadge%2Fv2.json)](https://github.com/astral-sh/ruff)
 [![uv](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fastral-sh%2Fuv%2Fmain%2Fassets%2Fbadge%2Fv0.json)](https://github.com/astral-sh/uv)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](pyproject.toml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![build](https://github.com/miccai-explorer/miccai-explorer.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/miccai-explorer/miccai-explorer.github.io/actions/workflows/deploy.yml)
+[![tests](https://img.shields.io/endpoint?url=https%3A%2F%2Fmiccai-explorer.github.io%2Fbadges%2Ftests.json)](https://github.com/miccai-explorer/miccai-explorer.github.io/actions/workflows/deploy.yml)
 
 [![live site](https://img.shields.io/website?url=https%3A%2F%2Fmiccai-explorer.github.io&label=live%20site&up_message=online&up_color=0891b2)](https://miccai-explorer.github.io/)
 [![papers](https://img.shields.io/badge/papers-3%2C717-0891b2)](https://miccai-explorer.github.io/papers.html)

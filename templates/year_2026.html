@@ -1,0 +1,146 @@
+{# MICCAI 2026: the partial year.
+
+   Built from the program booklet alone, months before the reviews exist. It
+   has its own template rather than conditionals inside year.html because the
+   state is temporary: when 2026 is scraped for real it flows through year.html
+   like any other year and this file is deleted. #}
+{% extends "base.html" %}
+{% block title %}MICCAI {{ year }} - MICCAI Explorer{% endblock %}
+
+{% block head %}
+<!-- Per-year accent: each year page is themed with its conference logo colors -->
+<style>
+  :root {
+    --accent:         {{ meta.color }};
+    --accent-bg:      {{ meta.accent_bg }};
+    --accent-on-dark: {{ meta.color_on_dark }};
+    --nav-active:     {{ meta.color }};
+    --strip-accent:   {{ meta.color }};
+  }
+</style>
+{% endblock %}
+
+{% block page_header %}
+<!-- Year logo header -->
+<div class="year-logo-header">
+  {% if meta.has_white_bg %}
+  <span class="year-logo-pill">
+    <img src="{{ base_url }}/assets/logos/{{ meta.logo }}"
+         alt="MICCAI {{ year }} {{ meta.city }}" class="year-logo-img logo-{{ year }}">
+  </span>
+  {% else %}
+  <img src="{{ base_url }}/assets/logos/{{ meta.logo }}"
+       alt="MICCAI {{ year }} {{ meta.city }}" class="year-logo-img logo-{{ year }}">
+  {% endif %}
+  <div class="year-title-block">
+    <div class="year-title">MICCAI {{ year }}</div>
+    <div class="year-city">{{ meta.city }}</div>
+  </div>
+</div>
+
+{# No placeholder tiles here. With Code and Avg Review Score would both be
+   dead, and a strip half full of "pending" reads as a broken page rather than
+   an honest one, so Acceptance Rate and Talks take those two slots. #}
+<div class="stat-strip">
+  <div class="stat-cell">
+    <div class="stat-label">Papers</div>
+    <div class="stat-value">{{ stats.n_papers | format_int }}</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-label">Unique Authors</div>
+    <div class="stat-value">{{ stats.n_authors | format_int }}</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-label">Acceptance Rate</div>
+    <div class="stat-value accent">{{ stats.pct_accept }}%</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-label">Talks</div>
+    <div class="stat-value">{{ stats.n_talks | format_int }}</div>
+  </div>
+</div>
+
+<!-- In-page section navigation -->
+<nav class="section-nav" aria-label="Page sections">
+  <a href="#sec-pending-map">Pending</a>
+  <a href="#sec-topics">Authors</a>
+  <a href="#sec-network">Co-authorship</a>
+  <a href="#sec-titles">Title Patterns</a>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="page-body">
+
+  <p class="card-sub" style="margin:0 0 4px;">
+    MICCAI {{ year }} accepted {{ stats.n_papers | format_int }} of
+    {{ stats.n_submitted | format_int }} submissions
+    ({{ stats.pct_accept }}%), of which
+    {% if stats.pct_early_subs_approx %}about {% endif %}{{ stats.pct_early_subs }}%
+    of all submissions were early-accepted. 
+    The <a href="https://conferences.miccai.org/2026/files/downloads/MICCAI2026-Oral-Spotlight-and-Poster-Schedule.pdf" target="_blank">program schedule</a> lists
+    {{ stats.n_orals }} orals and {{ stats.n_spotlights }} spotlights.
+    Since the peer-reviews are not published yet, everything on this page
+    has been derived from the published program schedule alone.
+  </p>
+
+  {# One card, not five. Seven identical grey boxes down a page reads as an
+     unfinished site; naming what is coming reads as a deliberate state. #}
+  <h2 class="section-heading" id="sec-pending-map">Semantic Map &amp; Subject Areas</h2>
+  <div class="card pending-card">
+    <p class="pending-title">Waiting on paper abstracts</p>
+    <p class="pending-text">
+      The semantic map's embeddings are
+      computed from the papers' titles and abstracts together. 
+      A title-only embedding would not be precise. This will therefore be
+      added when the proceedings are available.
+    </p>
+  </div>
+
+  <h2 class="section-heading" id="sec-topics">Authors</h2>
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-left">
+        <p class="card-title">Top 20 Authors</p>
+        <p class="card-sub">By paper count. Authors are matched by name.</p>
+      </div>
+    </div>
+    <iframe src="{{ base_url }}/charts/authors_{{ year }}.html"
+            class="chart-frame" height="{{ heights.authors }}" scrolling="no" frameborder="0" loading="lazy"></iframe>
+  </div>
+
+  <h2 class="section-heading" id="sec-network">Co-authorship Network</h2>
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-left">
+        <p class="card-title">Authors with ≥ {{ coauthor_min }} papers at MICCAI {{ year }}</p>
+        <p class="card-sub">Node size = paper count. Edge = shared authorship. Color = detected collaboration community; disconnected groups are laid out separately so they don't overlap the main cluster. Drag a node to reposition it, drag the background to pan, scroll to zoom. Authors are matched by name.</p>
+      </div>
+    </div>
+    <iframe src="{{ base_url }}/charts/coauthor_{{ year }}.html"
+            class="chart-frame" height="{{ heights.coauthor }}" scrolling="no" frameborder="0" loading="lazy"></iframe>
+  </div>
+
+  <h2 class="section-heading" id="sec-titles">Paper Title Patterns</h2>
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-left">
+        <p class="card-title">Title length and most common first words</p>
+        <p class="card-sub">Articles and prepositions excluded from first-word count</p>
+      </div>
+    </div>
+    <iframe src="{{ base_url }}/charts/naming_{{ year }}.html"
+            class="chart-frame" height="{{ heights.naming }}" scrolling="no" frameborder="0" loading="lazy"></iframe>
+  </div>
+
+  <div class="card pending-card">
+    <p class="pending-title">Waiting on peer reviews</p>
+    <p class="pending-text">
+      Score distributions, the controversy spread, the rebuttal flow, top
+      papers by reviewer score, and code-release rates all come from MICCAI's
+      published reviews. They will be added here when MICCAI 2026's reviews are released.
+    </p>
+  </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+# MICCAI 2026 conference facts, entered by hand from public announcements.
+#
+# WHY THIS FILE EXISTS RATHER THAN num_papers_submitted.yaml:
+# that file is read by analysis/build_charts.py for the Overview page's
+# Submissions and Early Accepted panels. A 2026 entry there would put a 2026 bar
+# on the Overview with no accepted-paper data behind it. 2026 has no reviews, no
+# abstracts and no subject areas yet, so it stays out of the cross-year charts
+# entirely and is read only by the 2026 year page. Delete this file when 2026 is
+# scraped for real and flows through normalize.py like every other year.
+#
+# Field names follow the per-year stats in analysis/build_site.py
+# (n_papers, n_authors, pct_early_subs, ...) so the template reads the same way.
+
+year: 2026
+
+# 1,166 papers accepted, counted from the program booklet
+# (data/manually_downloaded/OralSchedules/2026.pdf), which is also what every
+# chart on the page is built from.
+n_submitted: 4601
+n_accepted: 1166
+
+# Early accepts as a share of ALL SUBMISSIONS, not of accepted papers. The site
+# carries both under confusingly similar names; see the note on pct_early vs
+# pct_early_subs in analysis/build_site.py compute_year_stats().
+#
+# The exact figure is not public yet, only a rounded one, so the page renders it
+# as "~9%". Set _approx to false and put the exact value in once MICCAI publishes
+# it; nothing else needs changing.
+pct_early_subs: 9
+pct_early_subs_approx: true
+
+# Presentation counts from the program booklet. extract_program_2026.py treats a
+# disagreement between these and what it parses out of the session pages as a
+# hard error rather than a warning: a silently dropped talk would bias the
+# presentation-type breakdown with nothing on the page looking wrong.
+n_orals: 99
+n_spotlights: 54
+
+# Minimum papers per author to appear in the co-authorship network. 6 matches
+# 2023, 2024 and 2025 in config.yaml; the smaller 2021 and 2022 use 4. 2026 is
+# the largest year so far, so 6 is the floor, not a starting guess. Tune upward
+# if the rendered network is too dense to read.
+coauthor_min: 6

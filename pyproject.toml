@@ -1,6 +1,6 @@
 [project]
 name = "miccai-explorer"
-version = "1.2.0"
+version = "1.4.0"
 description = "Interactive explorer for MICCAI papers and peer reviews, 2021-2025"
 readme = "README.md"
 requires-python = ">=3.10"
