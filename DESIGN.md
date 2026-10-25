@@ -195,6 +195,7 @@ primaries are skipped as data colors.
 
 | Year | Main (`color`) | Secondary (`color2`) | Cross-year designated color |
 |------|----------------|----------------------|------------------------------|
+| 2026 | `#293587` navy | `#00adf0` cyan       | `#5c3317` dark brown (off-logo) |
 | 2025 | `#2b50a3` blue | `#d2242b` red        | `#692f90` purple |
 | 2024 | `#2d835d` green| `#ce5258` rose       | `#2d835d` green  |
 | 2023 | `#559e39` green| `#e81e25` red        | `#e81e25` red    |
@@ -208,8 +209,18 @@ primaries are skipped as data colors.
   main for single-series charts, secondary for the paper-averages histogram.
 - **Cross-year charts** (Overview page + `map_all`): every year keeps its one
   designated color from `YEAR_COLORS` in `build_charts.py` (right column above).
-  These five are mutually CVD-distinguishable; bars always carry direct value
-  labels since brand colors can't be re-tuned for contrast.
+  Bars always carry direct value labels and a year axis, because brand colors
+  can't be re-tuned for contrast. **They are not all distinguishable under
+  colour-vision deficiency**, which this line used to claim. Simulated
+  (Machado 2009, CIELAB ΔE; below about 3 reads as one colour): under
+  protanopia 2022 navy and 2025 purple are ΔE 2.3, so the map legend cannot
+  be relied on by colour alone for that pair. 2026 was darkened to `#5c3317`
+  for this reason: the first brown, `#8b5a2b`, was ΔE 1.5 from 2023 red. Any
+  new year colour should be checked the same way. Measured 2026-10-24.
+- **2026 is off-logo.** All three 2026 logo primaries are blues that sit on
+  2021 cyan and 2022 navy; the accent fallback is the Orals page's spotlight
+  teal; amber was tried and read as the Orals page's `#d97706`. See CLAUDE.md
+  "Year identity colours".
 
 ---
 
@@ -217,7 +228,7 @@ primaries are skipped as data colors.
 
 The Orals page is the one place that deliberately does **not** use the per-year
 palettes above. Its subject is the type, not the year, and a reader comparing
-types across five years needs "oral" to look identical in every panel. Defined
+types across years needs "oral" to look identical in every panel. Defined
 once in `analysis/oral_stats.py` as `TYPE_COLORS`:
 
 | Type | Color | Rationale |
@@ -516,7 +527,7 @@ this page cannot change the appearance of any other. The table itself reuses
 two read as one scheme.
 
 **This page keeps the default teal accent** rather than taking a year theme,
-because it spans all five years at once.
+because it spans every year at once.
 
 | Component | Class | Specification |
 |---|---|---|
@@ -883,7 +894,7 @@ group centres), and Plotly then auto-ticked a `-0.5 … 4.5` range into
 
 | Cause | Fix |
 |---|---|
-| Year labels too wide (`2021` vs `2022`) | Shorten to `’21`. Never thin: dropping years from a five-year comparison loses the point of the chart |
+| Year labels too wide (`2021` vs `2022`) | Shorten to `’21`. Never thin: dropping years from a cross-year comparison loses the point of the chart |
 | Deliberate `tickvals` | Keep every k-th |
 | Explicit `dtick` (one tick per score point) | Widen the step, so ticks stay on whole values |
 | Automatic ticks | `nticks` |

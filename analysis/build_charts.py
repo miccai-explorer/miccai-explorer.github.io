@@ -131,6 +131,12 @@ YEAR_COLORS = {
     2023: "#e81e25",  # Vancouver red
     2024: "#2d835d",  # Marrakesh green
     2025: "#692f90",  # Daejeon purple
+    # Off-logo: all three 2026 primaries are blues that sit on 2021 cyan and
+    # 2022 navy, and the site accent is the Orals page's spotlight colour.
+    # Amber was tried and read as the Orals page's #d97706 (Oral vs
+    # spotlight, Not early-accepted). A mid brown (#8b5a2b) was ΔE 1.5 from
+    # 2023 red under simulated protanopia; this darker one is ΔE 19.
+    2026: "#5c3317",  # dark brown
 }
 
 # Per-year page palette: main + secondary chart colors from that year's logo primaries
@@ -807,6 +813,9 @@ RESPONSIVE_JS = """
           // Only a paper-referenced annotation can be a subplot heading; one
           // pinned to data coordinates travels with its own axis already.
           paper: (fa0.xref === "paper" && fa0.yref === "paper"),
+          // The axis a data-referenced x is measured on ("x", "x2", ...), so
+          // the wide path can place value labels in pixels; null for paper.
+          xref: (fa0.xref && fa0.xref !== "paper") ? fa0.xref : null,
           // Whether y ALONE is paper-referenced, which is the question the
           // above-the-plot placement asks. The two are not the same: code_*
           // pins "Year avg 51.0%" to the top of the figure in paper units but
@@ -918,7 +927,14 @@ RESPONSIVE_JS = """
         // records the authors chart's "multiples of 5 plus the max", and the
         // orals charts label explicit bar-group centres), and throwing those
         // away let Plotly auto-tick a tiny range into 0.01, 0.02, -0.49.
-        var labels = ox.ticktext || (ox.tickvals ? ox.tickvals.map(String) : null);
+        // A category axis with no explicit ticks labels each category with its
+        // own name, so the categories are its tick labels. Without this the
+        // year test below never saw orals_overview's "2021".."2026", and the
+        // sixth year made those ticks collide at 360px.
+        var catTicks = !ox.ticktext && !ox.tickvals && ox.type === "category" &&
+          ox.categories.length ? ox.categories : null;
+        var labels = ox.ticktext || (ox.tickvals ? ox.tickvals.map(String) : null) ||
+          catTicks;
         var allYears = labels && labels.length > 1 && labels.every(function (v) {
           return /^(19|20)[0-9][0-9]$/.test(String(v));
         });
@@ -926,7 +942,7 @@ RESPONSIVE_JS = """
           // Years shorten instead of thinning. Dropping every other year from
           // a five-year comparison loses data the chart exists to show; "'21"
           // costs about half the width and reads the same.
-          up[xn + ".tickvals"] = ox.tickvals;
+          up[xn + ".tickvals"] = ox.tickvals || catTicks;
           up[xn + ".ticktext"] = labels.map(function (v) {
             return "’" + String(v).slice(2);
           });
@@ -955,6 +971,8 @@ RESPONSIVE_JS = """
         up[xn + ".tickfont.size"] = ox.tickfont;
         up[xn + ".nticks"] = null;
         if (ox.tickvals) { up[xn + ".tickvals"] = ox.tickvals; up[xn + ".ticktext"] = ox.ticktext; }
+        // Undo the narrow path's category ticks; the build set none.
+        else if (ox.type === "category") { up[xn + ".tickvals"] = null; up[xn + ".ticktext"] = null; }
         if (typeof ox.dtick === "number") up[xn + ".dtick"] = ox.dtick;
       }
     }
@@ -1112,6 +1130,14 @@ RESPONSIVE_JS = """
           up["annotations[" + q2 + "].font.size"] =
             Math.max(9, Math.floor(plotW2 / (a2.text.length * 0.52)));
         }
+        // Feed the wide crowding test below. This `continue` used to skip the
+        // band collection entirely, so that test only ever saw empty bands
+        // and the wide path never shrank anything.
+        if (!(q2 in tmap) && a2.text) {
+          var wBand = (Math.round(a2.y * 100) / 100).toFixed(2);
+          (bands[wBand] = bands[wBand] || []).push({i: q2, w: wEst,
+            n: a2.text.length, f: a2.font, x: a2.x, xref: a2.xref});
+        }
         continue;
       }
       var estW = a2.text.length * newFont * 0.52;
@@ -1138,7 +1164,7 @@ RESPONSIVE_JS = """
       if (q2 in tmap) continue;
       var band = (Math.round(a2.y * 100) / 100).toFixed(2);
       (bands[band] = bands[band] || []).push({i: q2, w: estW, n: a2.text.length,
-                                             f: newFont});
+                                             f: newFont, x: a2.x, xref: a2.xref});
     }
 
     // Subplot headings: fit each one to the width of the panel it names, by
@@ -1169,7 +1195,43 @@ RESPONSIVE_JS = """
     // 768 and 1000px too: adjacent bars in a year sit close together, so this
     // was never only a phone problem. Shrinking fixes it without taking
     // anything off the desktop page, which is not this work's to change.
+    //
+    // A row of labels pinned to data x (the orals bars) is measured in pixels:
+    // those labels cluster three to a year rather than spreading evenly, so the
+    // even-slot estimate below thought a sixth year still fitted when the
+    // three-bar years overprinted by 12px at 1000px. Shrink to the tightest
+    // neighbour gap, and if 9px still does not fit, drop a label to a second
+    // line, but only one that actually collides, so two-bar years never move.
     if (!narrow) {
+      for (var pk in bands) {
+        var pg = bands[pk];
+        if (pg.length < 3) continue;
+        var ax0 = pg[0].xref;
+        var pfa = ax0 && gd._fullLayout[ax0.replace(/^x/, "xaxis")];
+        if (!pfa || typeof pfa.l2p !== "function" ||
+            !pg.every(function (e) { return e.xref === ax0; })) continue;
+        var pts = pg.map(function (e) {
+          return {i: e.i, n: e.n, f: e.f, px: pfa.l2p(e.x)};
+        }).sort(function (u, v) { return u.px - v.px; });
+        var fitF = pts[0].f;
+        for (var pp = 1; pp < pts.length; pp++) {
+          var gapP = pts[pp].px - pts[pp - 1].px;
+          var half = (pts[pp].n + pts[pp - 1].n) / 2 * 0.52;
+          fitF = Math.min(fitF, Math.floor((gapP - 6) / half));
+        }
+        var useF = Math.max(9, fitF);
+        var rowEnd = [-1e9, -1e9];
+        for (var pr = 0; pr < pts.length; pr++) {
+          var hw = pts[pr].n * useF * 0.52 / 2;
+          var r = (pts[pr].px - hw >= rowEnd[0] + 6) ? 0 :
+                  (pts[pr].px - hw >= rowEnd[1] + 6) ? 1 : 0;
+          rowEnd[r] = pts[pr].px + hw;
+          up["annotations[" + pts[pr].i + "].font.size"] = useF;
+          up["annotations[" + pts[pr].i + "].yshift"] =
+            (anns2[pts[pr].i].yshift || 0) - r * Math.round(useF * 1.35);
+        }
+        delete bands[pk];
+      }
       for (var wk in bands) {
         var wg = bands[wk];
         if (wg.length < 3) continue;
@@ -3389,6 +3451,12 @@ def chart_trends_overview(
             "margin": {"l": 6, "r": 6, "t": top_margin, "b": 22},
             "xaxis": {
                 "tickfont": {"size": 13.5},
+                # The years are numbers, so the axis is linear and Plotly
+                # picks its own tick step: with six years it chose 5 and
+                # labelled only 2025. Explicit ticks, not dtick=1, because
+                # RESPONSIVE_JS shortens year tickvals to 'YY on a phone
+                # but widens a dtick, which would drop every other year.
+                "tickvals": yr_labels,
                 "showgrid": False,
                 "linecolor": RULE,
             },
@@ -3489,6 +3557,7 @@ def chart_trends_overview(
                     "margin": {"l": 8, "r": 8, "t": 24, "b": 22},
                     "xaxis": {
                         "tickfont": {"size": 13.5},
+                        "tickvals": list(flip_years),  # see the bar panels
                         "showgrid": False,
                         "linecolor": RULE,
                     },
@@ -3727,13 +3796,41 @@ SUBJECT_ALIASES = {
     "Self-supervised learning": "Semi-/Weakly-/Self-supervised Learning",
     "Semi-supervised learning": "Semi-/Weakly-/Self-supervised Learning",
     "Weakly supervised learning": "Semi-/Weakly-/Self-supervised Learning",
+    # 2026 respelled most of the 2025 taxonomy. These keep the established
+    # name, so the captions that cite it stay true. Only one-to-one renames
+    # are merged; an area whose 2026 scope is wider (EEG / MEG / ECG / ...,
+    # Robotics / Intraoperative Imaging, Pelvis / Reproductive System, the
+    # two fairness tags) would draw the wider label as research growth.
+    # Lung / Thoracic is the exception: 143 papers in 2025, 149 in 2026.
+    "CT / X-ray": "CT / X-Ray",
+    "Computer-Aided Diagnosis": "Computer Aided Diagnosis",
+    "Computational / Integrative Pathology": (
+        "Computational (Integrative) Pathology"
+    ),
+    "Computational Anatomy & Physiology": "Computational Anatomy and Physiology",
+    "Fetal / Pediatric": "Fetal / Pediatric Imaging",
+    "Diffusion MRI": "MRI - Diffusion Imaging",
+    "Functional MRI": "MRI - Functional MRI",
+    "Nuclear Imaging / PET / SPECT": "Nuclear Imaging",
+    "Uncertainty Quantification": "Uncertainty",
+    "Planning & Simulation": "Planning and Simulation",
+    "Data Science in Surgery": "Data Science",
+    "Telemedicine & Mobile Health Imaging": (
+        "Telemedicine and Mobile Health Imaging Technologies"
+    ),
+    "Low-Cost / Point-of-Care Imaging": (
+        "Low-Cost and Point-of-Care Imaging Solutions"
+    ),
+    "Lung / Thoracic": "Lung",
 }
 
 
 def _canon_subject(label: str) -> str | None:
     """Canonical cross-year subject name, or None for dropped catch-alls."""
-    short = _short_subject(label)
-    if short in SUBJECT_DROP:
+    # .strip(): three 2025 tags carry stray whitespace or case (" Breast",
+    # " Skin", "Deep learning"), which split them from their area.
+    short = _short_subject(label).strip()
+    if short.lower() in {d.lower() for d in SUBJECT_DROP}:
         return None
     return SUBJECT_ALIASES.get(short, short)
 
@@ -4174,12 +4271,6 @@ def main() -> int:
     import build_oral_charts
 
     build_oral_charts.build_all(papers, year_cfg)
-
-    # 2026 charts (no-op without data/raw/miccai_2026_program.json). Must run
-    # before CHART_HEIGHTS is written below so its frame heights are recorded.
-    import build_2026_charts
-
-    build_2026_charts.build_all(sys.modules[__name__], network_renderer)
 
     # Hand the computed frame heights to build_site.py. Written even when
     # empty so a partial --years run cannot leave a stale file behind.

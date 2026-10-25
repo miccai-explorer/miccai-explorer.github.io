@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""MICCAI 2026 program booklet -> data/raw/miccai_2026_program.json.
+"""MICCAI 2026 program booklet -> data/raw/orals_2026.json (+ the full program).
 
 The booklet is two documents in one binding, and they need separate readers:
 
@@ -11,11 +11,23 @@ Every accepted paper gets a poster, so the second part is the complete paper
 list and the first only says which papers got a talk. That is why the type join
 happens inside this one document and needs nothing else.
 
-2026 has no reviews, no abstracts and no subject areas, so its output is read
-only by the 2026 year page and never enters miccai_all.json.
+Two outputs:
+
+  data/raw/orals_2026.json          the talks, in the same shape extract_orals.py
+                                    writes for 2021-2025, so match_orals.py joins
+                                    them to the scraped papers like any other year.
+                                    This is what the site uses.
+  data/raw/miccai_2026_program.json every paper with its board and presenter.
+                                    Built the 2026 page before the reviews were
+                                    released; no longer read by the site, kept
+                                    because it is the only record of who presented.
+
+The 2026 booklet needs its own reader rather than an oral_schedules entry for
+extract_orals.py: it is three columns, carries the poster table, and its talk
+pages name no paper IDs.
 
 Usage:
-    python analysis/extract_program_2026.py            # write the JSON
+    python analysis/extract_program_2026.py            # write both JSON files
     python analysis/extract_program_2026.py --dump     # print a sample only
 """
 
@@ -36,6 +48,7 @@ logger = logging.getLogger(__name__)
 
 PDF_PATH = Path("data/manually_downloaded/OralSchedules/2026.pdf")
 OUT_PATH = Path("data/raw/miccai_2026_program.json")
+ORALS_PATH = Path("data/raw/orals_2026.json")
 FACTS_PATH = Path("data/miccai_2026_facts.yaml")
 ALL_JSON = Path("data/processed/miccai_all.json")
 
@@ -369,6 +382,43 @@ def build(pdf_path: Path, facts: dict, lookup: dict) -> list:
     )
 
 
+def orals_document(talks: list) -> dict:
+    """Talks -> the orals_YYYY.json shape match_orals.py reads.
+
+    Sessions are numbered in booklet order. The booklet's talk pages print no
+    day per talk and no speaker the parser keeps, so `day` is empty and the
+    speaker fields are absent; match_orals.py uses the speaker only as a
+    tie-break, and every 2026 title is meant to match exactly.
+    """
+    sessions: dict = {}
+    for t in talks:
+        s = sessions.setdefault(
+            t["oral_session"],
+            {
+                "session_id": str(len(sessions) + 1),
+                "session_title": t["oral_session"],
+                "day": "",
+                "presentations": [],
+            },
+        )
+        s["presentations"].append(
+            {
+                "type": t["presentation_type"],
+                "title_raw": t["title"],
+                "authors_raw": [],
+                "speaker": None,
+                "order": len(s["presentations"]) + 1,
+            }
+        )
+    return {
+        "year": 2026,
+        "source_pdf": str(PDF_PATH),
+        "n_sessions": len(sessions),
+        "n_presentations": len(talks),
+        "sessions": list(sessions.values()),
+    }
+
+
 def main() -> int:
     import yaml
 
@@ -376,7 +426,11 @@ def main() -> int:
     lookup = build_lookup(
         json.loads(ALL_JSON.read_text()) if ALL_JSON.exists() else []
     )
-    records = build(PDF_PATH, facts, lookup)
+    talks = parse_talks(PDF_PATH)
+    # The join is still run for its checks even though the site now reads
+    # orals_2026.json: every talk must join to exactly one booklet paper, and
+    # the type counts must match the facts file.
+    records = join_types(parse_posters(PDF_PATH, lookup), talks, facts)
 
     if "--dump" in sys.argv:
         for r in records[:25]:
@@ -389,6 +443,12 @@ def main() -> int:
     records.sort(key=lambda r: r["paper_id"])
     OUT_PATH.write_text(json.dumps(records, indent=1, ensure_ascii=False))
     logger.info(f"Wrote {OUT_PATH} with {len(records)} records")
+    orals = orals_document(talks)
+    ORALS_PATH.write_text(json.dumps(orals, indent=1, ensure_ascii=False))
+    logger.info(
+        f"Wrote {ORALS_PATH}: {orals['n_presentations']} talks in "
+        f"{orals['n_sessions']} sessions"
+    )
     return 0
 
 

@@ -1897,7 +1897,7 @@
    "Yan, Siyuan",
    "Xue, Xiangyi",
    "Shen, Yaling",
-   "de Oliveira, Guilherme Camargo",
+   "Camargo de Oliveira, Guilherme",
    "Fong, Stephanie",
    "Xu, Qingyang",
    "Wang, Zimu",
@@ -2891,7 +2891,7 @@
   "title": "Diffusion-Guided Anatomical Position Encoding for Dense Longitudinal CT Correspondence",
   "authors": [
    "Zhuang, Mingrui",
-   "Zhang, Songyao",
+   "Zhang, SongYao",
    "Zhang, Qinhe",
    "Xu, Rui",
    "Liu, Ailian",
@@ -4029,7 +4029,7 @@
   "title": "Semantic Feature Modulation for Mammographic Lesion Classification",
   "authors": [
    "Mahpod, Shahar",
-   "Artzi, Gil Ben"
+   "Ben Artzi, Gil"
   ],
   "presenter": "Ben-Artzi, Gil",
   "presenter_affiliation": "Ariel University",
@@ -5343,7 +5343,7 @@
    "Balachandran, Abishek",
    "Behrens, Carmen",
    "Salvatierra, Maria Esther",
-   "Soto, Luisa Maren Solis",
+   "Solis Soto, Luisa Maren",
    "Young, Chingyi",
    "Yuan, Yinyin",
    "Wu, Chengyue"
@@ -5596,7 +5596,7 @@
    "Zhang, Zeyu",
    "Azadi, Puria",
    "Maneshgar, Behnam",
-   "Mirabadi, Ali Khajegili",
+   "Khajegili Mirabadi, Ali",
    "Alabi, Nikolay",
    "Farahani, Hossein",
    "Bashashati, Ali"
@@ -5982,7 +5982,7 @@
   "authors": [
    "Hu, Yuanyun",
    "Wang, Yuli",
-   "Rodriguez, Noemi Acevedo",
+   "Acevedo Rodriguez, Noemi",
    "Yang, Ronald",
    "Hsu, Wen-Chi",
    "Luo, Siwei",
@@ -6017,7 +6017,7 @@
   "board_number": "M-PM-059",
   "title": "Robust automatic brain vessel segmentation in 3D CTA scans using dynamic 4D-CTA data",
   "authors": [
-   "Arroyo, Alberto Mario Ceballos",
+   "Ceballos Arroyo, Alberto Mario",
    "Yadav, Shrikanth M.",
    "Lin, Chu-Hsuan",
    "Kim, Jisoo",
@@ -6025,7 +6025,7 @@
    "Qin, Lei",
    "Jiang, Huaizu"
   ],
-  "presenter": "Arroyo, Alberto Mario Ceballos",
+  "presenter": "Ceballos Arroyo, Alberto Mario",
   "presenter_affiliation": "Northeastern University",
   "presenter_country": "United States",
   "presentation_type": "poster",
@@ -6938,7 +6938,7 @@
    "Yan, Zipei",
    "Liu, Zhengji",
    "Wang, Shuai",
-   "Chun, Rachel Ka-Man",
+   "Chun, Rachel Ka-man",
    "Zhou, Yongjin",
    "Kee, Chea-su",
    "Liang, Dong"
@@ -7116,7 +7116,7 @@
    "Wijsman, Koen J. H.",
    "Engels, Megan M. L.",
    "Boekestijn, Bas",
-   "Feshtali, Shirin Shahbazi",
+   "Shahbazi Feshtali, Shirin",
    "van Leerdam, Monique E.",
    "Broersen, Alexander",
    "van Hooft, Jeanin E.",
@@ -7445,12 +7445,12 @@
   "board_number": "W-PM-066",
   "title": "Differential privacy representation geometry for medical image analysis",
   "authors": [
-   "Arasteh, Soroosh Tayebi",
+   "Tayebi Arasteh, Soroosh",
    "Mohammadi, Marziyeh",
    "Nebelung, Sven",
    "Truhn, Daniel"
   ],
-  "presenter": "Arasteh, Soroosh Tayebi",
+  "presenter": "Tayebi Arasteh, Soroosh",
   "presenter_affiliation": "University Hospital RWTH Aachen",
   "presenter_country": "Germany",
   "presentation_type": "poster",
@@ -7485,7 +7485,7 @@
    "Liu, Daiqi",
    "Mulzer, Lukas",
    "Hasan, Md",
-   "de Castro, Nyvenn Alves",
+   "Alves de Castro, Nyvenn",
    "Xing, Fangxu",
    "Kang, Xingjian",
    "Ye, Chengze",
@@ -8460,7 +8460,7 @@
    "Andratschke, Nicolaus",
    "Guckenberger, Matthias",
    "Tanadini-Lang, Stephanie",
-   "Bello, Riccardo Dal"
+   "Dal Bello, Riccardo"
   ],
   "presenter": "Lapaeva, Mariia",
   "presenter_affiliation": "University Hospital Zurich and University of Zurich",
@@ -8524,7 +8524,7 @@
    "Bodien, Yelena G.",
    "Patel, Mayur B.",
    "Trujillo, Paula",
-   "Martinez, Yency Forero",
+   "Forero Martinez, Yency",
    "Deppen, Stephen A.",
    "Grogan, Eric L.",
    "Maldonado, Fabien",
@@ -9296,7 +9296,7 @@
   "authors": [
    "Hasin, Daria",
    "Bermano, Amit H.",
-   "Gonik, Udi Sadeh",
+   "Sadeh Gonik, Udi",
    "Aizenstein, Orna",
    "Ben Bashat, Dafna"
   ],
@@ -10108,7 +10108,7 @@
   "board_number": "W-PM-085",
   "title": "Physics-Based iOCT Sonification for Real-Time Interaction Awareness in Subretinal Injection",
   "authors": [
-   "Vargas, Luis D. Reyes",
+   "Reyes Vargas, Luis D.",
    "Ruozzi, Veronica",
    "Ross, Andrea K. M.",
    "Dehghani, Shervin",
@@ -11653,7 +11653,7 @@
    "Li, Qiaoxin",
    "Pan, Caini",
    "Comby, Pierre-Antoine",
-   "Radhakrishna, Chaithya Giliyar",
+   "Giliyar Radhakrishna, Chaithya",
    "Ciuciu, Philippe"
   ],
   "presenter": "Li, Qiaoxin",
@@ -11933,7 +11933,7 @@
   "authors": [
    "Pham, Duy Khoa",
    "Giritharan, Dinesh",
-   "de Oliveira, Guilherme Camargo",
+   "Camargo de Oliveira, Guilherme",
    "Vo, Bao Quoc",
    "Verspoor, Karin",
    "Law, Meng",
@@ -13973,7 +13973,7 @@
    "Iriondo-Coysh, Amaya",
    "Tsai-Goodman, Beverly",
    "Carvalho, Julene",
-   "Costa, Fabricio da Silva",
+   "da Silva Costa, Fabricio",
    "Savvidou, Makrina",
    "Patey, Olga",
    "Papageorghiou, Aris T.",
@@ -14898,7 +14898,7 @@
    "Boccarato, Florencia",
    "Bounazou, Fahym",
    "Lee, Hye Lim",
-   "Penna, Raphaele Renard",
+   "Renard Penna, Raphaele",
    "Delingette, Hervé"
   ],
   "presenter": "Boccarato, Florencia",
@@ -15167,7 +15167,7 @@
    "Zhao, Jingkang",
    "Ahmadi, Seyed-Ahmad",
    "Decker, Julian",
-   "Eulenburg, Peter zu",
+   "zu Eulenburg, Peter",
    "Zwergal, Andreas",
    "Flanagin, Virginia L.",
    "Wuehr, Max"
@@ -16002,7 +16002,7 @@
   "authors": [
    "Kim, Taehyo",
    "Eads, Amanda",
-   "Mcfee, Brian",
+   "McFee, Brian",
    "McAllister, Tara",
    "Shu, Hai"
   ],
@@ -16128,7 +16128,7 @@
   "board_number": "T-PM-175",
   "title": "MASurv: Risk-Conditional Martingale Adversarial Training for Calibrated Multi-Slide Survival Prediction in Whole-Slide Histopathology Images",
   "authors": [
-   "Rad, Meghdad Sabouri",
+   "Sabouri Rad, Meghdad",
    "Huang, Vincent",
    "Hosseini, Mohammad Mehdi",
    "Nikbakhtsarvestani, Farzaneh",
@@ -16154,7 +16154,7 @@
    "Bintsi, Kyriaki-Margarita",
    "Makharia, Sparsh",
    "Balbastre, Yaël",
-   "Avila, Joselyn Romero",
+   "Romero Avila, Joselyn",
    "Lehman, Julia F.",
    "Haber, Suzanne N.",
    "Yendiki, Anastasia"
@@ -17179,14 +17179,14 @@
   "board_number": "W-PM-158",
   "title": "Proxy-CAC: Learning Coronary Calcium Segmentation from Volume-Level Scores",
   "authors": [
-   "Imuro, Sandra Emi Sato",
+   "Sato Imuro, Sandra Emi",
    "Khan, Salman Siddique",
    "Balakrishnan, Guha",
    "Alkhaleefah, Mohammad",
    "Al-Kindi, Sadeer",
    "Sabharwal, Ashutosh"
   ],
-  "presenter": "Imuro, Sandra Emi Sato",
+  "presenter": "Sato Imuro, Sandra Emi",
   "presenter_affiliation": "Rice University",
   "presenter_country": "United States",
   "presentation_type": "poster",
@@ -17222,9 +17222,9 @@
   "authors": [
    "Shailya, Krithi",
    "Ravi, Ananya Lakshmi",
-   "V., Venkatanathan K.",
-   "Sundaram, Sowmya S.",
-   "Krishnan, Gokul S.",
+   "K. V., Venkatanathan",
+   "S. Sundaram, Sowmya",
+   "S. Krishnan, Gokul",
    "Anand, Aditi",
    "Ravindran, Balaraman"
   ],
@@ -17403,7 +17403,7 @@
   "authors": [
    "Khan, Ufaq",
    "Nawaz, Umair",
-   "Teja, Lekkala Sai",
+   "Sai Teja, Lekkala",
    "Saeed, Numan",
    "Bilal, Muhammad",
    "Xie, Yutong",
@@ -18267,7 +18267,7 @@
   "title": "Interpretable Structure-Function Coupling via State-Space Models for Brain Connectome Analysis",
   "authors": [
    "Niwarthana, Amashi",
-   "Bin Dzulkarnain, Hamka",
+   "Dzulkarnain, Hamka Bin",
    "Jing, Xia",
    "Rajapakse, Jagath C."
   ],
@@ -19354,7 +19354,7 @@
   "authors": [
    "Aytutuldu, Ilhan",
    "Yassa, Murat",
-   "Ilter, Pinar Birol",
+   "Birol Ilter, Pinar",
    "Ilhan, Sevval",
    "Erdem, Rumeysa Elif",
    "Unlu, Umur Goktug",
@@ -19942,7 +19942,7 @@
   "authors": [
    "Painchaud, Nathan",
    "Habémont, Tristan",
-   "Ligneris, Morgane des",
+   "des Ligneris, Morgane",
    "Serva, Allan",
    "Croisille, Pierre",
    "Bertoletti, Laurent",
@@ -20455,15 +20455,15 @@
   "board_number": "T-AM-205",
   "title": "Making HE Histopathological Images More Colorful by Conditional Flow Matching",
   "authors": [
-   "Omrane, Mohamed Salim Ben",
+   "Ben Omrane, Mohamed Salim",
    "Martin, Ségolène",
    "Kaaniche, Mounir",
    "Laurent-Bellue, Astrid",
-   "Souid, Wided Miled",
+   "Miled Souid, Wided",
    "Guettier, Catherine",
    "Pesquet, Jean-Christophe"
   ],
-  "presenter": "Omrane, Mohamed Salim Ben",
+  "presenter": "Ben Omrane, Mohamed Salim",
   "presenter_affiliation": "Centre de Vision Numérique, Université Paris-Saclay, Inria, CentraleSupélec",
   "presenter_country": "France",
   "presentation_type": "poster",
@@ -21169,7 +21169,7 @@
   "board_number": "T-AM-211",
   "title": "Through-Plane Attention for Anisotropic CT Super-Resolution Improves Quantitative Lung Cancer Analysis",
   "authors": [
-   "Martell, Marc Boubnovski",
+   "Boubnovski Martell, Marc",
    "Linton-Reid, Kristofer",
    "Chen, Mitchell",
    "Hindocha, Sumeet",
@@ -21179,7 +21179,7 @@
    "Posma, Joram M.",
    "Aboagye, Eric O."
   ],
-  "presenter": "Martell, Marc Boubnovski",
+  "presenter": "Boubnovski Martell, Marc",
   "presenter_affiliation": "Imperial College London",
   "presenter_country": "United Kingdom",
   "presentation_type": "poster",
@@ -21276,7 +21276,7 @@
    "Lakshmanan, Manojkumar",
    "Sivaprakasam, Mohanasankar"
   ],
-  "presenter": "Prasanna, Anusha Amba",
+  "presenter": "Amba Prasanna, Anusha",
   "presenter_affiliation": "Indian Institute of Technology, Madras(IITM)",
   "presenter_country": "India",
   "presentation_type": "poster",
@@ -21690,7 +21690,7 @@
    "Misawa, Shuhei",
    "Duhaime, Erik",
    "Hallisey, Stephen",
-   "Mendicuti, Alejandra Duran",
+   "Duran Mendicuti, Alejandra",
    "Duggan, Nicole",
    "Abolmaesumi, Purang",
    "Harrison, Nicholas",
@@ -21760,7 +21760,7 @@
    "Mikhelson, German",
    "Lange, Annalena",
    "Rüber, Theodor",
-   "Group, MELD Working",
+   "Working Group, MELD",
    "Schultz, Thomas"
   ],
   "presenter": "Mikhelson, German",
@@ -21883,7 +21883,7 @@
    "Bustos-Vivas, Maria Camila",
    "Tripathy, Smiti",
    "Aviles Verdera, Jordina",
-   "de Castro, Nyvenn Alves",
+   "Alves de Castro, Nyvenn",
    "Hutter, Jana"
   ],
   "presenter": "Bustos-Vivas, Maria Camila",
@@ -22176,7 +22176,7 @@
   "title": "Understanding Model Behavior in Monocular Polyp Sizing",
   "authors": [
    "Xiong, Xinqi",
-   "Beltran, Andrea Dunn",
+   "Dunn Beltran, Andrea",
    "Choi, Junmyeong",
    "McGill, Sarah K.",
    "Niethammer, Marc",
@@ -22307,9 +22307,9 @@
    "Cruz, Shirley",
    "Araujo, Jessica",
    "Borba, Paulo",
-   "Ren, Tsang Ing"
+   "Ing Ren, Tsang"
   ],
-  "presenter": "Ren, Tsang Ing",
+  "presenter": "Ing Ren, Tsang",
   "presenter_affiliation": "Universidade Federal de Pernambuco",
   "presenter_country": "Brazil",
   "presentation_type": "poster",
@@ -22325,7 +22325,7 @@
    "Kazerouni, Amirhossein",
    "Karimijafarbigloo, Sanaz",
    "Aghayari, Ali",
-   "Khorzoughi, Ali Ghasemzadeh",
+   "Ghasemzadeh Khorzoughi, Ali",
    "Azad, Reza",
    "Samek, Wojciech",
    "Merhof, Dorit",
@@ -22502,7 +22502,7 @@
   "board_number": "M-PM-221",
   "title": "Learning Class Difficulty via Dynamic Focal Attention for Histopathology Segmentation",
   "authors": [
-   "Mudiyanselage, Lakmali Nadeesha Kumari Rathukohe",
+   "Rathukohe Mudiyanselage, Lakmali Nadeesha Kumari",
    "Cheung, Sen-Ching Samson"
   ],
   "presenter": "Cheung, Sen-Ching Samson",
@@ -23070,7 +23070,7 @@
   "board_number": "M-PM-226",
   "title": "Trackerless Ultrasound Pose Estimation via Correspondence-aware Tokenization and Flow-Matching Transformers",
   "authors": [
-   "Kim, Sang-Yun",
+   "Kim, Sang-yun",
    "Oh, Seok-Hwan",
    "Kim, Myeong-Gee",
    "Kim, Young-Min",
@@ -23080,7 +23080,7 @@
    "Kwon, Hyuk-Sool",
    "Bae, Hyeon-Min"
   ],
-  "presenter": "Kim, Sang-Yun",
+  "presenter": "Kim, Sang-yun",
   "presenter_affiliation": "Korea Advanced Institute of Science and Technology (KAIST)",
   "presenter_country": "South Korea",
   "presentation_type": "poster",
@@ -23368,7 +23368,7 @@
   "authors": [
    "Rajasekar, Durga",
    "S, Swetha Lakshmi",
-   "R, Vishnu M",
+   "M R, Vishnu",
    "Maik, Vivek",
    "Lakshmanan, Manojkumar",
    "Sivaprakasam, Mohanasankar"
@@ -23407,7 +23407,7 @@
    "Fu, ZhiJia",
    "Zhang, Wei",
    "Zheng, RuiXi",
-   "Li, Yijie",
+   "Li, YiJie",
    "Huang, GuanLin",
    "Ning, Lipeng",
    "O’Donnell, Lauren J.",
@@ -23430,7 +23430,7 @@
    "B., Dharshan",
    "Hyagreev, Pranav",
    "Maik, Vivek",
-   "A., Suhail Ansari T.",
+   "Ansari T. A., Suhail",
    "Lakshmanan, Manojkumar",
    "Sivaprakasam, Mohanasankar"
   ],
@@ -23671,7 +23671,7 @@
    "Cacace, Paolo",
    "Taiello, Riccardo",
    "Protani, Andrea",
-   "Van den Bosch, Marc Molina",
+   "Molina Van den Bosch, Marc",
    "Santos, Diogo Reis",
    "Brutti, Pierpaolo",
    "Serio, Luigi"

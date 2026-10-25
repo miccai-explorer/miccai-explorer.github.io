@@ -225,12 +225,22 @@ months for exactly that reason.
    the host city. The site build resizes the logo and converts it to WebP, so
    there is no image step to remember; `python analysis/logo_assets.py` shows
    what it would write. `REPRODUCIBILITY.md` lists all of these as known manual
-   inputs.
+   inputs. Give the year an entry in both `YEAR_PALETTES` and `YEAR_COLORS` in
+   `analysis/build_charts.py`; `CLAUDE.md` ("Year identity colours") says what
+   the second one must avoid.
 3. If a program book exists, drop it in `data/manually_downloaded/OralSchedules/` and
    add a block under `oral_schedules:` in the root `config.yaml`.
    `python analysis/extract_orals.py --dump YYYY` prints the parse without writing
    anything, which is the fastest way to tune the parameters.
-4. Run stages 2 through 6 above.
+4. Run stage 2, then **extend** the embedding rather than re-running it:
+   `python analysis/embed.py --model specter2 --extend`. This places the new
+   papers in the existing twenty clusters. A plain re-run fits KMeans again,
+   which renumbers every cluster and voids the hand-written names.
+5. Compare the new year's subject-area names with the previous year's and add
+   one-to-one renames to `SUBJECT_ALIASES` in `analysis/build_charts.py`.
+6. Update the golden counts in `tests/test_papers_index.py`, run stages 4 through
+   6 above, and read every caption that names a year or an extreme; a new year
+   can make "smallest in 2025" false without any test noticing.
 
 **Verify before you trust it.** MICCAI's HTML has changed in ways that are invisible
 until you check: review numbering has gaps, meta-reviews sometimes appear without their

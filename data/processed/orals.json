@@ -4,7 +4,8 @@
     "2022": "data/raw/orals_2022.json",
     "2023": "data/raw/orals_2023.json",
     "2024": "data/raw/orals_2024.json",
-    "2025": "data/raw/orals_2025.json"
+    "2025": "data/raw/orals_2025.json",
+    "2026": "data/raw/orals_2026.json"
   },
   "summary": {
     "2021": {
@@ -72,6 +73,21 @@
       },
       "methods": {
         "exact": 112
+      }
+    },
+    "2026": {
+      "extracted": 153,
+      "matched": 153,
+      "skipped": 0,
+      "unmatched": 0,
+      "match_rate_pct": 100.0,
+      "types": {
+        "oral": 99,
+        "spotlight": 54
+      },
+      "methods": {
+        "exact": 152,
+        "fuzzy": 1
       }
     }
   },
@@ -2713,6 +2729,1077 @@
       "session_id": "14",
       "session_title": "Missing Data and Weak Supervision",
       "day": "Friday, September 26, 2025, 8:30 to 9:30",
+      "match": "exact"
+    },
+    "miccai-2026-Paper0111": {
+      "type": "oral",
+      "session_id": "1",
+      "session_title": "Image Segmentation I",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper4232": {
+      "type": "oral",
+      "session_id": "1",
+      "session_title": "Image Segmentation I",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper5245": {
+      "type": "oral",
+      "session_id": "1",
+      "session_title": "Image Segmentation I",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper0024": {
+      "type": "oral",
+      "session_id": "1",
+      "session_title": "Image Segmentation I",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper4373": {
+      "type": "oral",
+      "session_id": "1",
+      "session_title": "Image Segmentation I",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper1086": {
+      "type": "oral",
+      "session_id": "1",
+      "session_title": "Image Segmentation I",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper0554": {
+      "type": "spotlight",
+      "session_id": "1",
+      "session_title": "Image Segmentation I",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper3242": {
+      "type": "spotlight",
+      "session_id": "1",
+      "session_title": "Image Segmentation I",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper3539": {
+      "type": "spotlight",
+      "session_id": "1",
+      "session_title": "Image Segmentation I",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper6416": {
+      "type": "spotlight",
+      "session_id": "1",
+      "session_title": "Image Segmentation I",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper2035": {
+      "type": "spotlight",
+      "session_id": "1",
+      "session_title": "Image Segmentation I",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper5877": {
+      "type": "spotlight",
+      "session_id": "1",
+      "session_title": "Image Segmentation I",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper3498": {
+      "type": "oral",
+      "session_id": "2",
+      "session_title": "Computer-Aided Diagnosis I",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper3379": {
+      "type": "oral",
+      "session_id": "2",
+      "session_title": "Computer-Aided Diagnosis I",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper6461": {
+      "type": "oral",
+      "session_id": "2",
+      "session_title": "Computer-Aided Diagnosis I",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper3986": {
+      "type": "oral",
+      "session_id": "2",
+      "session_title": "Computer-Aided Diagnosis I",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper3797": {
+      "type": "oral",
+      "session_id": "2",
+      "session_title": "Computer-Aided Diagnosis I",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper4580": {
+      "type": "oral",
+      "session_id": "2",
+      "session_title": "Computer-Aided Diagnosis I",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper3393": {
+      "type": "spotlight",
+      "session_id": "2",
+      "session_title": "Computer-Aided Diagnosis I",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper5540": {
+      "type": "spotlight",
+      "session_id": "2",
+      "session_title": "Computer-Aided Diagnosis I",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper0830": {
+      "type": "spotlight",
+      "session_id": "2",
+      "session_title": "Computer-Aided Diagnosis I",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper5704": {
+      "type": "spotlight",
+      "session_id": "2",
+      "session_title": "Computer-Aided Diagnosis I",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper2033": {
+      "type": "spotlight",
+      "session_id": "2",
+      "session_title": "Computer-Aided Diagnosis I",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper5916": {
+      "type": "spotlight",
+      "session_id": "2",
+      "session_title": "Computer-Aided Diagnosis I",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper5031": {
+      "type": "oral",
+      "session_id": "3",
+      "session_title": "Image-Guided Interventions & Robotics",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper5166": {
+      "type": "oral",
+      "session_id": "3",
+      "session_title": "Image-Guided Interventions & Robotics",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper3881": {
+      "type": "oral",
+      "session_id": "3",
+      "session_title": "Image-Guided Interventions & Robotics",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper3144": {
+      "type": "oral",
+      "session_id": "3",
+      "session_title": "Image-Guided Interventions & Robotics",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper2933": {
+      "type": "oral",
+      "session_id": "3",
+      "session_title": "Image-Guided Interventions & Robotics",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper5794": {
+      "type": "oral",
+      "session_id": "3",
+      "session_title": "Image-Guided Interventions & Robotics",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper3901": {
+      "type": "spotlight",
+      "session_id": "3",
+      "session_title": "Image-Guided Interventions & Robotics",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper2814": {
+      "type": "spotlight",
+      "session_id": "3",
+      "session_title": "Image-Guided Interventions & Robotics",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper4826": {
+      "type": "spotlight",
+      "session_id": "3",
+      "session_title": "Image-Guided Interventions & Robotics",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper2068": {
+      "type": "spotlight",
+      "session_id": "3",
+      "session_title": "Image-Guided Interventions & Robotics",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper6533": {
+      "type": "spotlight",
+      "session_id": "3",
+      "session_title": "Image-Guided Interventions & Robotics",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper2423": {
+      "type": "spotlight",
+      "session_id": "3",
+      "session_title": "Image-Guided Interventions & Robotics",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper1811": {
+      "type": "oral",
+      "session_id": "4",
+      "session_title": "Image Segmentation II",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper4240": {
+      "type": "oral",
+      "session_id": "4",
+      "session_title": "Image Segmentation II",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper5158": {
+      "type": "oral",
+      "session_id": "4",
+      "session_title": "Image Segmentation II",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper2355": {
+      "type": "oral",
+      "session_id": "4",
+      "session_title": "Image Segmentation II",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper4515": {
+      "type": "oral",
+      "session_id": "4",
+      "session_title": "Image Segmentation II",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper3503": {
+      "type": "oral",
+      "session_id": "5",
+      "session_title": "Outcome Prediction & Longitudinal Modeling",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper1911": {
+      "type": "oral",
+      "session_id": "5",
+      "session_title": "Outcome Prediction & Longitudinal Modeling",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper3479": {
+      "type": "oral",
+      "session_id": "5",
+      "session_title": "Outcome Prediction & Longitudinal Modeling",
+      "day": "",
+      "match": "fuzzy"
+    },
+    "miccai-2026-Paper0828": {
+      "type": "oral",
+      "session_id": "5",
+      "session_title": "Outcome Prediction & Longitudinal Modeling",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper5470": {
+      "type": "oral",
+      "session_id": "5",
+      "session_title": "Outcome Prediction & Longitudinal Modeling",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper3442": {
+      "type": "oral",
+      "session_id": "6",
+      "session_title": "Emerging Applications & Methods",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper1769": {
+      "type": "oral",
+      "session_id": "6",
+      "session_title": "Emerging Applications & Methods",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper3273": {
+      "type": "oral",
+      "session_id": "6",
+      "session_title": "Emerging Applications & Methods",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper0729": {
+      "type": "oral",
+      "session_id": "6",
+      "session_title": "Emerging Applications & Methods",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper2947": {
+      "type": "oral",
+      "session_id": "6",
+      "session_title": "Emerging Applications & Methods",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper0712": {
+      "type": "oral",
+      "session_id": "7",
+      "session_title": "Computer-Aided Diagnosis II",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper6594": {
+      "type": "oral",
+      "session_id": "7",
+      "session_title": "Computer-Aided Diagnosis II",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper6624": {
+      "type": "oral",
+      "session_id": "7",
+      "session_title": "Computer-Aided Diagnosis II",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper4543": {
+      "type": "oral",
+      "session_id": "7",
+      "session_title": "Computer-Aided Diagnosis II",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper2160": {
+      "type": "oral",
+      "session_id": "7",
+      "session_title": "Computer-Aided Diagnosis II",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper0048": {
+      "type": "oral",
+      "session_id": "8",
+      "session_title": "Computational Pathology",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper3815": {
+      "type": "oral",
+      "session_id": "8",
+      "session_title": "Computational Pathology",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper1286": {
+      "type": "oral",
+      "session_id": "8",
+      "session_title": "Computational Pathology",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper3854": {
+      "type": "oral",
+      "session_id": "8",
+      "session_title": "Computational Pathology",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper1327": {
+      "type": "oral",
+      "session_id": "8",
+      "session_title": "Computational Pathology",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper1603": {
+      "type": "oral",
+      "session_id": "9",
+      "session_title": "Interventions, Connectivity & Other",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper6213": {
+      "type": "oral",
+      "session_id": "9",
+      "session_title": "Interventions, Connectivity & Other",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper2058": {
+      "type": "oral",
+      "session_id": "9",
+      "session_title": "Interventions, Connectivity & Other",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper0579": {
+      "type": "oral",
+      "session_id": "9",
+      "session_title": "Interventions, Connectivity & Other",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper6182": {
+      "type": "oral",
+      "session_id": "9",
+      "session_title": "Interventions, Connectivity & Other",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper0293": {
+      "type": "oral",
+      "session_id": "10",
+      "session_title": "Image Synthesis & Generative Models",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper5073": {
+      "type": "oral",
+      "session_id": "10",
+      "session_title": "Image Synthesis & Generative Models",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper4691": {
+      "type": "oral",
+      "session_id": "10",
+      "session_title": "Image Synthesis & Generative Models",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper2041": {
+      "type": "oral",
+      "session_id": "10",
+      "session_title": "Image Synthesis & Generative Models",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper4757": {
+      "type": "oral",
+      "session_id": "10",
+      "session_title": "Image Synthesis & Generative Models",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper4880": {
+      "type": "oral",
+      "session_id": "10",
+      "session_title": "Image Synthesis & Generative Models",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper2804": {
+      "type": "spotlight",
+      "session_id": "10",
+      "session_title": "Image Synthesis & Generative Models",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper2626": {
+      "type": "spotlight",
+      "session_id": "10",
+      "session_title": "Image Synthesis & Generative Models",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper4342": {
+      "type": "spotlight",
+      "session_id": "10",
+      "session_title": "Image Synthesis & Generative Models",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper1951": {
+      "type": "spotlight",
+      "session_id": "10",
+      "session_title": "Image Synthesis & Generative Models",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper0707": {
+      "type": "spotlight",
+      "session_id": "10",
+      "session_title": "Image Synthesis & Generative Models",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper1477": {
+      "type": "spotlight",
+      "session_id": "10",
+      "session_title": "Image Synthesis & Generative Models",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper2301": {
+      "type": "oral",
+      "session_id": "11",
+      "session_title": "Anomaly & Lesion Detection",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper3814": {
+      "type": "oral",
+      "session_id": "11",
+      "session_title": "Anomaly & Lesion Detection",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper2915": {
+      "type": "oral",
+      "session_id": "11",
+      "session_title": "Anomaly & Lesion Detection",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper0549": {
+      "type": "oral",
+      "session_id": "11",
+      "session_title": "Anomaly & Lesion Detection",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper1627": {
+      "type": "oral",
+      "session_id": "11",
+      "session_title": "Anomaly & Lesion Detection",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper1039": {
+      "type": "oral",
+      "session_id": "11",
+      "session_title": "Anomaly & Lesion Detection",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper2039": {
+      "type": "spotlight",
+      "session_id": "11",
+      "session_title": "Anomaly & Lesion Detection",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper3355": {
+      "type": "spotlight",
+      "session_id": "11",
+      "session_title": "Anomaly & Lesion Detection",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper4365": {
+      "type": "spotlight",
+      "session_id": "11",
+      "session_title": "Anomaly & Lesion Detection",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper4982": {
+      "type": "spotlight",
+      "session_id": "11",
+      "session_title": "Anomaly & Lesion Detection",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper1178": {
+      "type": "spotlight",
+      "session_id": "11",
+      "session_title": "Anomaly & Lesion Detection",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper5454": {
+      "type": "spotlight",
+      "session_id": "11",
+      "session_title": "Anomaly & Lesion Detection",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper4853": {
+      "type": "oral",
+      "session_id": "12",
+      "session_title": "Diagnosis, Analysis & Modeling",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper3568": {
+      "type": "oral",
+      "session_id": "12",
+      "session_title": "Diagnosis, Analysis & Modeling",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper2961": {
+      "type": "oral",
+      "session_id": "12",
+      "session_title": "Diagnosis, Analysis & Modeling",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper1756": {
+      "type": "oral",
+      "session_id": "12",
+      "session_title": "Diagnosis, Analysis & Modeling",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper3034": {
+      "type": "oral",
+      "session_id": "12",
+      "session_title": "Diagnosis, Analysis & Modeling",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper5377": {
+      "type": "oral",
+      "session_id": "12",
+      "session_title": "Diagnosis, Analysis & Modeling",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper2681": {
+      "type": "spotlight",
+      "session_id": "12",
+      "session_title": "Diagnosis, Analysis & Modeling",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper4859": {
+      "type": "spotlight",
+      "session_id": "12",
+      "session_title": "Diagnosis, Analysis & Modeling",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper6082": {
+      "type": "spotlight",
+      "session_id": "12",
+      "session_title": "Diagnosis, Analysis & Modeling",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper5194": {
+      "type": "spotlight",
+      "session_id": "12",
+      "session_title": "Diagnosis, Analysis & Modeling",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper5740": {
+      "type": "spotlight",
+      "session_id": "12",
+      "session_title": "Diagnosis, Analysis & Modeling",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper5367": {
+      "type": "spotlight",
+      "session_id": "12",
+      "session_title": "Diagnosis, Analysis & Modeling",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper5539": {
+      "type": "oral",
+      "session_id": "13",
+      "session_title": "Image Segmentation III",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper2490": {
+      "type": "oral",
+      "session_id": "13",
+      "session_title": "Image Segmentation III",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper6571": {
+      "type": "oral",
+      "session_id": "13",
+      "session_title": "Image Segmentation III",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper6055": {
+      "type": "oral",
+      "session_id": "13",
+      "session_title": "Image Segmentation III",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper3039": {
+      "type": "oral",
+      "session_id": "13",
+      "session_title": "Image Segmentation III",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper3704": {
+      "type": "oral",
+      "session_id": "14",
+      "session_title": "Image Synthesis & Digital Twins",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper4807": {
+      "type": "oral",
+      "session_id": "14",
+      "session_title": "Image Synthesis & Digital Twins",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper3913": {
+      "type": "oral",
+      "session_id": "14",
+      "session_title": "Image Synthesis & Digital Twins",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper1196": {
+      "type": "oral",
+      "session_id": "14",
+      "session_title": "Image Synthesis & Digital Twins",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper2090": {
+      "type": "oral",
+      "session_id": "14",
+      "session_title": "Image Synthesis & Digital Twins",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper6341": {
+      "type": "oral",
+      "session_id": "15",
+      "session_title": "Pathology, Anatomy & Lesion Analysis",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper3072": {
+      "type": "oral",
+      "session_id": "15",
+      "session_title": "Pathology, Anatomy & Lesion Analysis",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper3726": {
+      "type": "oral",
+      "session_id": "15",
+      "session_title": "Pathology, Anatomy & Lesion Analysis",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper1405": {
+      "type": "oral",
+      "session_id": "15",
+      "session_title": "Pathology, Anatomy & Lesion Analysis",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper0902": {
+      "type": "oral",
+      "session_id": "15",
+      "session_title": "Pathology, Anatomy & Lesion Analysis",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper1186": {
+      "type": "oral",
+      "session_id": "16",
+      "session_title": "Image Reconstruction",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper5438": {
+      "type": "oral",
+      "session_id": "16",
+      "session_title": "Image Reconstruction",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper1735": {
+      "type": "oral",
+      "session_id": "16",
+      "session_title": "Image Reconstruction",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper2497": {
+      "type": "oral",
+      "session_id": "16",
+      "session_title": "Image Reconstruction",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper2414": {
+      "type": "oral",
+      "session_id": "16",
+      "session_title": "Image Reconstruction",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper2443": {
+      "type": "oral",
+      "session_id": "16",
+      "session_title": "Image Reconstruction",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper2065": {
+      "type": "spotlight",
+      "session_id": "16",
+      "session_title": "Image Reconstruction",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper0959": {
+      "type": "spotlight",
+      "session_id": "16",
+      "session_title": "Image Reconstruction",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper4108": {
+      "type": "spotlight",
+      "session_id": "16",
+      "session_title": "Image Reconstruction",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper0972": {
+      "type": "spotlight",
+      "session_id": "16",
+      "session_title": "Image Reconstruction",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper1776": {
+      "type": "spotlight",
+      "session_id": "16",
+      "session_title": "Image Reconstruction",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper1581": {
+      "type": "spotlight",
+      "session_id": "16",
+      "session_title": "Image Reconstruction",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper0019": {
+      "type": "oral",
+      "session_id": "17",
+      "session_title": "Multimodal Integration & Outcome Prediction",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper3598": {
+      "type": "oral",
+      "session_id": "17",
+      "session_title": "Multimodal Integration & Outcome Prediction",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper5443": {
+      "type": "oral",
+      "session_id": "17",
+      "session_title": "Multimodal Integration & Outcome Prediction",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper1181": {
+      "type": "oral",
+      "session_id": "17",
+      "session_title": "Multimodal Integration & Outcome Prediction",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper4615": {
+      "type": "oral",
+      "session_id": "17",
+      "session_title": "Multimodal Integration & Outcome Prediction",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper4151": {
+      "type": "oral",
+      "session_id": "17",
+      "session_title": "Multimodal Integration & Outcome Prediction",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper3827": {
+      "type": "spotlight",
+      "session_id": "17",
+      "session_title": "Multimodal Integration & Outcome Prediction",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper4642": {
+      "type": "spotlight",
+      "session_id": "17",
+      "session_title": "Multimodal Integration & Outcome Prediction",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper3331": {
+      "type": "spotlight",
+      "session_id": "17",
+      "session_title": "Multimodal Integration & Outcome Prediction",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper5759": {
+      "type": "spotlight",
+      "session_id": "17",
+      "session_title": "Multimodal Integration & Outcome Prediction",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper1799": {
+      "type": "spotlight",
+      "session_id": "17",
+      "session_title": "Multimodal Integration & Outcome Prediction",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper0011": {
+      "type": "spotlight",
+      "session_id": "17",
+      "session_title": "Multimodal Integration & Outcome Prediction",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper6153": {
+      "type": "oral",
+      "session_id": "18",
+      "session_title": "Image Registration & Computational Anatomy",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper1472": {
+      "type": "oral",
+      "session_id": "18",
+      "session_title": "Image Registration & Computational Anatomy",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper3666": {
+      "type": "oral",
+      "session_id": "18",
+      "session_title": "Image Registration & Computational Anatomy",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper3731": {
+      "type": "oral",
+      "session_id": "18",
+      "session_title": "Image Registration & Computational Anatomy",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper1789": {
+      "type": "oral",
+      "session_id": "18",
+      "session_title": "Image Registration & Computational Anatomy",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper5263": {
+      "type": "oral",
+      "session_id": "18",
+      "session_title": "Image Registration & Computational Anatomy",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper2641": {
+      "type": "spotlight",
+      "session_id": "18",
+      "session_title": "Image Registration & Computational Anatomy",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper5216": {
+      "type": "spotlight",
+      "session_id": "18",
+      "session_title": "Image Registration & Computational Anatomy",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper2403": {
+      "type": "spotlight",
+      "session_id": "18",
+      "session_title": "Image Registration & Computational Anatomy",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper5316": {
+      "type": "spotlight",
+      "session_id": "18",
+      "session_title": "Image Registration & Computational Anatomy",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper5527": {
+      "type": "spotlight",
+      "session_id": "18",
+      "session_title": "Image Registration & Computational Anatomy",
+      "day": "",
+      "match": "exact"
+    },
+    "miccai-2026-Paper5323": {
+      "type": "spotlight",
+      "session_id": "18",
+      "session_title": "Image Registration & Computational Anatomy",
+      "day": "",
       "match": "exact"
     }
   }

@@ -195,7 +195,19 @@ def main() -> int:
 
         pool = [p for p in papers if p["year"] == year and p.get("url")]
         if not pool:
-            print(f"\n=== {year}: no papers in miccai_all.json ===")
+            # A year being added has no papers yet, and that is exactly when
+            # this audit is meant to run, so sample from the live index rather
+            # than skipping and reporting "No faults found" for nothing.
+            cfg["_year"] = year
+            index = PARSERS[cfg["era"]].parse_index_page(
+                fetch(cfg["index_url"], cfg, cache), cfg
+            )
+            pool = [{"url": url, "paper_id": pid} for url, pid in index]
+            print(f"\n   {year}: not in miccai_all.json; sampling the live index "
+                  f"({len(pool)} papers)")
+        if not pool:
+            print(f"\n=== {year}: no papers found ===")
+            faults += 1
             continue
         sample = random.sample(pool, min(args.sample, len(pool)))
 

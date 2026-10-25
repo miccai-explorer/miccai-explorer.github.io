@@ -79,7 +79,6 @@ def collect_pages(
     *,
     build_date: str,
     data_years: list[int],
-    partial_years: list[int],
     year_meta: dict,
     year_stats: dict,
     totals: dict,
@@ -160,27 +159,6 @@ def collect_pages(
                     f"MICCAI {yr} in {city}: {st.n_papers:,} accepted papers "
                     f"with reviewer scores, subject areas, top-rated papers, "
                     f"co-authorship, and code-release rates."
-                ),
-                lastmod=build_date,
-            )
-        )
-
-    # Partial years (a program booklet, no reviews yet) are indexable and
-    # described as partial, so the snippet does not promise review analysis
-    # the page does not carry.
-    for yr in sorted(partial_years, reverse=True):
-        st = year_stats.get(yr)
-        city = getattr(year_meta[yr], "city", str(yr))
-        n = getattr(st, "n_papers", 0) if st else 0
-        pages.append(
-            Page(
-                path=f"/year/{yr}.html",
-                title=f"MICCAI {yr} ({city}): Accepted Papers "
-                f"| MICCAI Explorer",
-                description=(
-                    f"MICCAI {yr} in {city}: {n:,} accepted papers from the "
-                    f"program booklet, with authors and co-authorship. Peer "
-                    f"reviews are not published yet."
                 ),
                 lastmod=build_date,
             )
@@ -531,7 +509,9 @@ def build_llms_txt(
         "  boundary**. MICCAI replaced its taxonomy in 2025, from 31 ad-hoc",
         "  facets to six required ones, so the median paper carries 5 tags",
         "  against 3 the year before. An area can appear to grow fourfold",
-        "  with no research having moved.",
+        "  with no research having moved. In 2026, MICCAI kept the six",
+        "  facets but renamed most tags. The charts merge a renamed tag",
+        "  with the old one only when the area itself stayed the same.",
         "- Early acceptance is a **confounder, not a footnote**. Orals are",
         "  drawn from accepted papers and early accepts are decided before",
         "  rebuttal, so any oral-versus-poster score gap is reported within",

@@ -86,10 +86,13 @@
           jumps are higher in 2025 than in previous years. For example, the largest rise
           from 2023 to 2024 is 2.6 percentage points, against 16.8 from 2024 to 2025.</p>
         <p class="card-sub" style="margin-top:8px;">These charts merge the obvious
-          renames, drop the catch-all tags, count all of a paper's tags rather than
-          just the first, and show an area only if MICCAI used it in all five years.
-          That last rule is why Image Reconstruction has no panel: MICCAI appears to have 
-          removed the tag in 2025 and those papers are now filed under other names. </p>
+          renames, drop the catch-all tags, and count every tag on a paper, not just
+          the first. They also show an area only if MICCAI used it in every year.
+          In 2026, MICCAI kept the six groups but renamed most of the tags. The
+          charts treat a renamed tag as the old one only when the area itself stayed
+          the same. A 2026 tag that covers more than its 2025 version counts as a
+          new area. Image Reconstruction has no panel because MICCAI dropped that
+          tag in 2025. It came back in 2026, when 9.5% of papers carried it.</p>
         <p class="card-sub" style="margin-top:8px;">Per-year pages keep each year's own
           taxonomy.</p>
       </div>
@@ -143,9 +146,7 @@
         </div>
         <p style="font-size:13px; color:var(--text-muted); margin:0;">
           {{ s.n_papers | format_int }} papers · {{ s.n_authors | format_int }} authors ·
-          {# A partial year has no review or code data yet; everything else on
-             this page is unchanged. #}
-          {% if yr in partial_years %}waiting for reviews' release{% else %}{{ s.pct_code }}% with code{% endif %}
+          {{ s.pct_code }}% with code
         </p>
         <p style="font-size:12px; color: {{ m.color }}; margin:8px 0 0;">View full analysis →</p>
       </div>

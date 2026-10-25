@@ -427,6 +427,7 @@ def _parse_single_review(
         "text_detailed_comments": None,
         "text_reproducibility": None,
         "text_post_rebuttal_justification": None,
+        "text_ethics": None,
         "review_stack_rank": None,
         "review_stack_size": None,
     }
@@ -456,6 +457,13 @@ def _parse_single_review(
 
         elif "rate the clarity" in label:
             rev["clarity_label"] = val_inline
+
+        # New in 2026: "...do you believe this submission may involve a
+        # potential ethics concern or violation?". Kept in its own field, not
+        # appended to text_detailed_comments, because that field feeds Avg
+        # Review Length and no earlier year asked this question.
+        elif "code of ethics" in label:
+            rev["text_ethics"] = val
 
         # 2024 asks about reproducibility twice: "Please comment on the
         # reproducibility of the paper..." and then "Do you have any additional

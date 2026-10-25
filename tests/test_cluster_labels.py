@@ -58,6 +58,39 @@ def test_labels_match_their_clustering(model):
     assert all(labels[str(k)].strip() for k in range(N_CLUSTERS))
 
 
+@pytest.mark.parametrize("model", _models())
+def test_extended_clustering_left_the_fitted_papers_alone(model):
+    """After `embed.py --extend`, the papers the names were written from still
+    carry exactly the partition those names were stamped for. The restamp
+    alone cannot show this: it fingerprints whatever is on disk."""
+    path = cl.path_for(model)
+    if not path.exists():
+        pytest.skip(f"no label file for {model}")
+    with open(path, encoding="utf-8") as f:
+        raw = json.load(f)
+    if "extended_from" not in raw:
+        pytest.skip(f"{model} was never extended")
+    n = raw["fit_papers"]
+    data = np.load(PROCESSED / f"embeddings_{model}.npz", allow_pickle=True)
+    assert len(data["paper_ids"]) > n
+    assert (
+        cl.fingerprint(data["paper_ids"][:n], data["cluster_ids"][:n])
+        == raw["extended_from"]
+    )
+
+
+def test_extended_check_fires_when_a_fitted_paper_moves():
+    """Re-break it: move one fitted paper and the subset fingerprint changes."""
+    raw = json.loads(cl.path_for("specter2").read_text(encoding="utf-8"))
+    if "extended_from" not in raw:
+        pytest.skip("specter2 was never extended")
+    n = raw["fit_papers"]
+    data = np.load(PROCESSED / "embeddings_specter2.npz", allow_pickle=True)
+    moved = data["cluster_ids"][:n].copy()
+    moved[0] = (moved[0] + 1) % N_CLUSTERS
+    assert cl.fingerprint(data["paper_ids"][:n], moved) != raw["extended_from"]
+
+
 def test_active_labels_match_the_published_clustering(papers):
     """cluster_labels.json describes the clustering baked into miccai_all.json.
 

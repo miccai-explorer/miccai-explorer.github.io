@@ -331,6 +331,19 @@ def page_summary(papers: list, orals: dict) -> dict:
         ),
         "delta_min": min(deltas) if deltas else None,
         "delta_max": max(deltas) if deltas else None,
+        # The rows holding those extremes, so the caption can name the years
+        # from the data. It used to say "much smaller in <latest year>", which
+        # was true of 2025 and became nonsense the day 2026 had the largest gap.
+        "delta_min_row": min(
+            (r for r in per_year if not np.isnan(r["delta"])),
+            key=lambda r: r["delta"], default=None,
+        ),
+        "delta_max_row": max(
+            (r for r in per_year if not np.isnan(r["delta"])),
+            key=lambda r: r["delta"], default=None,
+        ),
+        "pct_selected_min": min(r["pct_selected"] for r in per_year),
+        "pct_selected_max": max(r["pct_selected"] for r in per_year),
         "spotlight_years": sorted(
             {r["year"] for r in per_year if r["n_spotlight"]}
         ),

@@ -20,11 +20,14 @@ import papers_index  # noqa: E402
 
 ALL_JSON = ROOT / "data" / "processed" / "miccai_all.json"
 
-N_PAPERS = 3717
-N_AREAS = 161
-PER_YEAR = {2021: 531, 2022: 573, 2023: 730, 2024: 856, 2025: 1027}
-SCALES = {2021: 9, 2022: 8, 2023: 8, 2024: 6, 2025: 6}
-TYPE_COUNTS = {0: 3340, 1: 323, 2: 54}
+N_PAPERS = 4882
+# 2026 added 50 area names that no earlier year uses (81 in 2026, 31 shared
+# with 2025), so 161 + 50.
+N_AREAS = 211
+PER_YEAR = {2021: 531, 2022: 573, 2023: 730, 2024: 856, 2025: 1027, 2026: 1165}
+SCALES = {2021: 9, 2022: 8, 2023: 8, 2024: 6, 2025: 6, 2026: 6}
+# 2026 has 99 orals and 54 spotlights (data/miccai_2026_facts.yaml).
+TYPE_COUNTS = {0: 4352, 1: 422, 2: 108}
 
 
 @pytest.fixture(scope="module")

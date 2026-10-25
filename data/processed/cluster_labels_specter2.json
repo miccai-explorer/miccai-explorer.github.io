@@ -1,6 +1,6 @@
 {
   "model": "specter2",
-  "clustering": "0b1abc5aadbea6727936e3b1ec984c4ebc026766f695774e01d21005ce6ca119",
+  "clustering": "280c5489719134002139ad54de866a069e25efc74b3e6f6fc1b982bd944ea91a",
   "labels": {
     "0": "Deformable Image Registration",
     "1": "Surgical Video & Phase Recognition",
@@ -22,5 +22,7 @@
     "17": "Medical Vision-Language & Reports",
     "18": "Federated Learning & Fairness",
     "19": "Cortical Surface & Brain Development"
-  }
+  },
+  "extended_from": "0b1abc5aadbea6727936e3b1ec984c4ebc026766f695774e01d21005ce6ca119",
+  "fit_papers": 3717
 }

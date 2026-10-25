@@ -85,12 +85,28 @@ def read(path: Path) -> tuple[dict[str, str], str | None, str | None]:
     return {str(k): str(v) for k, v in raw.items()}, None, None
 
 
-def write(path: Path, labels: dict[str, str], clustering: str, model: str) -> None:
+def write(
+    path: Path,
+    labels: dict[str, str],
+    clustering: str,
+    model: str,
+    extended_from: str | None = None,
+    fit_papers: int | None = None,
+) -> None:
+    """`extended_from` and `fit_papers` are set by `embed.py --extend`: the
+    fingerprint the names were stamped for, and how many leading rows of
+    embeddings_{model}.npz it covers (the papers KMeans was fitted on; later
+    rows were assigned to the nearest centroid). `verify()` checks
+    `clustering` alone; tests/test_cluster_labels.py uses these two to prove
+    the fitted papers never moved."""
     payload = {
         "model": model,
         "clustering": clustering,
         "labels": {str(k): labels[str(k)] for k in sorted(labels, key=int)},
     }
+    if extended_from:
+        payload["extended_from"] = extended_from
+        payload["fit_papers"] = fit_papers
     path.parent.mkdir(parents=True, exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
         json.dump(payload, f, indent=2, ensure_ascii=False)

@@ -563,6 +563,7 @@ def _parse_single_review(
         "text_detailed_comments": None,
         "text_reproducibility": None,
         "text_post_rebuttal_justification": None,
+        "text_ethics": None,  # 2026 onward; asked by no form in this era
         "review_stack_rank": None,
         "review_stack_size": None,
     }

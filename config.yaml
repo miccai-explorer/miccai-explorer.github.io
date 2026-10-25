@@ -202,6 +202,23 @@ oral_schedules:
 
 years:
 
+  2026:
+    era: "2024_2025"
+    # Form verified identical to 2025 on 2026-10-24 (labels, score and
+    # confidence formats, "Provisional Accept" early-accept signal).
+    index_url:      "https://papers.miccai.org/miccai-2026/"
+    categories_url: "https://papers.miccai.org/miccai-2026/categories/"
+    tags_url:       "https://papers.miccai.org/miccai-2026/tags/"
+    paper_url_base: "https://papers.miccai.org/miccai-2026/"
+    review_scale_max: 6
+    score_normalization_denominator: 5
+    score_field_substring: "scale of 1-6"
+    score_parse_mode: "parens"
+    post_rebuttal_has_score: false
+    confidence_parse_mode: "parens"
+    coauthorship_network_min_papers: 6
+    num_top_papers: 20
+
   2025:
     era: "2024_2025"
     index_url:      "https://papers.miccai.org/miccai-2025/"

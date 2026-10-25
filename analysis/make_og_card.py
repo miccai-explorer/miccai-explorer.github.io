@@ -38,7 +38,7 @@ OUT = Path("static/og-card.png")
 ALL_JSON = Path("data/processed/miccai_all.json")
 # The year the chart draws. The most recent one with a complete
 # review record, which is also the one the headline counts end at.
-CHART_YEAR = 2025
+CHART_YEAR = 2026
 
 # 1200x630 is the size every platform states and the one they crop least.
 W, H = 1200, 630
@@ -324,7 +324,7 @@ def main() -> int:
         # "Every accepted MICCAI paper from 2021 to 2025,",
         # f"and the {total_reviews():,} peer reviews behind them.",
         "MICCAI papers and their peer reviews",
-        "from 2021 to 2025.",
+        f"from 2021 to {CHART_YEAR}.",  # CHART_YEAR is the latest year
     ):
         _fit(d, line, f["headline"], safe, "headline")
         d.text((PAD, y), line, font=f["headline"], fill=INK)

@@ -1,0 +1,1205 @@
+{
+ "year": 2026,
+ "source_pdf": "data/manually_downloaded/OralSchedules/2026.pdf",
+ "n_sessions": 18,
+ "n_presentations": 153,
+ "sessions": [
+  {
+   "session_id": "1",
+   "session_title": "Image Segmentation I",
+   "day": "",
+   "presentations": [
+    {
+     "type": "oral",
+     "title_raw": "Dynamic Collaborative Continual Test-Time Adaptation for 3D Vessel Segmentation",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 1
+    },
+    {
+     "type": "oral",
+     "title_raw": "Quality-Guided Semi-Supervised Learning for Medical Image Segmentation",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 2
+    },
+    {
+     "type": "oral",
+     "title_raw": "ProSMA-UNet: Decoder Conditioning for Proximal-Sparse Skip Feature Selection",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 3
+    },
+    {
+     "type": "oral",
+     "title_raw": "HAR-MoE: Hierarchical Affinity-aware Routing Mixture-of-Experts for Unified Multi-Organ Ultrasound Analysis",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 4
+    },
+    {
+     "type": "oral",
+     "title_raw": "Echo-SCAR: Temporal Feature Learning for Myocardial Scar Detection from Routine Echocardiography",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 5
+    },
+    {
+     "type": "oral",
+     "title_raw": "Deep EM with Hierarchical Latent Label Modelling for Multi-Site Prostate Lesion Segmentation",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 6
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "Hierarchical Disentangled Consistency Learning for Semi-Supervised Multi-Modal Medical Image Segmentation",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 7
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "Shape-Adaptive Guidance Signal for Interactive Cortical Sulcal Labeling",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 8
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "MAGEFormer: Learning Metric-Consistent Representations for Anisotropic CT Segmentation",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 9
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "Text-Deficient Multimodal Stroke Segmentation with Lesion-Grounded Self-Retrieval-Augmented Generation",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 10
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "Learning Role-Conditioned Alignment for Medical Image Referring Segmentation",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 11
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "Detail Consistent Stage-Wise Distillation for Efficient 3D MRI Segmentation",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 12
+    }
+   ]
+  },
+  {
+   "session_id": "2",
+   "session_title": "Computer-Aided Diagnosis I",
+   "day": "",
+   "presentations": [
+    {
+     "type": "oral",
+     "title_raw": "BrainAnytime: Anatomy-Aware Cross-Modal Pretraining for Brain Image Analysis with Arbitrary Modality Availability",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 1
+    },
+    {
+     "type": "oral",
+     "title_raw": "Fair Curriculum Learning for Concept Bottleneck Models in Dermatology",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 2
+    },
+    {
+     "type": "oral",
+     "title_raw": "NeuroSymb-MRG: Differentiable Abductive Reasoning with Active Uncertainty Minimization for Radiology Report Generation",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 3
+    },
+    {
+     "type": "oral",
+     "title_raw": "Learning to Read Where to Look: Disease-Aware Vision–Language Pretraining for 3D CT",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 4
+    },
+    {
+     "type": "oral",
+     "title_raw": "CDPM-Align: Multi-Scale Guidance-Aligned Diffusion Pretraining for Robust Few-Shot Anatomical Landmark Detection",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 5
+    },
+    {
+     "type": "oral",
+     "title_raw": "Benchmarking Foundation Models for Early Multi-Retinopathy Detection at National Scale: Performance, Generalization, and Bias",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 6
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "MiGAD: Gut Microbiota-informed Genetic Surrogates for Multimodal Alzheimer’s Disease Diagnosis",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 7
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "Better Said Than Seen: Exposing and Mitigating Modality Collapse with ICD-11-Grounded Evaluation",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 8
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "Spectral-Temporal State Space Modeling on Functional Brain Networks",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 9
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "OsteoFlow: Lyapunov-Guided Flow Distillation for Predicting Bone Remodeling after Mandibular Reconstruction",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 10
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "Comparative Analysis of Automated Frame Selection Methods for Glaucoma Detection in Smartphone-Based Low-Quality Fundus Video",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 11
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "HypOProto: Hyperbolic Ordinal Prototypes for Left Ventricular Filling Pressure Classification",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 12
+    }
+   ]
+  },
+  {
+   "session_id": "3",
+   "session_title": "Image-Guided Interventions & Robotics",
+   "day": "",
+   "presentations": [
+    {
+     "type": "oral",
+     "title_raw": "Robotic Ultrasound Makes CBCT Alive",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 1
+    },
+    {
+     "type": "oral",
+     "title_raw": "Planning the Perfect Burn: Multi-Objective PSO for Multi-Needle Thermal Ablation",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 2
+    },
+    {
+     "type": "oral",
+     "title_raw": "GES-Net: A Gesture, Error, and Smoothness Aware Network for Surgical Skill Assessment",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 3
+    },
+    {
+     "type": "oral",
+     "title_raw": "Where Is the Needle Tip? VA Sensing Reveals Hidden Needle-Tissue Transitions During US Guidance",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 4
+    },
+    {
+     "type": "oral",
+     "title_raw": "R-MSA: Rhythm-Conditioned Surgical Video Skill Assessment via Morphology Synchronization and Uncertainty Calibration",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 5
+    },
+    {
+     "type": "oral",
+     "title_raw": "Disentangling uterine and bladder activity in paired EHG-MRI data using anatomy-guided multicluster beamforming",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 6
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "CoRe-DA: Contrastive Regression for Unsupervised Domain Adaptation in Surgical Skill Assessment",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 7
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "From Scanning Guidelines to Action: A Robotic Ultrasound Agent with LLM-Based Reasoning",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 8
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "Hi-FL: Hierarchical Federated Learning Adaptation of Vision-Language Models for Multi-Institutional Surgical Phase Recognition",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 9
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "A Neurosymbolic Framework for Interpretable Skeleton-Based Seizure Detection via Concept-Driven Logical Reasoning",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 10
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "SMART-KNEE: Sparse-Morphology based Anatomical Reconstruction using Topology-Aware Networks for Imageless Total Knee Arthroplasty",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 11
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "Physics-Based iOCT Sonification for Real-Time Interaction Awareness in Subretinal Injection",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 12
+    }
+   ]
+  },
+  {
+   "session_id": "4",
+   "session_title": "Image Segmentation II",
+   "day": "",
+   "presentations": [
+    {
+     "type": "oral",
+     "title_raw": "Speech-Guided Multimodal Learning for Vocal Tract Segmentation in Real-Time MRI",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 1
+    },
+    {
+     "type": "oral",
+     "title_raw": "Joint Segmentation and Graph-Based Skeletal Representation Learning with Geometric Priors",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 2
+    },
+    {
+     "type": "oral",
+     "title_raw": "Wavelet-Guided Spectral–Spatial Learning for Medical Hyperspectral Image Segmentation",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 3
+    },
+    {
+     "type": "oral",
+     "title_raw": "Lost in the Folds: When Cross-Validation Is Not a Deep Ensemble for Uncertainty Estimation",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 4
+    },
+    {
+     "type": "oral",
+     "title_raw": "ACA: Post-hoc Adaptive Logit Alignment for 3D Medical Image Segmentation",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 5
+    }
+   ]
+  },
+  {
+   "session_id": "5",
+   "session_title": "Outcome Prediction & Longitudinal Modeling",
+   "day": "",
+   "presentations": [
+    {
+     "type": "oral",
+     "title_raw": "DIVER-Surv: Diffusion and Virtual-Node Graph Fusion for Cross-Cohort Glioma Survival",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 1
+    },
+    {
+     "type": "oral",
+     "title_raw": "From Exams to Trajectories: Neural Controlled Differential Equations for Longitudinal Mammography Vision-Language Pretraining",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 2
+    },
+    {
+     "type": "oral",
+     "title_raw": "Explainability in mulimodal deep transformation models for stroke outcome prediction",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 3
+    },
+    {
+     "type": "oral",
+     "title_raw": "VisiFAT: Estimating Visceral Fat from Dual-View DXA scans using Cross-View Attention",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 4
+    },
+    {
+     "type": "oral",
+     "title_raw": "Inverse Protocol Prediction from Spheroid Microscopy Imaging via Morphology-Aware Structured Learning",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 5
+    }
+   ]
+  },
+  {
+   "session_id": "6",
+   "session_title": "Emerging Applications & Methods",
+   "day": "",
+   "presentations": [
+    {
+     "type": "oral",
+     "title_raw": "SlideGuard: WSI Artifact Detection Benchmark",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 1
+    },
+    {
+     "type": "oral",
+     "title_raw": "Structural-Semantic Aware Information Reduction for Asymmetric EEG-Visual Alignment",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 2
+    },
+    {
+     "type": "oral",
+     "title_raw": "EchoFID: A Multi-Teacher Distilled Evaluation Network for Cardiac Ultrasound Image Generation",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 3
+    },
+    {
+     "type": "oral",
+     "title_raw": "The paper has a GitHub, the GitHub has a README, the README has nothing: Reproducibility Signals for Review Support",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 4
+    },
+    {
+     "type": "oral",
+     "title_raw": "ConstTrack: Constellation-Guided Cell Tracking Under Lineage Constraints",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 5
+    }
+   ]
+  },
+  {
+   "session_id": "7",
+   "session_title": "Computer-Aided Diagnosis II",
+   "day": "",
+   "presentations": [
+    {
+     "type": "oral",
+     "title_raw": "PRA-PoE: Robust Multimodal Alzheimer’s Disease Classification under Arbitrary Modality Missingness",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 1
+    },
+    {
+     "type": "oral",
+     "title_raw": "Curia-2: Scaling Self-Supervised Learning for Radiology Foundation Models",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 2
+    },
+    {
+     "type": "oral",
+     "title_raw": "S-CEReBrO: Breaking the Memory Barrier in Continuous EEG Monitoring",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 3
+    },
+    {
+     "type": "oral",
+     "title_raw": "VIHD: Visual Intervention-based Hallucination Detection for Medical Visual Question Answering",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 4
+    },
+    {
+     "type": "oral",
+     "title_raw": "DUCX: Decomposing Unfairness in Tool-Using Chest X-ray Agents",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 5
+    }
+   ]
+  },
+  {
+   "session_id": "8",
+   "session_title": "Computational Pathology",
+   "day": "",
+   "presentations": [
+    {
+     "type": "oral",
+     "title_raw": "Synergistic Information Disentanglement for Omni-modal Slide Representation Learning in Computational Pathology",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 1
+    },
+    {
+     "type": "oral",
+     "title_raw": "MORI-Seg: Learning Morphological Geometry for Instance Segmentation without Instance Annotations",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 2
+    },
+    {
+     "type": "oral",
+     "title_raw": "QCAgent: An agentic framework for quality-controllable pathology report generation from whole slide image",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 3
+    },
+    {
+     "type": "oral",
+     "title_raw": "ImPartial: Multi-channel Whole-Cell Segmentation using Partial Annotations",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 4
+    },
+    {
+     "type": "oral",
+     "title_raw": "Multi-Regional CT Radiomics Fusion to Quantify Pathology-Derived Pollutant Burden in Lung Cancer",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 5
+    }
+   ]
+  },
+  {
+   "session_id": "9",
+   "session_title": "Interventions, Connectivity & Other",
+   "day": "",
+   "presentations": [
+    {
+     "type": "oral",
+     "title_raw": "Decoupled Single-Mask Annotation Noise Detection via Cross-Sectional Patch Self-Consistency",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 1
+    },
+    {
+     "type": "oral",
+     "title_raw": "Real-Time 6D Ultrasound Probe Pose Tracking in Freehand Scanning",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 2
+    },
+    {
+     "type": "oral",
+     "title_raw": "HemoPIC: A Physics-Informed Cerebral Hemodynamics Digital Twin for Brain Perfusion",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 3
+    },
+    {
+     "type": "oral",
+     "title_raw": "Skin2Mind: A Multimodal Framework for Mental Health Risk Screening via Facial Images and Structured Skin Reports",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 4
+    },
+    {
+     "type": "oral",
+     "title_raw": "Research Design Considerations for Empirical User Studies in MICCAI",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 5
+    }
+   ]
+  },
+  {
+   "session_id": "10",
+   "session_title": "Image Synthesis & Generative Models",
+   "day": "",
+   "presentations": [
+    {
+     "type": "oral",
+     "title_raw": "Time Matters: Rethinking Diffusion and Flow Models in One-Step Medical Image Translation",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 1
+    },
+    {
+     "type": "oral",
+     "title_raw": "When Brains Disagree: Biological Ambiguity Underlies the Challenge of Amyloid PET Synthesis from Structural MRI",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 2
+    },
+    {
+     "type": "oral",
+     "title_raw": "PromptMedCT: A Training-Free LLM-Guided Framework for Volumetric CT Data Realization with Quantifiable Disease Manifestations and Multi-Tier Annotations",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 3
+    },
+    {
+     "type": "oral",
+     "title_raw": "MAP-Diff: Multi-Anchor Guided Diffusion for Progressive 3D Whole-Body Low-Dose PET Denoising",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 4
+    },
+    {
+     "type": "oral",
+     "title_raw": "WaveDiT: Distribution-Aware Wavelet Flow Matching for Efficient 3D Brain MRI Synthesis",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 5
+    },
+    {
+     "type": "oral",
+     "title_raw": "AMFG: Anatomy-grounded Multi-Finding Guidance for Training-Free Chest X-Ray Generation",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 6
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "IntraStyler: Intra-Domain Style Synthesis for Cross-Modality MRI Domain Adaptation",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 7
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "Unified Multimodal Model for Brain MRI Imputation and Understanding",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 8
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "PolypSteer: Counterfactual Endoscopic Synthesis via Training-Free Activation Steering",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 9
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "Propagating Structural Guidance: Synthesizing Fluorescein Angiography from Fundus Images and Sparse OCT Scans",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 10
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "Subject-Specific Low-Field MRI Synthesis via a Neural Operator",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 11
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "Distilling Photon-Counting CT into Routine Chest CT through Clinically Validated Degradation Modeling",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 12
+    }
+   ]
+  },
+  {
+   "session_id": "11",
+   "session_title": "Anomaly & Lesion Detection",
+   "day": "",
+   "presentations": [
+    {
+     "type": "oral",
+     "title_raw": "FairGE: Gated Expert Routing for Intersectional Fairness in Medical Foundation Models",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 1
+    },
+    {
+     "type": "oral",
+     "title_raw": "Exploiting Longitudinal Context in Clinician-Verified Interactive Lesion Tracking",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 2
+    },
+    {
+     "type": "oral",
+     "title_raw": "ReMiX-Seg: Latent Modality Completion Meets Expert Routing for Robust Glioma Segmentation",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 3
+    },
+    {
+     "type": "oral",
+     "title_raw": "StrokeTimer: Robust Representation Learning for Ischemic Stroke Onset-Time Estimation from Non-contrast CT",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 4
+    },
+    {
+     "type": "oral",
+     "title_raw": "Multi-View Consistency-Based Adaptation of SAM2 for 3D ABUS Tumor Segmentation",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 5
+    },
+    {
+     "type": "oral",
+     "title_raw": "Semantic Feature Modulation for Mammographic Lesion Classification",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 6
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "CRIMSON: A Clinically-Grounded LLM-Based Metric for Generative Radiology Report Evaluation",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 7
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "How Good are Foundation Models in Longitudinal MRI Disease Progression Reasoning?",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 8
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "Collaborative Multiscale Representation Learning for AMD Detection",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 9
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "Unsupervised Brain Anomaly Detection as a Bayesian Inverse Problem with Diffusion Prior",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 10
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "UniCT: A Unified Joint Multi-Task Framework for 3D Chest CT Abnormality Analysis",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 11
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "A Multi-Center Benchmark for Abdominal Disease Diagnosis and Report Generation from Non-Contrast CT",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 12
+    }
+   ]
+  },
+  {
+   "session_id": "12",
+   "session_title": "Diagnosis, Analysis & Modeling",
+   "day": "",
+   "presentations": [
+    {
+     "type": "oral",
+     "title_raw": "Interactive MWA Planning via Probabilistic Inverse Inference",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 1
+    },
+    {
+     "type": "oral",
+     "title_raw": "LEGEND: A Language-Aligned EEG Foundation Model with Flow Matching Latent Denoising",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 2
+    },
+    {
+     "type": "oral",
+     "title_raw": "CALM: Interpretable Cross-Modal Alignment for Biomarker Discovery from Unpaired Data",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 3
+    },
+    {
+     "type": "oral",
+     "title_raw": "S-GRPO: Structural Group Relative Policy Optimization for Medical Image Segmentation",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 4
+    },
+    {
+     "type": "oral",
+     "title_raw": "SAM2 as a Key Bridge Between 2D Slices and 3D Volumes for Sparsely-supervised Medical Image Segmentation",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 5
+    },
+    {
+     "type": "oral",
+     "title_raw": "SCISSR: Scribble-Conditioned Interactive Surgical Segmentation and Refinement",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 6
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "SWoMo: Neuro-Symbolic World Model for Cataract Surgery Simulation",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 7
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "A Deep Learning Surrogate Model for Microwave Thermal Ablation: From Preoperative Planning to Intraoperative Re-planning",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 8
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "AS-TIME: Time-Conditioned Multimodal Modeling of Aortic Stenosis Progression",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 9
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "Leuko, I am your Prototype: A Prototypical Detection Framework for Fine-Grained Laryngeal Lesion Stratification",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 10
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "RADAR: A Multimodal Benchmark for 3D Image-Based Radiology Report Review",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 11
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "Cut, Stitch, Adapt: Data-Efficient and Low-Calibration Speech BCIs",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 12
+    }
+   ]
+  },
+  {
+   "session_id": "13",
+   "session_title": "Image Segmentation III",
+   "day": "",
+   "presentations": [
+    {
+     "type": "oral",
+     "title_raw": "Learning to Segment Burns with Limited Labels: A Dual-Path Cascaded Network with Uncertainty-Guided Teacher Diffusion Exposure",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 1
+    },
+    {
+     "type": "oral",
+     "title_raw": "MedFM-Robust: Benchmarking Robustness of Medical Foundation Models",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 2
+    },
+    {
+     "type": "oral",
+     "title_raw": "Uncertainty-Aware Bayesian Prompt Adaptation for Robust Cross-Modality Medical Segmentation",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 3
+    },
+    {
+     "type": "oral",
+     "title_raw": "A Real-World Evaluation of Failure Detection for Liver CT Segmentation",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 4
+    },
+    {
+     "type": "oral",
+     "title_raw": "Disentangling Prompt Dependence to Evaluate Segmentation Reliability in Gynecological MRI",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 5
+    }
+   ]
+  },
+  {
+   "session_id": "14",
+   "session_title": "Image Synthesis & Digital Twins",
+   "day": "",
+   "presentations": [
+    {
+     "type": "oral",
+     "title_raw": "Echo4DIR: 4D Implicit Heart Reconstruction from 2D Echocardiography Videos",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 1
+    },
+    {
+     "type": "oral",
+     "title_raw": "Anatomically Accurate 3D Vessel Generation via 3-Phase Chebyshev Curve Diffusion",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 2
+    },
+    {
+     "type": "oral",
+     "title_raw": "VesselSim: learning 3D blood vessel segmentation without expert annotations",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 3
+    },
+    {
+     "type": "oral",
+     "title_raw": "SAFE-Diff: Structurally Anchored Diffusion for Anatomically Faithful CT Image Super-Resolution",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 4
+    },
+    {
+     "type": "oral",
+     "title_raw": "RePCM: Region-Specific and Phenotype-Adaptive Bi-Ventricular Cardiac Motion Synthesis",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 5
+    }
+   ]
+  },
+  {
+   "session_id": "15",
+   "session_title": "Pathology, Anatomy & Lesion Analysis",
+   "day": "",
+   "presentations": [
+    {
+     "type": "oral",
+     "title_raw": "LRMIL: Efficient Low-Resolution Multiple Instance Learning via High-Resolution Knowledge Distillation for Whole Slide Image Classification",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 1
+    },
+    {
+     "type": "oral",
+     "title_raw": "SIGMA-VAE: Sketched Isotropic Gaussian Multi-View Autoencoder for Normative Modeling",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 2
+    },
+    {
+     "type": "oral",
+     "title_raw": "Geometric-to-Semantic Spherical Transfer Learning for Cortical Sulci Labeling",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 3
+    },
+    {
+     "type": "oral",
+     "title_raw": "Knowledge-Enhanced Representation Learning with Retrieval-Augmented Multimodal Fusion for Survival Prediction",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 4
+    },
+    {
+     "type": "oral",
+     "title_raw": "BCER Agent: Reliable Long-Horizon MRI Workflow Execution via Compilation, Artifact Binding, and Bounded Local Recovery",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 5
+    }
+   ]
+  },
+  {
+   "session_id": "16",
+   "session_title": "Image Reconstruction",
+   "day": "",
+   "presentations": [
+    {
+     "type": "oral",
+     "title_raw": "Low-Rank-Modulated Functa: Exploring the Latent Space of Implicit Neural Representations for Interpretable Ultrasound Video Analysis",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 1
+    },
+    {
+     "type": "oral",
+     "title_raw": "BIGUS: Beam Integrated Gaussian Scattering for Continuous Ultrasound View Synthesis",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 2
+    },
+    {
+     "type": "oral",
+     "title_raw": "SRPAN: Implicit Neural Slice-to-Volume Reconstruction for Super-Resolution Pancreatic MRI",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 3
+    },
+    {
+     "type": "oral",
+     "title_raw": "L-TGVN: Leveraging Longitudinal Priors for Personalized Rapid MRI",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 4
+    },
+    {
+     "type": "oral",
+     "title_raw": "Defining Robust Ultrasound Quality Metrics via an Ultrasound Foundation Model",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 5
+    },
+    {
+     "type": "oral",
+     "title_raw": "Dynamic Spatial-Temporal Mapping for EEG-to-fMRI Synthesis via Gaussian-Guided Heterogeneous Graph Neural Network",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 6
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "Shared Gaussian Geometry for Brain MRI Spatial Resolution Harmonization Without External Training",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 7
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "Latent Motion Spectral Regularity for Congenital Heart Defect Screening in Fetal Echocardiography",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 8
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "PiMoE: Physics-informed Mixture-of-Experts for Accelerated MRI Reconstruction",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 9
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "Gabor Primitives for Accelerated Cardiac Cine MRI Reconstruction",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 10
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "ConnecToMind2: Inter-Subject fMRI Decoding via Whole-Brain Connectome-Guided Alignment",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 11
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "PET-Adapter: Test-Time Domain Adaptation for Full and Limited-Angle PET Image Reconstruction",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 12
+    }
+   ]
+  },
+  {
+   "session_id": "17",
+   "session_title": "Multimodal Integration & Outcome Prediction",
+   "day": "",
+   "presentations": [
+    {
+     "type": "oral",
+     "title_raw": "Unlocking the Power of Medical Tabular Data via Semantic-Aware Multimodal Pre-training",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 1
+    },
+    {
+     "type": "oral",
+     "title_raw": "STAMP: Subtype-Aware Spatio-Temporal Atlases for Personalized Prediction of Longitudinal Alzheimer’s Disease Progression",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 2
+    },
+    {
+     "type": "oral",
+     "title_raw": "JANUS: Anatomy-Conditioned Gating for Robust CT Triage Under Distribution Shift",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 3
+    },
+    {
+     "type": "oral",
+     "title_raw": "ClinRAG-GRAPH: Clinical-prior Retrieval-Augmented Graph Model with Domain Adversarial Learning for Breast pCR Prediction",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 4
+    },
+    {
+     "type": "oral",
+     "title_raw": "Lost in Volume: The CT-SpatialVQA Benchmark for Evaluating Semantic-Spatial Understanding of 3D Medical Vision–Language Models",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 5
+    },
+    {
+     "type": "oral",
+     "title_raw": "TRIAGE-MIL: Multi-Axis Instance Selection and Semantic Hypergraph Modeling for Survival Prediction from Whole-Slide Images",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 6
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "Stage-aware Adaptive Reaction–Diffusion Framework for Modeling Alzheimer’s Disease Progression with tau and Amyloid-β PET Scans",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 7
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "Interpretable Structure-Function Coupling via State-Space Models for Brain Connectome Analysis",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 8
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "Decouple and Reason: Anatomically Guided Two-Stage Grounding of Lung Lesions in 3D Chest CT from Free-Text Reports",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 9
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "Genetically Aligned Patient Representations Improve Hematological Diagnosis",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 10
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "FOCUS: Towards Fetal Obstetric Corrective UltraSound Guidance",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 11
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "Estimated Age-Guided Cerebral Microbleed Segmentation",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 12
+    }
+   ]
+  },
+  {
+   "session_id": "18",
+   "session_title": "Image Registration & Computational Anatomy",
+   "day": "",
+   "presentations": [
+    {
+     "type": "oral",
+     "title_raw": "Automated Optical Density Normalization for Myelin Quantification: Cross-Modal Validation with 7T Ex Vivo MRI",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 1
+    },
+    {
+     "type": "oral",
+     "title_raw": "Conditional Latent Diffusion Model with Fourier-based Motion Modelling for Virtual Population Synthesis",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 2
+    },
+    {
+     "type": "oral",
+     "title_raw": "Optimal Steps for Fast Diffeomorphic Shape Registration",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 3
+    },
+    {
+     "type": "oral",
+     "title_raw": "VOGeo-Gaze: Calibration-Free, Geometry-Aware Deep Learning for Real-Time Gaze Tracking in Clinical Video-Oculography",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 4
+    },
+    {
+     "type": "oral",
+     "title_raw": "CardiacPULSE: Frequency-Aware Self-Supervised Cardiac Phase Detection in Echocardiography",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 5
+    },
+    {
+     "type": "oral",
+     "title_raw": "Non-Linear INR-Based Motion Modeling for 4D Radiotherapy",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 6
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "Efficient Conformal Volumetry for Template-Based Segmentation",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 7
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "ICHOR: A Robust Representation Learning Approach for ASL CBF Maps with Self-Supervised Masked Autoencoders",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 8
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "KGT-Reg: Knowledge-Guided Multimodal Framework for Medical Image Registration",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 9
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "Tooth Alignment via Virtual Trajectories with Clinical Constraints",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 10
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "Validation of simulation-based evaluation by inclusion of unlabeled data and meta-ablation",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 11
+    },
+    {
+     "type": "spotlight",
+     "title_raw": "Uncovering Interpretable Point-Wise Image Correspondences from Deep Segmentation Features",
+     "authors_raw": [],
+     "speaker": null,
+     "order": 12
+    }
+   ]
+  }
+ ]
+}

@@ -257,6 +257,131 @@ def build_clusters(embeddings: np.ndarray, n_clusters: int) -> np.ndarray:
 
 
 # ---------------------------------------------------------------------------
+# Extend - add papers to an existing clustering without refitting it
+# ---------------------------------------------------------------------------
+
+
+def extend(model_slug: str, batch_size: int) -> None:
+    """Embed papers missing from embeddings_{model}.npz and place them in the
+    existing clusters and map, leaving every existing paper exactly where it is.
+
+    Refitting KMeans after adding a year would renumber the clusters and very
+    likely redraw some of them, so the hand-written names would no longer fit
+    (the 2026-09-08 bug, on purpose). Instead each new paper joins the cluster
+    whose centroid is nearest. A converged KMeans centroid is the mean of its
+    members, so the centroids are recomputed from the stored embeddings and
+    the fitted model does not need to have been saved.
+
+    The names stay valid only because the old papers did not move, so that is
+    checked first: the label file's fingerprint must match the stored
+    partition, or this refuses. The file is then restamped for the extended
+    partition, recording the fingerprint it was extended from.
+    """
+    emb_path = Path(f"data/processed/embeddings_{model_slug}.npz")
+    cl_path = cl.path_for(model_slug)
+
+    data = np.load(emb_path, allow_pickle=True)
+    old_emb = data["embeddings"]
+    old_cids = data["cluster_ids"]
+    old_ids = [str(x) for x in data["paper_ids"]]
+    old_fp = cl.fingerprint(old_ids, old_cids)
+    labels = cl.verify(cl_path, old_fp)
+
+    with open(ALL_JSON, encoding="utf-8") as f:
+        papers = json.load(f)
+    known = set(old_ids)
+    new = [p for p in papers if p["paper_id"] not in known]
+    if not new:
+        logger.info("No papers missing from the embeddings; nothing to extend.")
+        return
+    logger.info(f"Extending with {len(new)} new papers "
+                f"({dict(sorted(Counter(p['year'] for p in new).items()))})")
+
+    new_emb = build_embeddings(new, model_slug, batch_size=batch_size)
+
+    k = int(old_cids.max()) + 1
+    centroids = np.stack(
+        [old_emb[old_cids == c].astype(np.float64).mean(axis=0) for c in range(k)]
+    )
+
+    def nearest(emb):
+        d = ((emb[:, None, :].astype(np.float64) - centroids[None]) ** 2).sum(-1)
+        return d.argmin(1).astype(np.int32), np.sqrt(d.min(1))
+
+    # Assigning the fitted papers the same way must give back their own
+    # clusters; if it does not, these centroids are not the ones KMeans
+    # converged to and the assignment below would mean nothing.
+    fit_assign, fit_dist = nearest(old_emb)
+    agree = float((fit_assign == old_cids).mean())
+    if agree < 0.999:
+        raise RuntimeError(
+            f"Recomputed centroids reproduce only {agree:.2%} of the stored "
+            f"assignment; refusing to extend."
+        )
+    new_cids, new_dist = nearest(new_emb)
+
+    # Does the new year fit the clusters? Compare its distance to the nearest
+    # centroid with the fitted papers' distance to their own.
+    q = [50, 90, 99]
+    logger.info(f"Distance to nearest centroid, fitted papers p50/p90/p99: "
+                f"{np.round(np.percentile(fit_dist, q), 3).tolist()}")
+    logger.info(f"Distance to nearest centroid, new papers    p50/p90/p99: "
+                f"{np.round(np.percentile(new_dist, q), 3).tolist()}")
+    p99 = np.percentile(fit_dist, 99)
+    logger.info(f"New papers beyond the fitted p99: "
+                f"{int((new_dist > p99).sum())} of {len(new)}")
+
+    all_emb = np.vstack([old_emb, new_emb]).astype(np.float32)
+    all_cids = np.concatenate([old_cids, new_cids]).astype(np.int32)
+    all_ids = old_ids + [p["paper_id"] for p in new]
+
+    # Projections. UMAP refit on the old embeddings with the same seed
+    # reproduces the stored coordinates exactly (umap 0.5.12, single thread),
+    # so the fitted reducer is rebuilt, proven equal to what is on disk, and
+    # used to transform the new papers onto the existing map. densMAP has no
+    # transform and PaCMAP no reproducibility guarantee, so those files are
+    # left at the old length; activate() refuses a short file.
+    import umap as umap_lib
+
+    for slug, pcfg in PROJECTIONS.items():
+        proj_path = Path(f"data/processed/proj_{model_slug}_{slug}.npy")
+        if not proj_path.exists():
+            continue
+        if pcfg["method"] != "umap":
+            logger.warning(f"{proj_path}: {pcfg['method']} cannot place new "
+                           f"points; left at {len(old_ids)} rows")
+            continue
+        stored = np.load(proj_path)
+        reducer = umap_lib.UMAP(
+            n_neighbors=pcfg["n_neighbors"], min_dist=pcfg["min_dist"],
+            n_epochs=pcfg["n_epochs"], metric="cosine", random_state=42,
+            verbose=False,
+        )
+        refit = reducer.fit_transform(old_emb).astype(np.float32)
+        if not np.array_equal(refit, stored):
+            raise RuntimeError(
+                f"Refitting {slug} does not reproduce {proj_path} (max diff "
+                f"{float(np.abs(refit - stored).max()):.4g}); the existing map "
+                f"would move. Refusing to extend."
+            )
+        placed = reducer.transform(new_emb).astype(np.float32)
+        np.save(proj_path, np.vstack([stored, placed]))
+        logger.info(f"Saved {proj_path} ({len(all_ids)} rows)")
+
+    np.savez(emb_path, embeddings=all_emb, cluster_ids=all_cids,
+             paper_ids=np.array(all_ids))
+    logger.info(f"Saved {emb_path}")
+
+    cl.write(cl_path, labels, cl.fingerprint(all_ids, all_cids), model_slug,
+             extended_from=old_fp, fit_papers=len(old_ids))
+    logger.info(f"Restamped {cl_path} for the extended partition")
+
+    dist = Counter(int(c) for c in new_cids)
+    for c in range(k):
+        logger.info(f"  Cluster {c:2d} +{dist.get(c, 0):4d}  {labels.get(str(c))}")
+
+
+# ---------------------------------------------------------------------------
 # Activate - patches miccai_all.json from saved files
 # ---------------------------------------------------------------------------
 
@@ -281,6 +406,13 @@ def activate(model_slug: str, proj_slug: str) -> None:
         raise FileNotFoundError(
             f"{proj_path} not found. Run: "
             f"python analysis/embed.py --model {model_slug} --proj {proj_slug} --no-recompute"
+        )
+    if len(coords) != len(paper_ids):
+        raise ValueError(
+            f"{proj_path} has {len(coords)} rows for {len(paper_ids)} papers; "
+            f"it was not extended with the newest papers. Re-project it: "
+            f"python analysis/embed.py --model {model_slug} --proj {proj_slug} "
+            f"--no-recompute"
         )
 
     # Refuse to activate names that were written for another partition.
@@ -352,7 +484,19 @@ def main() -> int:
     parser.add_argument(
         "--batch-size", type=int, default=32, help="Encoding batch size"
     )
+    parser.add_argument(
+        "--extend",
+        action="store_true",
+        help="Embed only papers missing from embeddings_{model}.npz and add "
+        "them to the existing clusters and maps; nothing existing moves",
+    )
     args = parser.parse_args()
+
+    if args.extend:
+        extend(args.model, args.batch_size)
+        proj = ACTIVE_PROJ_FILE.read_text().strip()
+        activate(args.model, proj)
+        return 0
 
     emb_path = Path(f"data/processed/embeddings_{args.model}.npz")
     cl_path = Path(f"data/processed/cluster_labels_{args.model}.json")

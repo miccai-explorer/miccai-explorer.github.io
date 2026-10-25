@@ -15,12 +15,12 @@ No install, no account, nothing to download.
 [![tests](https://img.shields.io/endpoint?url=https%3A%2F%2Fmiccai-explorer.github.io%2Fbadges%2Ftests.json)](https://github.com/miccai-explorer/miccai-explorer.github.io/actions/workflows/deploy.yml)
 
 [![live site](https://img.shields.io/website?url=https%3A%2F%2Fmiccai-explorer.github.io&label=live%20site&up_message=online&up_color=0891b2)](https://miccai-explorer.github.io/)
-[![papers](https://img.shields.io/badge/papers-3%2C717-0891b2)](https://miccai-explorer.github.io/papers.html)
-[![peer reviews](https://img.shields.io/badge/peer%20reviews-11%2C359-0891b2)](https://miccai-explorer.github.io/)
-[![oral and spotlight talks](https://img.shields.io/badge/oral%20%26%20spotlight-377-0891b2)](https://miccai-explorer.github.io/orals.html)
-[![years covered](https://img.shields.io/badge/MICCAI-2021--2025-0891b2)](https://miccai-explorer.github.io/)
+[![papers](https://img.shields.io/badge/papers-4%2C882-0891b2)](https://miccai-explorer.github.io/papers.html)
+[![peer reviews](https://img.shields.io/badge/peer%20reviews-14%2C909-0891b2)](https://miccai-explorer.github.io/)
+[![oral and spotlight talks](https://img.shields.io/badge/oral%20%26%20spotlight-530-0891b2)](https://miccai-explorer.github.io/orals.html)
+[![years covered](https://img.shields.io/badge/MICCAI-2021--2026-0891b2)](https://miccai-explorer.github.io/)
 
-An interactive explorer for five years of MICCAI papers (2021 to 2025), built on the
+An interactive explorer for six years of MICCAI papers (2021 to 2026), built on the
 conference's own open-access proceedings **and its published peer reviews**.
 
 MICCAI is one of the few major conferences that publishes the full review record for
@@ -33,38 +33,38 @@ questions that were previously unanswerable from public data.
 
 | | |
 |---|---|
-| Papers | 3,717 (531 in 2021, 573 in 2022, 730 in 2023, 856 in 2024, and 1,027 in 2025) |
-| Peer reviews | 11,359, with scores, confidence ratings, and full text |
-| Meta-reviews | 7,642 |
-| Unique authors | 12,307 |
-| Oral and spotlight talks | 377, matched to their papers from the official program PDFs |
-| Papers releasing code | 2,365 (63.6%) |
+| Papers | 4,882 (531 in 2021, 573 in 2022, 730 in 2023, 856 in 2024, 1,027 in 2025, and 1,165 in 2026) |
+| Peer reviews | 14,909, with scores, confidence ratings, and full text |
+| Meta-reviews | 10,360 |
+| Unique authors | 15,815 |
+| Oral and spotlight talks | 530, matched to their papers from the official program books |
+| Papers releasing code | 3,221 (66.0%) |
 
 ## The pages
 
-- **Overview and Trends.** A semantic map of all 3,717 papers, positioned by a
+- **Overview and Trends.** A semantic map of all 4,882 papers, positioned by a
   SPECTER2 embedding of title and abstract, and coloured by year or by topic cluster.
   Click any point to open the paper. Below it: submissions, acceptance rate, early
   accepts, code release, review scores, and how subject areas have risen and fallen.
 - **Orals & Spotlights.** What separates a talk from a poster. Review scores by tier
   with effect sizes, early acceptance (which turns out to be a genuine confounder and
   is controlled for), reviewer confidence, and which subject areas get the slots.
-- **All Papers.** Every one of the 3,717 papers in a single list, searchable by
+- **All Papers.** Every one of the 4,882 papers in a single list, searchable by
   title, author, or subject area, and filterable by year, presentation type,
   subject area, code release, and early acceptance. Click a row for its authors,
   reviewer scores, and links; click the title to open the paper itself. Sorting by
-  score uses each paper's share of its own year's scale, because the scale changed
-  twice. Any filtered view can be shared as a link or exported as CSV.
+  score is offered within a single year only, because the scale changed twice and
+  scores from different years do not rank against each other. Any filtered view can be shared as a link or exported as CSV.
 - **One page per year.** Score distributions, the controversy of a paper (the spread
   between its reviewers), rebuttal verdict flows, co-authorship networks, subject-area
   breakdowns, title patterns, and the top-scoring papers of that year.
 
 ## Some things it shows
 
-- Orals outscore poster-only papers in every year studied, but the gap has narrowed
-  sharply: it was large in 2021 to 2024 and is only small in 2025.
+- Orals outscore poster-only papers in every year studied. The gap is large in every
+  year but one: it dropped to small in 2025, then reached its largest yet in 2026.
 - Early-accepted papers are far more likely to get a talk (49% to 85% of orals were
-  early accepts, against 28% to 40% of posters). This is a confounder rather than a
+  early accepts, against 25% to 40% of posters). This is a confounder rather than a
   footnote, so the score gap is also reported *within* each stratum. It survives, and
   it narrows.
 - Reviewer confidence does not separate the tiers in any year. Whatever earns a paper

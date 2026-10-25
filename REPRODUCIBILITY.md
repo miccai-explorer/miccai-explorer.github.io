@@ -57,12 +57,14 @@ against all three.
 | Merge + dedupe | `data/processed/miccai_all.json` | `analysis/normalize.py: main` | Yes | Yes | Drops rows carrying an `error` key. |
 | Embeddings | `embeddings_{model}.npz` | `analysis/embed.py` (5-model registry) | Yes | Yes | `specter2` active. Needs GPU + `adapters`. |
 | 2-D projections | `proj_{model}_{proj}.npy` | `analysis/embed.py` (4-projection registry) | Yes | Yes | `random_state=42` throughout. |
-| KMeans clusters | `cluster_ids` in the `.npz` | `analysis/embed.py` | Yes | Yes | `n_clusters=20, n_init=10, random_state=42`. |
+| KMeans clusters | `cluster_ids` in the `.npz` | `analysis/embed.py` | Yes | Yes | `n_clusters=20, n_init=10, random_state=42`. Fitted on the 3,717 papers of 2021-2025. |
+| Extend to a new year | appended rows in the `.npz` and the `umap` proj files | `analysis/embed.py: extend` | Yes | Yes | Nearest centroid, no refit; UMAP refit asserted bit-equal to the stored coordinates, then `transform()`. Fitted rows proven unchanged by `extended_from` in the label file. |
 | Cluster names | `cluster_labels_{model}.json` | `analysis/describe_clusters.py` (reads the clusters); named by a human | Yes | Yes | Bound to their partition by fingerprint; every reader verifies. Was gap **G1**, closed 2026-09-08. |
 | Activate model/proj | patched `miccai_all.json`, `active_model.txt`, `active_proj.txt`, `cluster_labels.json` | `analysis/use_model.py: main` | Yes | Yes | |
 | **Oral schedule PDFs** | `data/manually_downloaded/OralSchedules/YYYY.pdf` | **none** | Yes | **No** | See gap **G7**. Collected by hand; not published as structured data. |
 | Parse oral program | `data/raw/orals_YYYY.json` | `analysis/extract_orals.py: extract` | Yes | Yes | Deterministic; parameters in `config.yaml → oral_schedules`. Asserts session contiguity and expected session count. |
-| Join orals to papers | `data/processed/orals.json` | `analysis/match_orals.py: main` | Yes | Yes | Exits nonzero on any unmatched presentation. 377/377 matched exactly, 2021-2025. |
+| Parse 2026 booklet | `data/raw/orals_2026.json`, `data/raw/miccai_2026_program.json` | `analysis/extract_program_2026.py: main` | Yes | Yes | Different layout from the PDFs above. Counts checked against `data/miccai_2026_facts.yaml` (99 orals, 54 spotlights). |
+| Join orals to papers | `data/processed/orals.json` | `analysis/match_orals.py: main` | Yes | Yes | Exits nonzero on any unmatched presentation. 377/377 matched exactly, 2021-2025; 2026 153/153 (one fuzzy, a booklet typo). |
 | Attach types | in-memory `presentation_type` | `analysis/oral_stats.py: attach_types` | Yes | Yes | Never written to `miccai_all.json`, so `normalize.py` cannot drop it. |
 
 ---
@@ -160,8 +162,8 @@ page with no chart, so it depends on no Plotly version.
 | 5 | Presentation type per paper | in `papers.json` | `oral_stats.attach_types` | Yes | Yes |
 | 6 | Review scale per year | in `papers.json` | `papers_index.scales_from`, read from `score_max` | Yes | Yes |
 
-`tests/test_papers_index.py` holds golden counts for all of it: 3,717 papers, 161
-subject areas, 323 oral / 54 spotlight / 3,340 poster, and the per-year scales.
+`tests/test_papers_index.py` holds golden counts for all of it: 4,882 papers, 211
+subject areas, 422 oral / 108 spotlight / 4,352 poster, and the per-year scales.
 
 ## 4. Site-wide
 
@@ -280,7 +282,8 @@ oral_schedules` and add a fetch step. Worth doing only if MICCAI ever settles on
 predictable URL; until then, the manual step is one download per year.
 
 **Not a gap:** `data/oral_title_overrides.yaml` is a hand-edited input, but it is
-currently empty (all 377 presentations matched exactly), and `match_orals.py`
+currently empty (529 of 530 presentations matched exactly, and the one fuzzy match
+needed no override), and `match_orals.py`
 fails loudly rather than silently degrading if a future year needs entries.
 
 ---

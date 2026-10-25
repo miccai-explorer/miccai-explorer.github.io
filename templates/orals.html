@@ -63,10 +63,12 @@
       <div class="card-head-left">
         <p class="card-title">How many papers get a talk, and in which type?</p>
         <p class="card-sub">
-          The share of accepted papers that receive a podium presentation slot has
-          stayed roughly consistent. That holds even though spotlight talks started only
+          Every year, between {{ "%.0f" | format(orals.pct_selected_min) }}% and
+          {{ "%.0f" | format(orals.pct_selected_max) }}% of accepted papers receive a
+          podium presentation slot. That holds even though spotlight talks started only
           in 2024, and even though the conference has grown in size from
-          {{ orals.per_year[0].n_papers }} to {{ orals.per_year[-1].n_papers }} papers.
+          {{ orals.per_year[0].n_papers | format_int }} to
+          {{ orals.per_year[-1].n_papers | format_int }} papers.
         </p>
       </div>
     </div>
@@ -104,8 +106,9 @@
           papers outscored poster-only papers</b> 
           (&delta; from {{ "%+.2f" | format(orals.delta_min) }} to
           {{ "%+.2f" | format(orals.delta_max) }}, every interval clear of zero). 
-          The gap is much smaller in {{ orals.per_year[-1].year }}
-          ({{ orals.per_year[-1].magnitude }}) than in the years before it. 
+          The gap is smallest in {{ orals.delta_min_row.year }}
+          ({{ orals.delta_min_row.magnitude }}) and largest in
+          {{ orals.delta_max_row.year }}.
           The shaded bands in the plot mark
           the conventional thresholds for negligible (inner
           band; |&delta;| &lt; 0.147) and small (outer
@@ -216,9 +219,8 @@
           (5.8, 6.0 and 6.2 authors for orals, posters and spotlights) and title
           length (10.5 to 10.6 words for all three), both with fully overlapping
           intervals. -->
-          <b>Not really, but recent trends are encouraging.</b> Since 2024, the fraction
-          of oral papers with code has both increased and is larger than the
-          fraction for poster-only papers. The bars below show the year-by-year
+          <b>Not really, but recent trends are encouraging.</b> Every year since 2024, a
+          larger share of oral papers than of poster-only papers has released code. The bars below show the year-by-year
           numbers and whiskers show 95% Wilson intervals.
         </p>
       </div>
