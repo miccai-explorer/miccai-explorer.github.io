@@ -1,0 +1,61 @@
+# MICCAI Explorer
+
+> Every accepted MICCAI paper from 2021 to 2026 (4,882 of them) joined to its published peer reviews (14,909), its rebuttal and meta-reviews, and the official oral and spotlight program. Built and maintained by Kumar Abhishek.
+
+MICCAI (Medical Image Computing and Computer Assisted Intervention)
+is one of the few large conferences that publishes the full review
+record for every accepted paper: reviewer scores, confidence
+ratings, written reviews, author rebuttals, and meta-reviews. It
+separately publishes a program booklet naming which papers were
+given a talk. This project is the first to join those two sources,
+which is what makes questions like "do oral papers actually score
+higher, once early acceptance is controlled for?" answerable from
+public data.
+
+## What the data supports, and what it does not
+
+- Coverage is **accepted papers only**. MICCAI does not publish
+  reviews for rejected submissions, so nothing here describes what
+  gets rejected, and acceptance-rate figures come from MICCAI's own
+  reported submission counts rather than from this data.
+- Review scores are **not comparable across years without
+  normalization**: the scale was 1-9 in 2021, 1-8 in 2022 and 2023,
+  and 1-6 from 2024. Cross-year comparisons here are expressed as a
+  percentage of that year's scale, or with Cliff's delta, which is
+  ordinal and scale-free.
+- Subject-area counts are **not comparable across the 2024/2025
+  boundary**. MICCAI replaced its taxonomy in 2025, from 31 ad-hoc
+  facets to six required ones, so the median paper carries 5 tags
+  against 3 the year before. An area can appear to grow fourfold
+  with no research having moved. In 2026, MICCAI kept the six
+  facets but renamed most tags. The charts merge a renamed tag
+  with the old one only when the area itself stayed the same.
+- Early acceptance is a **confounder, not a footnote**. Orals are
+  drawn from accepted papers and early accepts are decided before
+  rebuttal, so any oral-versus-poster score gap is reported within
+  early and non-early strata as well as pooled.
+
+## Pages
+
+- [MICCAI Papers and Peer Reviews, 2021 to 2026](https://miccai-explorer.github.io/): Explore 4,882 MICCAI papers and 14,909 public peer reviews from 2021 to 2026: semantic map, acceptance rates, reviewer scores, and subject-area trends.
+- [Which MICCAI Papers Get a Talk? Orals and Spotlights](https://miccai-explorer.github.io/orals.html): 530 MICCAI oral and spotlight talks matched to their papers and reviews: score effect sizes, early-acceptance strata, and which areas get picked.
+- [All 4,882 MICCAI Papers, 2021 to 2026](https://miccai-explorer.github.io/papers.html): Search and filter all 4,882 accepted MICCAI papers, 2021 to 2026, by year, subject area, reviewer score, and code release. Links to PDFs, DOIs, and code.
+- [About the Data and Method](https://miccai-explorer.github.io/about.html): How MICCAI Explorer is built: the proceedings and reviews it reads, the SPECTER2 embeddings behind the semantic map, the statistics, and the known limitations.
+- [MICCAI 2026 (Strasbourg, France): Papers and Reviews](https://miccai-explorer.github.io/year/2026.html): MICCAI 2026 in Strasbourg, France: 1,165 accepted papers with reviewer scores, subject areas, top-rated papers, co-authorship, and code-release rates.
+- [MICCAI 2025 (Daejeon, Korea): Papers and Reviews](https://miccai-explorer.github.io/year/2025.html): MICCAI 2025 in Daejeon, Korea: 1,027 accepted papers with reviewer scores, subject areas, top-rated papers, co-authorship, and code-release rates.
+- [MICCAI 2024 (Marrakesh, Morocco): Papers and Reviews](https://miccai-explorer.github.io/year/2024.html): MICCAI 2024 in Marrakesh, Morocco: 856 accepted papers with reviewer scores, subject areas, top-rated papers, co-authorship, and code-release rates.
+- [MICCAI 2023 (Vancouver, Canada): Papers and Reviews](https://miccai-explorer.github.io/year/2023.html): MICCAI 2023 in Vancouver, Canada: 730 accepted papers with reviewer scores, subject areas, top-rated papers, co-authorship, and code-release rates.
+- [MICCAI 2022 (Singapore): Papers and Reviews](https://miccai-explorer.github.io/year/2022.html): MICCAI 2022 in Singapore: 573 accepted papers with reviewer scores, subject areas, top-rated papers, co-authorship, and code-release rates.
+- [MICCAI 2021 (Strasbourg, France (Virtual)): Papers and Reviews](https://miccai-explorer.github.io/year/2021.html): MICCAI 2021 in Strasbourg, France (Virtual): 531 accepted papers with reviewer scores, subject areas, top-rated papers, co-authorship, and code-release rates.
+
+## Data
+
+- [papers.json](https://miccai-explorer.github.io/papers.json): the full browse index as one JSON file. Every paper with its year, authors, subject areas, mean reviewer score, individual scores, early-acceptance flag, presentation type, and links to PDF, DOI, code, and datasets. Subject-area names are listed once under `areas` and referenced by position.
+- [Source repository](https://github.com/miccai-explorer/miccai-explorer.github.io): the scrapers, the parsers for each era of MICCAI's page format, the analysis, and the site build. The raw per-year JSON and the committed embeddings are in `data/`.
+
+## Optional
+
+- [How it was built](https://miccai-explorer.github.io/about.html): sources, scraping, SPECTER2 embeddings, clustering, and the statistics used.
+- [Write-up](https://pixels-and-predictions.pages.dev/posts/miccai_explorer/): the longer narrative account of the project and what it found.
+
+Last built 2026-10-25. MICCAI papers and reviews remain the copyright of their respective authors; this analysis is by Kumar Abhishek.
